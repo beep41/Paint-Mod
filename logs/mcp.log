@@ -1,0 +1,4 @@
+2011-07-05 13:43 -    commands.__init__ - INFO - == MCP v4.1 ==
+2011-07-05 13:43 -    commands.__init__ - DEBUG - OS : win32
+2011-07-05 13:43 -   updatemcp.main - INFO - == Updating MCP ==
+2011-07-05 13:43 -    commands.downloadupdates - INFO - No new updates found.

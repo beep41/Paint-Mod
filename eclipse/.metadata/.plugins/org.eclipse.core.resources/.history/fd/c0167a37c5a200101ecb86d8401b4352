@@ -1,0 +1,17 @@
+package net.minecraft.src;
+
+public class mod_RecipeTest extends BaseMod
+{
+    public String Version()
+    {
+        return "RecipeTest";
+    }
+    
+    public void mod_Paintmod()
+    {
+        ModLoader.AddRecipe(new ItemStack(Item.stick, 1), new Object[] {
+            "X", "X", Character.valueOf('X'), Block.dirt
+        });
+    }
+    
+}

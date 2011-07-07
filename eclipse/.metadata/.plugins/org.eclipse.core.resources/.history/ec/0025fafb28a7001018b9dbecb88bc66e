@@ -1,0 +1,26 @@
+package net.minecraft.src;
+
+public class mod_PaintMod extends BaseMod
+{
+	public String Version()
+	{
+		return "PaintMod 0.1";
+	}
+	
+	public mod_PaintMod()
+	{
+		ModLoader.AddName(drywall, "Drywall");
+		
+        ModLoader.AddRecipe(new ItemStack(mod_PaintMod.drywall, 1), new Object[] {
+            "##", "##", Character.valueOf('#'), Block.dirt
+        });
+
+	}
+	
+	public static Item drywall;
+	
+	static {
+		drywall = (new ItemDrywall(65)).setIconCoord(10, 1).setItemName("Drywall");
+	}
+	
+}

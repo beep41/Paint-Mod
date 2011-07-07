@@ -1,0 +1,10 @@
+Jul 5, 2011 12:08:29 PM net.minecraft.src.ModLoader init
+FINE: ModLoader Beta 1.6.6 Initializing...
+Jul 5, 2011 12:08:29 PM net.minecraft.src.ModLoader readFromClassPath
+FINER: Adding mods from C:\Users\Abrar A. Syed\Documents\MinecraftMods\PaintMod\eclipse\Client\bin
+Jul 5, 2011 12:08:29 PM net.minecraft.src.ModLoader readFromClassPath
+FINER: Directory found.
+Jul 5, 2011 12:08:29 PM net.minecraft.src.ModLoader addMod
+FINE: Mod Loaded: "net.minecraft.src.mod_PaintMod PaintMod 0.1" from mod_PaintMod.class
+Jul 5, 2011 12:08:29 PM net.minecraft.src.ModLoader AddAllRenderers
+FINE: Initialized

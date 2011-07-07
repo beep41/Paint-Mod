@@ -1,0 +1,17 @@
+package net.minecraft.src;
+
+public class mod_RecipeTest extends BaseMod
+{
+    public String Version()
+    {
+        return "RecipeTest";
+    }
+    
+    public void mod_Paintmod()
+    {
+        ModLoader.AddRecipe(new ItemStack(Block.sandStone, 1), new Object[] {
+            "#", Character.valueOf('#'), Block.dirt
+        });
+    }
+    
+}

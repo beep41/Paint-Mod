@@ -1,0 +1,144 @@
+// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+// Jad home page: http://www.kpdus.com/jad.html
+// Decompiler options: packimports(3) braces deadcode 
+
+package net.minecraft.src;
+
+import java.util.*;
+
+// Referenced classes of package net.minecraft.src:
+//            Entity, EnumArt, AxisAlignedBB, World, 
+//            EntityItem, ItemStack, Item, MathHelper, 
+//            Material, NBTTagCompound
+
+public class EntityDrywall extends Entity
+{
+
+	// constructor
+    public EntityDrywall(World world)
+    {
+        super(world);
+        field_695_c = 0;
+        direction = 0;
+        yOffset = 0.0F;
+        setSize(0.5F, 0.5F);
+    }
+
+    //constructor used on item use
+    public EntityDrywall(World world, int i, int j, int k, int l)
+    {
+        this(world);
+        xPosition = i;
+        yPosition = j;
+        zPosition = k;
+        func_412_b(l);
+    }
+
+    //another constructor
+    public EntityDrywall(World world, int i, int j, int k, int l, String s)
+    {
+        this(world);
+        xPosition = i;
+        yPosition = j;
+        zPosition = k;
+        func_412_b(l);
+    }
+
+    protected void entityInit()
+    {
+    }
+
+    //sets collision bounding box
+    public void func_412_b(int i)
+    {
+        direction = i;
+        prevRotationYaw = rotationYaw = i * 90;
+        float f3 = (float)xPosition + 0.5F;
+        float f4 = (float)yPosition + 0.5F;
+        float f5 = (float)zPosition + 0.5F;
+        float f6 = 0.5625F;
+        setPosition(f3, f4, f5);
+        float f7 = -0.00625F;
+        boundingBox.setBounds(f3, f4, f5, f3, f4, f5);
+    }
+
+    
+    public void onUpdate()
+    {
+        if(field_695_c++ == 100 && !worldObj.multiplayerWorld)
+        {
+            field_695_c = 0;
+            if(!func_410_i())
+            {
+                setEntityDead();
+                worldObj.entityJoinedWorld(new EntityItem(worldObj, posX, posY, posZ, new ItemStack(mod_PaintMod.drywall)));
+            }
+        }
+    }
+
+    public boolean func_410_i()
+    {
+        if(worldObj.getCollidingBoundingBoxes(this, boundingBox).size() > 0)
+        {
+            return false;
+        }
+        int k = xPosition;
+        int l = yPosition;
+        int i1 = zPosition;
+        
+        List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox);
+        for(int l1 = 0; l1 < list.size(); l1++)
+        {
+            if(list.get(l1) instanceof EntityDrywall)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // duh
+    public boolean canBeCollidedWith()
+    {
+        return true;
+    }
+
+    // for destroying
+    public boolean attackEntityFrom(Entity entity, int i)
+    {
+        if(!isDead && !worldObj.multiplayerWorld)
+        {
+            setEntityDead();
+            setBeenAttacked();
+            worldObj.entityJoinedWorld(new EntityItem(worldObj, posX, posY, posZ, new ItemStack(mod_PaintMod.drywall)));
+        }
+        return true;
+    }
+
+    //writing save
+    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    {
+        nbttagcompound.setByte("Dir", (byte)direction);
+        nbttagcompound.setInteger("TileX", xPosition);
+        nbttagcompound.setInteger("TileY", yPosition);
+        nbttagcompound.setInteger("TileZ", zPosition);
+    }
+
+    
+    //reading save
+    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    {
+        direction = nbttagcompound.getByte("Dir");
+        xPosition = nbttagcompound.getInteger("TileX");
+        yPosition = nbttagcompound.getInteger("TileY");
+        zPosition = nbttagcompound.getInteger("TileZ");
+        func_412_b(direction);
+    }
+
+    private int field_695_c;
+    public int direction;
+    public int xPosition;
+    public int yPosition;
+    public int zPosition;
+}

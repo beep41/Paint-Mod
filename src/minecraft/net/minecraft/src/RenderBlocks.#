@@ -1,0 +1,38 @@
+***************
+*** 137,145 ****
+          float f15 = f3;
+          float f16 = block.func_241_c(field_1772_a, i, j, k);
+          tessellator.func_987_a(f7 * f16, f10 * f16, f13 * f16);
+-         float f17 = block.func_211_a(field_1772_a, i, j, k, 0);
+-         int j1 = (f17 & 0xf) << 4;
+-         int k1 = f17 & 0xf0;
+          double d = (float)j1 / 256F;
+          double d2 = ((double)(j1 + 16) - 0.01D) / 256D;
+          double d4 = (float)k1 / 256F;
+--- 137,145 ----
+          float f15 = f3;
+          float f16 = block.func_241_c(field_1772_a, i, j, k);
+          tessellator.func_987_a(f7 * f16, f10 * f16, f13 * f16);
++         int ff17 = block.func_211_a(field_1772_a, i, j, k, 0);
++         int j1 = (ff17 & 0xf) << 4;
++         int k1 = ff17 & 0xf0;
+          double d = (float)j1 / 256F;
+          double d2 = ((double)(j1 + 16) - 0.01D) / 256D;
+          double d4 = (float)k1 / 256F;
+***************
+*** 153,159 ****
+          tessellator.func_983_a(d8, d12, d14, d, d4);
+          tessellator.func_983_a(d10, d12, d14, d2, d4);
+          tessellator.func_983_a(d10, d12, d16, d2, d6);
+-         f17 = block.func_241_c(field_1772_a, i, j + 1, k);
+          tessellator.func_987_a(f4 * f17, f5 * f17, f6 * f17);
+          j1 = block.func_211_a(field_1772_a, i, j, k, 1);
+          k1 = (j1 & 0xf) << 4;
+--- 153,159 ----
+          tessellator.func_983_a(d8, d12, d14, d, d4);
+          tessellator.func_983_a(d10, d12, d14, d2, d4);
+          tessellator.func_983_a(d10, d12, d16, d2, d6);
++         float f17 = block.func_241_c(field_1772_a, i, j + 1, k);
+          tessellator.func_987_a(f4 * f17, f5 * f17, f6 * f17);
+          j1 = block.func_211_a(field_1772_a, i, j, k, 1);
+          k1 = (j1 & 0xf) << 4;
