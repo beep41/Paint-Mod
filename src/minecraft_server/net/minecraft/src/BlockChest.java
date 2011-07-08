@@ -140,23 +140,23 @@ label0:
     public boolean blockActivated(World world, int i, int j, int k, EntityPlayer entityplayer)
     {
         Object obj = (TileEntityChest)world.getBlockTileEntity(i, j, k);
-        if(world.isBlockOpaqueCube(i, j + 1, k))
+        if(world.isBlockNormalCube(i, j + 1, k))
         {
             return true;
         }
-        if(world.getBlockId(i - 1, j, k) == blockID && world.isBlockOpaqueCube(i - 1, j + 1, k))
+        if(world.getBlockId(i - 1, j, k) == blockID && world.isBlockNormalCube(i - 1, j + 1, k))
         {
             return true;
         }
-        if(world.getBlockId(i + 1, j, k) == blockID && world.isBlockOpaqueCube(i + 1, j + 1, k))
+        if(world.getBlockId(i + 1, j, k) == blockID && world.isBlockNormalCube(i + 1, j + 1, k))
         {
             return true;
         }
-        if(world.getBlockId(i, j, k - 1) == blockID && world.isBlockOpaqueCube(i, j + 1, k - 1))
+        if(world.getBlockId(i, j, k - 1) == blockID && world.isBlockNormalCube(i, j + 1, k - 1))
         {
             return true;
         }
-        if(world.getBlockId(i, j, k + 1) == blockID && world.isBlockOpaqueCube(i, j + 1, k + 1))
+        if(world.getBlockId(i, j, k + 1) == blockID && world.isBlockNormalCube(i, j + 1, k + 1))
         {
             return true;
         }

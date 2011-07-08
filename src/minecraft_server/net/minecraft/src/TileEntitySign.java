@@ -57,6 +57,11 @@ public class TileEntitySign extends TileEntity
         return isEditAble;
     }
 
+    public void func_32001_a(boolean flag)
+    {
+        isEditAble = flag;
+    }
+
     public String signText[] = {
         "", "", "", ""
     };

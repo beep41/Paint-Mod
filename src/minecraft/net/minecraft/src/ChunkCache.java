@@ -186,7 +186,7 @@ public class ChunkCache
         }
     }
 
-    public boolean func_28100_h(int i, int j, int k)
+    public boolean isBlockNormalCube(int i, int j, int k)
     {
         Block block = Block.blocksList[getBlockId(i, j, k)];
         if(block == null)

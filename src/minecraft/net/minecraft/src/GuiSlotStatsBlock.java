@@ -28,15 +28,15 @@ class GuiSlotStatsBlock extends GuiSlotStats
             StatCrafting statcrafting = (StatCrafting)iterator.next();
             boolean flag = false;
             int i = statcrafting.func_25072_b();
-            if(GuiStats.func_27142_c(guistats).func_27184_a(statcrafting) > 0)
+            if(GuiStats.func_27142_c(guistats).writeStat(statcrafting) > 0)
             {
                 flag = true;
             } else
-            if(StatList.field_25172_A[i] != null && GuiStats.func_27142_c(guistats).func_27184_a(StatList.field_25172_A[i]) > 0)
+            if(StatList.field_25172_A[i] != null && GuiStats.func_27142_c(guistats).writeStat(StatList.field_25172_A[i]) > 0)
             {
                 flag = true;
             } else
-            if(StatList.field_25158_z[i] != null && GuiStats.func_27142_c(guistats).func_27184_a(StatList.field_25158_z[i]) > 0)
+            if(StatList.field_25158_z[i] != null && GuiStats.func_27142_c(guistats).writeStat(StatList.field_25158_z[i]) > 0)
             {
                 flag = true;
             }

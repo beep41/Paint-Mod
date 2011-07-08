@@ -16,8 +16,8 @@ class GuiStatsListener
 
     GuiStatsListener(GuiStatsComponent guistatscomponent)
     {
-        statsComponent = guistatscomponent;
 //        super();
+        statsComponent = guistatscomponent;
     }
 
     public void actionPerformed(ActionEvent actionevent)

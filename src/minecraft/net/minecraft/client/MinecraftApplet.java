@@ -34,7 +34,7 @@ public class MinecraftApplet extends Applet
         mc.minecraftUri = getDocumentBase().getHost();
         if(getDocumentBase().getPort() > 0)
         {
-        	mc.minecraftUri += ":" + getDocumentBase().getPort();
+            mc.minecraftUri += ":" + getDocumentBase().getPort();
         }
         if(getParameter("username") != null && getParameter("sessionid") != null)
         {

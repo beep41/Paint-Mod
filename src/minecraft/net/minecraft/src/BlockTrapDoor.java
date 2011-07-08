@@ -147,7 +147,7 @@ public class BlockTrapDoor extends Block
         {
             j1--;
         }
-        if(!world.func_28100_h(j1, j, k1))
+        if(!world.isBlockNormalCube(j1, j, k1))
         {
             world.setBlockWithNotify(i, j, k, 0);
             dropBlockAsItem(world, i, j, k, i1);
@@ -213,7 +213,7 @@ public class BlockTrapDoor extends Block
         {
             i--;
         }
-        return world.func_28100_h(i, j, k);
+        return world.isBlockNormalCube(i, j, k);
     }
 
     public static boolean isTrapdoorOpen(int i)

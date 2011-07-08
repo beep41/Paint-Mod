@@ -75,11 +75,11 @@ public class RenderMinecart extends Render
             GL11.glRotatef(90F, 0.0F, 1.0F, 0.0F);
             if(entityminecart.minecartType == 1)
             {
-                (new RenderBlocks()).renderBlockOnInventory(Block.chest, 0);
+                (new RenderBlocks()).renderBlockOnInventory(Block.chest, 0, entityminecart.getEntityBrightness(f1));
             } else
             if(entityminecart.minecartType == 2)
             {
-                (new RenderBlocks()).renderBlockOnInventory(Block.stoneOvenIdle, 0);
+                (new RenderBlocks()).renderBlockOnInventory(Block.stoneOvenIdle, 0, entityminecart.getEntityBrightness(f1));
             }
             GL11.glRotatef(-90F, 0.0F, 1.0F, 0.0F);
             GL11.glTranslatef(0.0F, -0.3125F, 0.0F);

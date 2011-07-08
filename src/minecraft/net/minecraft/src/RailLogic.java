@@ -15,8 +15,8 @@ class RailLogic
 
     public RailLogic(BlockRail blockrail, World world, int i, int j, int k)
     {
-        rail = blockrail;
 //        super();
+        rail = blockrail;
         connectedTracks = new ArrayList();
         worldObj = world;
         trackX = i;
@@ -332,41 +332,44 @@ class RailLogic
             {
                 byte0 = 1;
             }
-            if(flag)
+            if(!isPoweredRail)
             {
-                if(flag3 && flag5)
+                if(flag)
                 {
-                    byte0 = 6;
-                }
-                if(flag4 && flag3)
+                    if(flag3 && flag5)
+                    {
+                        byte0 = 6;
+                    }
+                    if(flag4 && flag3)
+                    {
+                        byte0 = 7;
+                    }
+                    if(flag5 && flag2)
+                    {
+                        byte0 = 9;
+                    }
+                    if(flag2 && flag4)
+                    {
+                        byte0 = 8;
+                    }
+                } else
                 {
-                    byte0 = 7;
-                }
-                if(flag5 && flag2)
-                {
-                    byte0 = 9;
-                }
-                if(flag2 && flag4)
-                {
-                    byte0 = 8;
-                }
-            } else
-            {
-                if(flag2 && flag4)
-                {
-                    byte0 = 8;
-                }
-                if(flag5 && flag2)
-                {
-                    byte0 = 9;
-                }
-                if(flag4 && flag3)
-                {
-                    byte0 = 7;
-                }
-                if(flag3 && flag5)
-                {
-                    byte0 = 6;
+                    if(flag2 && flag4)
+                    {
+                        byte0 = 8;
+                    }
+                    if(flag5 && flag2)
+                    {
+                        byte0 = 9;
+                    }
+                    if(flag4 && flag3)
+                    {
+                        byte0 = 7;
+                    }
+                    if(flag3 && flag5)
+                    {
+                        byte0 = 6;
+                    }
                 }
             }
         }

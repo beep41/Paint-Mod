@@ -24,7 +24,7 @@ public abstract class Minecraft
     public Minecraft(Component component, Canvas canvas, MinecraftApplet minecraftapplet, int i, int j, boolean flag)
     {
         fullscreen = false;
-        field_28004_R = false;
+        hasCrashed = false;
         timer = new Timer(20F);
         session = null;
         hideQuitButton = true;
@@ -65,9 +65,9 @@ public abstract class Minecraft
         theMinecraft = this;
     }
 
-    public void func_28003_b(UnexpectedThrowable unexpectedthrowable)
+    public void onMinecraftCrash(UnexpectedThrowable unexpectedthrowable)
     {
-        field_28004_R = true;
+        hasCrashed = true;
         displayUnexpectedThrowable(unexpectedthrowable);
     }
 
@@ -110,7 +110,7 @@ public abstract class Minecraft
         {
             Display.setDisplayMode(new DisplayMode(displayWidth, displayHeight));
         }
-        Display.setTitle("Minecraft Minecraft Beta 1.6.6");
+        Display.setTitle("Minecraft Minecraft Beta 1.7.3");
         try
         {
             Display.create();
@@ -343,7 +343,7 @@ public abstract class Minecraft
         {
             statFileWriter.func_27175_b();
         }
-        statFileWriter.func_27182_c();
+        statFileWriter.syncStats();
         if(guiscreen == null && theWorld == null)
         {
             guiscreen = new GuiMainMenu();
@@ -388,7 +388,7 @@ public abstract class Minecraft
         try
         {
             statFileWriter.func_27175_b();
-            statFileWriter.func_27182_c();
+            statFileWriter.syncStats();
             if(mcApplet != null)
             {
                 mcApplet.clearApplet();
@@ -419,7 +419,7 @@ public abstract class Minecraft
         finally
         {
             Display.destroy();
-            if(!field_28004_R)
+            if(!hasCrashed)
             {
                 System.exit(0);
             }
@@ -437,7 +437,7 @@ public abstract class Minecraft
         catch(Exception exception)
         {
             exception.printStackTrace();
-            func_28003_b(new UnexpectedThrowable("Failed to start game", exception));
+            onMinecraftCrash(new UnexpectedThrowable("Failed to start game", exception));
             return;
         }
         try
@@ -579,7 +579,7 @@ public abstract class Minecraft
         {
             func_28002_e();
             throwable.printStackTrace();
-            func_28003_b(new UnexpectedThrowable("Unexpected error", throwable));
+            onMinecraftCrash(new UnexpectedThrowable("Unexpected error", throwable));
         }
         finally
         {
@@ -1230,13 +1230,13 @@ public abstract class Minecraft
             world = new World(isavehandler, s1, l);
             if(world.isNewWorld)
             {
-                statFileWriter.func_25100_a(StatList.createWorldStat, 1);
-                statFileWriter.func_25100_a(StatList.startGameStat, 1);
+                statFileWriter.readStat(StatList.createWorldStat, 1);
+                statFileWriter.readStat(StatList.startGameStat, 1);
                 changeWorld2(world, "Generating level");
             } else
             {
-                statFileWriter.func_25100_a(StatList.loadWorldStat, 1);
-                statFileWriter.func_25100_a(StatList.startGameStat, 1);
+                statFileWriter.readStat(StatList.loadWorldStat, 1);
+                statFileWriter.readStat(StatList.startGameStat, 1);
                 changeWorld2(world, "Loading level");
             }
         }
@@ -1304,14 +1304,14 @@ public abstract class Minecraft
     public void changeWorld(World world, String s, EntityPlayer entityplayer)
     {
         statFileWriter.func_27175_b();
-        statFileWriter.func_27182_c();
+        statFileWriter.syncStats();
         renderViewEntity = null;
         loadingScreen.printText(s);
         loadingScreen.displayLoadingString("");
         sndManager.playStreaming(null, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         if(theWorld != null)
         {
-            theWorld.func_651_a(loadingScreen);
+            theWorld.saveWorldIndirectly(loadingScreen);
         }
         theWorld = world;
         if(world != null)
@@ -1354,7 +1354,7 @@ public abstract class Minecraft
             playerController.func_6473_b(thePlayer);
             if(entityplayer != null)
             {
-                world.func_6464_c();
+                world.emptyMethod1();
             }
             net.minecraft.src.IChunkProvider ichunkprovider = world.getIChunkProvider();
             if(ichunkprovider instanceof ChunkProviderLoadOrGenerate)
@@ -1367,7 +1367,7 @@ public abstract class Minecraft
             world.spawnPlayerWithLoadedChunks(thePlayer);
             if(world.isNewWorld)
             {
-                world.func_651_a(loadingScreen);
+                world.saveWorldIndirectly(loadingScreen);
             }
             renderViewEntity = thePlayer;
         } else
@@ -1574,7 +1574,7 @@ public abstract class Minecraft
         thread.start();
     }
 
-    public NetClientHandler func_20001_q()
+    public NetClientHandler getSendQueue()
     {
         if(thePlayer instanceof EntityClientPlayerMP)
         {
@@ -1632,7 +1632,7 @@ public abstract class Minecraft
     private static Minecraft theMinecraft;
     public PlayerController playerController;
     private boolean fullscreen;
-    private boolean field_28004_R;
+    private boolean hasCrashed;
     public int displayWidth;
     public int displayHeight;
     private OpenGlCapsChecker glCapabilities;

@@ -6,17 +6,18 @@ Created on Fri Apr  8 16:54:36 2011
 @version: v1.2
 """
 import sys, time, os
+from optparse import OptionParser
 from commands import Commands
 import recompile
 
-def main(conffile):
+def main(conffile=None, force_jad=False):
     commands = Commands(conffile)
     commands.checkupdates()
-    #TODO: Add a check for java here.
+
     cltdone = False
     srvdone = False
-    
-    ffexists = os.path.exists(commands.fernflower)
+
+    use_ff = os.path.exists(commands.fernflower) and not force_jad
 
     commands.logger.info ('> Creating Retroguard config files')
     commands.creatergcfg()
@@ -32,21 +33,20 @@ def main(conffile):
             commands.applyrg(0)
             commands.logger.info ('> Applying Exceptor to client')
             commands.applyexceptor(0)
-            if ffexists:
+            if use_ff:
                 commands.logger.info ('> Decompiling...')
                 commands.applyff(0)
                 commands.logger.info ('> Unzipping the client sources')
                 commands.extractsrc(0)
             commands.logger.info ('> Unzipping the client jar')
             commands.extractjar(0)
-            if not ffexists:
+            if not use_ff:
                 commands.logger.info ('> Applying jadretro')
                 commands.applyjadretro(0)
-            if not ffexists:
                 commands.logger.info ('> Decompiling...')
                 commands.applyjad(0)
             commands.logger.info ('> Applying patches')
-            if not ffexists:
+            if not use_ff:
                 commands.applypatches(0)
             else:
                 commands.applyffpatches(0)
@@ -68,23 +68,22 @@ def main(conffile):
             commands.createsrgs(1)
             commands.logger.info ('> Applying Retroguard to server')
             commands.applyrg(1)
-            commands.logger.info ('> Applying Exceptor to client')
+            commands.logger.info ('> Applying Exceptor to server')
             commands.applyexceptor(1)
-            if ffexists:
+            if use_ff:
                 commands.logger.info ('> Decompiling...')
                 commands.applyff(1)
                 commands.logger.info ('> Unzipping the server sources')
                 commands.extractsrc(1)
             commands.logger.info ('> Unzipping the server jar')
             commands.extractjar(1)
-            if not ffexists:
+            if not use_ff:
                 commands.logger.info ('> Applying jadretro')
                 commands.applyjadretro(1)
-            if not ffexists:
                 commands.logger.info ('> Decompiling...')
                 commands.applyjad(1)
             commands.logger.info ('> Applying patches')
-            if not ffexists:
+            if not use_ff:
                 commands.applypatches(1)
             else:
                 commands.applyffpatches(1)
@@ -109,7 +108,9 @@ def main(conffile):
         commands.gathermd5s(1)
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        print("Syntax: python decompile.py <configfile>")
-        sys.exit(0)
-    main(sys.argv[1])
+    parser = OptionParser(version='MCP %s' % Commands.MCPVersion)
+    parser.add_option('-j', '--jad', dest='force_jad', action='store_true',
+                      help='force use of JAD even if Fernflower available', default=False)
+    parser.add_option('-c', '--config', dest='config', help='additional configuration file')
+    (options, args) = parser.parse_args()
+    main(options.config, options.force_jad)

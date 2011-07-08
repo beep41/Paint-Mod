@@ -552,7 +552,7 @@ public class ChunkProviderGenerate
             int l19 = k + rand.nextInt(16) + 8;
             int k22 = rand.nextInt(128);
             int j24 = l + rand.nextInt(16) + 8;
-            (new WorldGenTallGrass(Block.field_9031_X.blockID, byte2)).generate(worldObj, rand, l19, k22, j24);
+            (new WorldGenTallGrass(Block.tallGrass.blockID, byte2)).generate(worldObj, rand, l19, k22, j24);
         }
 
         byte1 = 0;
@@ -565,7 +565,7 @@ public class ChunkProviderGenerate
             int i17 = k + rand.nextInt(16) + 8;
             int i20 = rand.nextInt(128);
             int l22 = l + rand.nextInt(16) + 8;
-            (new WorldGenDeadBush(Block.field_9030_Y.blockID)).generate(worldObj, rand, i17, i20, l22);
+            (new WorldGenDeadBush(Block.deadBush.blockID)).generate(worldObj, rand, i17, i20, l22);
         }
 
         if(rand.nextInt(2) == 0)
@@ -640,7 +640,7 @@ public class ChunkProviderGenerate
             {
                 int i24 = j19 - (k + 8);
                 int j25 = j22 - (l + 8);
-                int k25 = worldObj.func_28100_e(j19, j22);
+                int k25 = worldObj.getTopSolidOrLiquidBlock(j19, j22);
                 double d1 = generatedTemperatures[i24 * 16 + j25] - ((double)(k25 - 64) / 64D) * 0.29999999999999999D;
                 if(d1 < 0.5D && k25 > 0 && k25 < 128 && worldObj.isAirBlock(j19, k25, j22) && worldObj.getBlockMaterial(j19, k25 - 1, j22).getIsSolid() && worldObj.getBlockMaterial(j19, k25 - 1, j22) != Material.ice)
                 {

@@ -36,7 +36,7 @@ public class GuiEditSign extends GuiScreen
         Keyboard.enableRepeatEvents(false);
         if(mc.theWorld.multiplayerWorld)
         {
-            mc.func_20001_q().addToSendQueue(new Packet130UpdateSign(entitySign.xCoord, entitySign.yCoord, entitySign.zCoord, entitySign.signText));
+            mc.getSendQueue().addToSendQueue(new Packet130UpdateSign(entitySign.xCoord, entitySign.yCoord, entitySign.zCoord, entitySign.signText));
         }
     }
 
@@ -74,7 +74,7 @@ public class GuiEditSign extends GuiScreen
         }
         if(allowedCharacters.indexOf(c) >= 0 && entitySign.signText[editLine].length() < 15)
         {
-        	entitySign.signText[editLine] += c;
+            entitySign.signText[editLine] += c;
         }
     }
 
@@ -83,7 +83,7 @@ public class GuiEditSign extends GuiScreen
         drawDefaultBackground();
         drawCenteredString(fontRenderer, screenTitle, width / 2, 40, 0xffffff);
         GL11.glPushMatrix();
-        GL11.glTranslatef(width / 2, height / 2, 50F);
+        GL11.glTranslatef(width / 2, 0.0F, 50F);
         float f1 = 93.75F;
         GL11.glScalef(-f1, -f1, -f1);
         GL11.glRotatef(180F, 0.0F, 1.0F, 0.0F);
@@ -92,7 +92,7 @@ public class GuiEditSign extends GuiScreen
         {
             float f2 = (float)(entitySign.getBlockMetadata() * 360) / 16F;
             GL11.glRotatef(f2, 0.0F, 1.0F, 0.0F);
-            GL11.glTranslatef(0.0F, 0.3125F, 0.0F);
+            GL11.glTranslatef(0.0F, -1.0625F, 0.0F);
         } else
         {
             int k = entitySign.getBlockMetadata();
@@ -110,7 +110,7 @@ public class GuiEditSign extends GuiScreen
                 f3 = -90F;
             }
             GL11.glRotatef(f3, 0.0F, 1.0F, 0.0F);
-            GL11.glTranslatef(0.0F, 0.3125F, 0.0F);
+            GL11.glTranslatef(0.0F, -1.0625F, 0.0F);
         }
         if((updateCounter / 6) % 2 == 0)
         {

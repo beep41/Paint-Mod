@@ -53,7 +53,7 @@ public class BlockDoor extends Block
         return false;
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return false;
     }
@@ -167,7 +167,7 @@ public class BlockDoor extends Block
                 world.setBlockWithNotify(i, j, k, 0);
                 flag = true;
             }
-            if(!world.isBlockOpaqueCube(i, j - 1, k))
+            if(!world.isBlockNormalCube(i, j - 1, k))
             {
                 world.setBlockWithNotify(i, j, k, 0);
                 flag = true;
@@ -230,12 +230,17 @@ public class BlockDoor extends Block
             return false;
         } else
         {
-            return world.isBlockOpaqueCube(i, j - 1, k) && super.canPlaceBlockAt(world, i, j, k) && super.canPlaceBlockAt(world, i, j + 1, k);
+            return world.isBlockNormalCube(i, j - 1, k) && super.canPlaceBlockAt(world, i, j, k) && super.canPlaceBlockAt(world, i, j + 1, k);
         }
     }
 
     public static boolean func_27036_e(int i)
     {
         return (i & 4) != 0;
+    }
+
+    public int getMobilityFlag()
+    {
+        return 1;
     }
 }

@@ -13,9 +13,9 @@ public final class GameWindowListener extends WindowAdapter
 
     public GameWindowListener(Minecraft minecraft, Thread thread)
     {
+//        super();
         mc = minecraft;
         mcThread = thread;
-//        super();
     }
 
     public void windowClosing(WindowEvent windowevent)

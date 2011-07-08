@@ -29,52 +29,57 @@ public class BlockTorch extends Block
         return false;
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return false;
     }
 
+    private boolean func_31028_g(World world, int i, int j, int k)
+    {
+        return world.isBlockNormalCube(i, j, k) || world.getBlockId(i, j, k) == Block.fence.blockID;
+    }
+
     public boolean canPlaceBlockAt(World world, int i, int j, int k)
     {
-        if(world.isBlockOpaqueCube(i - 1, j, k))
+        if(world.isBlockNormalCube(i - 1, j, k))
         {
             return true;
         }
-        if(world.isBlockOpaqueCube(i + 1, j, k))
+        if(world.isBlockNormalCube(i + 1, j, k))
         {
             return true;
         }
-        if(world.isBlockOpaqueCube(i, j, k - 1))
+        if(world.isBlockNormalCube(i, j, k - 1))
         {
             return true;
         }
-        if(world.isBlockOpaqueCube(i, j, k + 1))
+        if(world.isBlockNormalCube(i, j, k + 1))
         {
             return true;
         }
-        return world.isBlockOpaqueCube(i, j - 1, k);
+        return func_31028_g(world, i, j - 1, k);
     }
 
     public void onBlockPlaced(World world, int i, int j, int k, int l)
     {
         int i1 = world.getBlockMetadata(i, j, k);
-        if(l == 1 && world.isBlockOpaqueCube(i, j - 1, k))
+        if(l == 1 && func_31028_g(world, i, j - 1, k))
         {
             i1 = 5;
         }
-        if(l == 2 && world.isBlockOpaqueCube(i, j, k + 1))
+        if(l == 2 && world.isBlockNormalCube(i, j, k + 1))
         {
             i1 = 4;
         }
-        if(l == 3 && world.isBlockOpaqueCube(i, j, k - 1))
+        if(l == 3 && world.isBlockNormalCube(i, j, k - 1))
         {
             i1 = 3;
         }
-        if(l == 4 && world.isBlockOpaqueCube(i + 1, j, k))
+        if(l == 4 && world.isBlockNormalCube(i + 1, j, k))
         {
             i1 = 2;
         }
-        if(l == 5 && world.isBlockOpaqueCube(i - 1, j, k))
+        if(l == 5 && world.isBlockNormalCube(i - 1, j, k))
         {
             i1 = 1;
         }
@@ -92,23 +97,23 @@ public class BlockTorch extends Block
 
     public void onBlockAdded(World world, int i, int j, int k)
     {
-        if(world.isBlockOpaqueCube(i - 1, j, k))
+        if(world.isBlockNormalCube(i - 1, j, k))
         {
             world.setBlockMetadataWithNotify(i, j, k, 1);
         } else
-        if(world.isBlockOpaqueCube(i + 1, j, k))
+        if(world.isBlockNormalCube(i + 1, j, k))
         {
             world.setBlockMetadataWithNotify(i, j, k, 2);
         } else
-        if(world.isBlockOpaqueCube(i, j, k - 1))
+        if(world.isBlockNormalCube(i, j, k - 1))
         {
             world.setBlockMetadataWithNotify(i, j, k, 3);
         } else
-        if(world.isBlockOpaqueCube(i, j, k + 1))
+        if(world.isBlockNormalCube(i, j, k + 1))
         {
             world.setBlockMetadataWithNotify(i, j, k, 4);
         } else
-        if(world.isBlockOpaqueCube(i, j - 1, k))
+        if(func_31028_g(world, i, j - 1, k))
         {
             world.setBlockMetadataWithNotify(i, j, k, 5);
         }
@@ -121,23 +126,23 @@ public class BlockTorch extends Block
         {
             int i1 = world.getBlockMetadata(i, j, k);
             boolean flag = false;
-            if(!world.isBlockOpaqueCube(i - 1, j, k) && i1 == 1)
+            if(!world.isBlockNormalCube(i - 1, j, k) && i1 == 1)
             {
                 flag = true;
             }
-            if(!world.isBlockOpaqueCube(i + 1, j, k) && i1 == 2)
+            if(!world.isBlockNormalCube(i + 1, j, k) && i1 == 2)
             {
                 flag = true;
             }
-            if(!world.isBlockOpaqueCube(i, j, k - 1) && i1 == 3)
+            if(!world.isBlockNormalCube(i, j, k - 1) && i1 == 3)
             {
                 flag = true;
             }
-            if(!world.isBlockOpaqueCube(i, j, k + 1) && i1 == 4)
+            if(!world.isBlockNormalCube(i, j, k + 1) && i1 == 4)
             {
                 flag = true;
             }
-            if(!world.isBlockOpaqueCube(i, j - 1, k) && i1 == 5)
+            if(!func_31028_g(world, i, j - 1, k) && i1 == 5)
             {
                 flag = true;
             }

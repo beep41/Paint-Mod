@@ -7,7 +7,7 @@ package net.minecraft.src;
 
 // Referenced classes of package net.minecraft.src:
 //            IBlockAccess, World, Chunk, Material, 
-//            Block
+//            Block, TileEntity
 
 public class ChunkCache
     implements IBlockAccess
@@ -58,6 +58,13 @@ public class ChunkCache
         }
     }
 
+    public TileEntity getBlockTileEntity(int i, int j, int k)
+    {
+        int l = (i >> 4) - chunkX;
+        int i1 = (k >> 4) - chunkZ;
+        return chunkArray[l][i1].getChunkBlockTileEntity(i & 0xf, j, k & 0xf);
+    }
+
     public int getBlockMetadata(int i, int j, int k)
     {
         if(j < 0)
@@ -87,7 +94,7 @@ public class ChunkCache
         }
     }
 
-    public boolean isBlockOpaqueCube(int i, int j, int k)
+    public boolean isBlockNormalCube(int i, int j, int k)
     {
         Block block = Block.blocksList[getBlockId(i, j, k)];
         if(block == null)
@@ -95,7 +102,7 @@ public class ChunkCache
             return false;
         } else
         {
-            return block.blockMaterial.getIsSolid() && block.func_28025_b();
+            return block.blockMaterial.getIsSolid() && block.isACube();
         }
     }
 

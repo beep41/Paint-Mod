@@ -16,8 +16,8 @@ class GuiLogFormatter extends Formatter
 
     GuiLogFormatter(GuiLogOutputHandler guilogoutputhandler)
     {
-        outputHandler = guilogoutputhandler;
 //        super();
+        outputHandler = guilogoutputhandler;
     }
 
     public String format(LogRecord logrecord)

@@ -35,7 +35,7 @@ public class BlockSapling extends BlockFlower
                 world.setBlockMetadataWithNotify(i, j, k, l | 8);
             } else
             {
-                func_21027_b(world, i, j, k, random);
+                growTree(world, i, j, k, random);
             }
         }
     }
@@ -56,7 +56,7 @@ public class BlockSapling extends BlockFlower
         }
     }
 
-    public void func_21027_b(World world, int i, int j, int k, Random random)
+    public void growTree(World world, int i, int j, int k, Random random)
     {
         int l = world.getBlockMetadata(i, j, k) & 3;
         world.setBlock(i, j, k, 0);

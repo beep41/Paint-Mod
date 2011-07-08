@@ -12,14 +12,17 @@ public class EntityDiggingFX extends EntityFX
 {
 
     public EntityDiggingFX(World world, double d, double d1, double d2, 
-            double d3, double d4, double d5, Block block)
+            double d3, double d4, double d5, Block block, 
+            int i, int j)
     {
         super(world, d, d1, d2, d3, d4, d5);
+        field_32001_o = 0;
         field_4082_a = block;
-        particleTextureIndex = block.blockIndexInTexture;
+        particleTextureIndex = block.getBlockTextureFromSideAndMetadata(0, j);
         particleGravity = block.blockParticleGravity;
         particleRed = particleGreen = particleBlue = 0.6F;
         particleScale /= 2.0F;
+        field_32001_o = i;
     }
 
     public EntityDiggingFX func_4041_a(int i, int j, int k)
@@ -61,4 +64,5 @@ public class EntityDiggingFX extends EntityFX
     }
 
     private Block field_4082_a;
+    private int field_32001_o;
 }

@@ -54,7 +54,7 @@ public class BlockFlower extends Block
 
     public boolean canBlockStay(World world, int i, int j, int k)
     {
-        return (world.func_28098_j(i, j, k) >= 8 || world.canBlockSeeTheSky(i, j, k)) && canThisPlantGrowOnThisBlockID(world.getBlockId(i, j - 1, k));
+        return (world.getBlockLightValueNoChecks(i, j, k) >= 8 || world.canBlockSeeTheSky(i, j, k)) && canThisPlantGrowOnThisBlockID(world.getBlockId(i, j - 1, k));
     }
 
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k)
@@ -67,7 +67,7 @@ public class BlockFlower extends Block
         return false;
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return false;
     }

@@ -7,8 +7,10 @@ package net.minecraft.src;
 import java.util.Random;
 
 // Referenced classes of package net.minecraft.src:
-//            BlockLeavesBase, Material, IBlockAccess, ColorizerFoliage, 
-//            WorldChunkManager, World, Block, Entity
+//            BlockLeavesBase, Material, ColorizerFoliage, IBlockAccess, 
+//            WorldChunkManager, World, Block, EntityPlayer, 
+//            ItemStack, Item, ItemShears, StatList, 
+//            Entity
 
 public class BlockLeaves extends BlockLeavesBase
 {
@@ -18,6 +20,21 @@ public class BlockLeaves extends BlockLeavesBase
         super(i, j, Material.leaves, false);
         baseIndexInPNG = j;
         setTickOnLoad(true);
+    }
+
+    public int getRenderColor(int i)
+    {
+        if((i & 1) == 1)
+        {
+            return ColorizerFoliage.getFoliageColorPine();
+        }
+        if((i & 2) == 2)
+        {
+            return ColorizerFoliage.getFoliageColorBirch();
+        } else
+        {
+            return ColorizerFoliage.func_31073_c();
+        }
     }
 
     public int colorMultiplier(IBlockAccess iblockaccess, int i, int j, int k)
@@ -181,6 +198,18 @@ public class BlockLeaves extends BlockLeavesBase
     public int idDropped(int i, Random random)
     {
         return Block.sapling.blockID;
+    }
+
+    public void harvestBlock(World world, EntityPlayer entityplayer, int i, int j, int k, int l)
+    {
+        if(!world.multiplayerWorld && entityplayer.getCurrentEquippedItem() != null && entityplayer.getCurrentEquippedItem().itemID == Item.shears.shiftedIndex)
+        {
+            entityplayer.addStat(StatList.mineBlockStatArray[blockID], 1);
+            dropBlockAsItem_do(world, i, j, k, new ItemStack(Block.leaves.blockID, 1, l & 3));
+        } else
+        {
+            super.harvestBlock(world, entityplayer, i, j, k, l);
+        }
     }
 
     protected int damageDropped(int i)

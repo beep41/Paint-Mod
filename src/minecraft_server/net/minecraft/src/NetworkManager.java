@@ -265,7 +265,7 @@ public class NetworkManager
         return networkmanager.isTerminating;
     }
 
-    static void func_30008_a(NetworkManager networkmanager, Exception exception)
+    static void func_30007_a(NetworkManager networkmanager, Exception exception)
     {
         networkmanager.onNetworkError(exception);
     }

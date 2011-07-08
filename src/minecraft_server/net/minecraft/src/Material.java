@@ -14,6 +14,7 @@ public class Material
 
     public Material(MapColor mapcolor)
     {
+        field_31061_G = true;
         field_28131_A = mapcolor;
     }
 
@@ -39,7 +40,13 @@ public class Material
 
     private Material func_28129_i()
     {
-        field_28130_D = true;
+        isTranslucent = true;
+        return this;
+    }
+
+    private Material func_31058_n()
+    {
+        field_31061_G = false;
         return this;
     }
 
@@ -65,9 +72,9 @@ public class Material
         return field_27091_A;
     }
 
-    public boolean func_28128_h()
+    public boolean getIsOpaque()
     {
-        if(field_28130_D)
+        if(isTranslucent)
         {
             return false;
         } else
@@ -76,8 +83,30 @@ public class Material
         }
     }
 
+    public boolean func_31055_i()
+    {
+        return field_31061_G;
+    }
+
+    public int getMaterialMobility()
+    {
+        return mobilityFlag;
+    }
+
+    protected Material setNoPushMobility()
+    {
+        mobilityFlag = 1;
+        return this;
+    }
+
+    protected Material setImmovableMobility()
+    {
+        mobilityFlag = 2;
+        return this;
+    }
+
     public static final Material air;
-    public static final Material field_28132_b;
+    public static final Material grass;
     public static final Material ground;
     public static final Material wood;
     public static final Material rock;
@@ -93,7 +122,7 @@ public class Material
     public static final Material circuits;
     public static final Material glass;
     public static final Material tnt;
-    public static final Material field_4215_q;
+    public static final Material wug;
     public static final Material ice;
     public static final Material snow;
     public static final Material builtSnow;
@@ -102,38 +131,44 @@ public class Material
     public static final Material pumpkin;
     public static final Material portal;
     public static final Material cakeMaterial;
+    public static final Material web;
+    public static final Material piston;
     private boolean canBurn;
     private boolean field_27091_A;
-    private boolean field_28130_D;
+    private boolean isTranslucent;
     public final MapColor field_28131_A;
+    private boolean field_31061_G;
+    private int mobilityFlag;
 
     static 
     {
         air = new MaterialTransparent(MapColor.field_28199_b);
-        field_28132_b = new Material(MapColor.field_28198_c);
+        grass = new Material(MapColor.field_28198_c);
         ground = new Material(MapColor.field_28189_l);
         wood = (new Material(MapColor.field_28186_o)).setBurning();
-        rock = new Material(MapColor.field_28188_m);
-        iron = new Material(MapColor.field_28193_h);
-        water = new MaterialLiquid(MapColor.field_28187_n);
-        lava = new MaterialLiquid(MapColor.field_28195_f);
-        leaves = (new Material(MapColor.field_28192_i)).setBurning().func_28129_i();
-        plants = new MaterialLogic(MapColor.field_28192_i);
+        rock = (new Material(MapColor.field_28188_m)).func_31058_n();
+        iron = (new Material(MapColor.field_28193_h)).func_31058_n();
+        water = (new MaterialLiquid(MapColor.field_28187_n)).setNoPushMobility();
+        lava = (new MaterialLiquid(MapColor.field_28195_f)).setNoPushMobility();
+        leaves = (new Material(MapColor.field_28192_i)).setBurning().func_28129_i().setNoPushMobility();
+        plants = (new MaterialLogic(MapColor.field_28192_i)).setNoPushMobility();
         sponge = new Material(MapColor.field_28196_e);
         cloth = (new Material(MapColor.field_28196_e)).setBurning();
-        fire = new MaterialTransparent(MapColor.field_28199_b);
+        fire = (new MaterialTransparent(MapColor.field_28199_b)).setNoPushMobility();
         sand = new Material(MapColor.field_28197_d);
-        circuits = new MaterialLogic(MapColor.field_28199_b);
+        circuits = (new MaterialLogic(MapColor.field_28199_b)).setNoPushMobility();
         glass = (new Material(MapColor.field_28199_b)).func_28129_i();
         tnt = (new Material(MapColor.field_28195_f)).setBurning().func_28129_i();
-        field_4215_q = new Material(MapColor.field_28192_i);
+        wug = (new Material(MapColor.field_28192_i)).setNoPushMobility();
         ice = (new Material(MapColor.field_28194_g)).func_28129_i();
-        snow = (new MaterialLogic(MapColor.field_28191_j)).func_27089_f().func_28129_i();
-        builtSnow = new Material(MapColor.field_28191_j);
-        cactus = (new Material(MapColor.field_28192_i)).func_28129_i();
+        snow = (new MaterialLogic(MapColor.field_28191_j)).func_27089_f().func_28129_i().func_31058_n().setNoPushMobility();
+        builtSnow = (new Material(MapColor.field_28191_j)).func_31058_n();
+        cactus = (new Material(MapColor.field_28192_i)).func_28129_i().setNoPushMobility();
         clay = new Material(MapColor.field_28190_k);
-        pumpkin = new Material(MapColor.field_28192_i);
-        portal = new MaterialPortal(MapColor.field_28199_b);
-        cakeMaterial = new Material(MapColor.field_28199_b);
+        pumpkin = (new Material(MapColor.field_28192_i)).setNoPushMobility();
+        portal = (new MaterialPortal(MapColor.field_28199_b)).setImmovableMobility();
+        cakeMaterial = (new Material(MapColor.field_28199_b)).setNoPushMobility();
+        web = (new Material(MapColor.field_28196_e)).func_31058_n().setNoPushMobility();
+        piston = (new Material(MapColor.field_28188_m)).setImmovableMobility();
     }
 }

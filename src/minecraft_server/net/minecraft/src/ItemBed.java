@@ -44,7 +44,7 @@ public class ItemBed extends Item
         {
             byte0 = 1;
         }
-        if(world.isAirBlock(i, j, k) && world.isAirBlock(i + byte0, j, k + byte1) && world.isBlockOpaqueCube(i, j - 1, k) && world.isBlockOpaqueCube(i + byte0, j - 1, k + byte1))
+        if(world.isAirBlock(i, j, k) && world.isAirBlock(i + byte0, j, k + byte1) && world.isBlockNormalCube(i, j - 1, k) && world.isBlockNormalCube(i + byte0, j - 1, k + byte1))
         {
             world.setBlockAndMetadataWithNotify(i, j, k, blockbed.blockID, i1);
             world.setBlockAndMetadataWithNotify(i + byte0, j, k + byte1, blockbed.blockID, i1 + 8);

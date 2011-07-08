@@ -62,7 +62,7 @@ public class NetClientHandler extends NetHandler
     public void handleLogin(Packet1Login packet1login)
     {
         mc.playerController = new PlayerControllerMP(mc, this);
-        mc.statFileWriter.func_25100_a(StatList.joinMultiplayerStat, 1);
+        mc.statFileWriter.readStat(StatList.joinMultiplayerStat, 1);
         worldClient = new WorldClient(this, packet1login.mapSeed, packet1login.dimension);
         worldClient.multiplayerWorld = true;
         mc.changeWorld1(worldClient);
@@ -474,7 +474,7 @@ public class NetClientHandler extends NetHandler
     {
         if(packet2handshake.username.equals("-"))
         {
-            addToSendQueue(new Packet1Login(mc.session.username, 13));
+            addToSendQueue(new Packet1Login(mc.session.username, 14));
         } else
         {
             try
@@ -485,7 +485,7 @@ public class NetClientHandler extends NetHandler
                 bufferedreader.close();
                 if(s.equalsIgnoreCase("ok"))
                 {
-                    addToSendQueue(new Packet1Login(mc.session.username, 13));
+                    addToSendQueue(new Packet1Login(mc.session.username, 14));
                 } else
                 {
                     netManager.networkShutdown("disconnect.loginFailedInfo", new Object[] {

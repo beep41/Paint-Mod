@@ -29,8 +29,8 @@ public abstract class EntityPlayer extends EntityLiving
         score = 0;
         isSwinging = false;
         swingProgressInt = 0;
-        field_28016_C = 20;
-        field_28015_D = false;
+        timeUntilPortal = 20;
+        inPortal = false;
         damageRemainder = 0;
         fishEntity = null;
         personalCraftingInventory = new ContainerPlayer(inventory, !world.singleplayerWorld);
@@ -53,7 +53,7 @@ public abstract class EntityPlayer extends EntityLiving
 
     public void onUpdate()
     {
-        if(func_30001_K())
+        if(func_22057_E())
         {
             sleepTimer++;
             if(sleepTimer > 100)
@@ -129,7 +129,7 @@ public abstract class EntityPlayer extends EntityLiving
 
     protected boolean isMovementBlocked()
     {
-        return health <= 0 || func_30001_K();
+        return health <= 0 || func_22057_E();
     }
 
     protected void usePersonalCraftingInventory()
@@ -378,7 +378,7 @@ public abstract class EntityPlayer extends EntityLiving
         {
             return false;
         }
-        if(func_30001_K() && !worldObj.singleplayerWorld)
+        if(func_22057_E() && !worldObj.singleplayerWorld)
         {
             wakeUpPlayer(true, true, false);
         }
@@ -570,7 +570,7 @@ public abstract class EntityPlayer extends EntityLiving
     {
         if(!worldObj.singleplayerWorld)
         {
-            if(func_30001_K() || !isEntityAlive())
+            if(func_22057_E() || !isEntityAlive())
             {
                 return EnumStatus.OTHER_PROBLEM;
             }
@@ -710,7 +710,7 @@ public abstract class EntityPlayer extends EntityLiving
         }
     }
 
-    public boolean func_30001_K()
+    public boolean func_22057_E()
     {
         return sleeping;
     }
@@ -860,13 +860,13 @@ public abstract class EntityPlayer extends EntityLiving
 
     public void setInPortal()
     {
-        if(field_28016_C > 0)
+        if(timeUntilPortal > 0)
         {
-            field_28016_C = 10;
+            timeUntilPortal = 10;
             return;
         } else
         {
-            field_28015_D = true;
+            inPortal = true;
             return;
         }
     }
@@ -895,9 +895,9 @@ public abstract class EntityPlayer extends EntityLiving
     public float field_22067_A;
     private ChunkCoordinates spawnChunk;
     private ChunkCoordinates field_27995_d;
-    public int field_28016_C;
-    protected boolean field_28015_D;
-    public float field_28014_E;
+    public int timeUntilPortal;
+    protected boolean inPortal;
+    public float timeInPortal;
     private int damageRemainder;
     public EntityFish fishEntity;
 }

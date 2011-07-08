@@ -50,12 +50,14 @@ public abstract class BaseMod
     {
     }
 
-    public void OnTickInGame(Minecraft minecraft)
+    public boolean OnTickInGame(Minecraft minecraft)
     {
+        return false;
     }
 
-    public void OnTickInGUI(Minecraft minecraft, GuiScreen guiscreen)
+    public boolean OnTickInGUI(Minecraft minecraft, GuiScreen guiscreen)
     {
+        return false;
     }
 
     public void RegisterAnimation(Minecraft minecraft)

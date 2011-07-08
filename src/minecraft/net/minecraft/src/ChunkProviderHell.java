@@ -397,12 +397,12 @@ public class ChunkProviderHell
         return true;
     }
 
-    public boolean func_532_a()
+    public boolean unload100OldestChunks()
     {
         return false;
     }
 
-    public boolean func_536_b()
+    public boolean canSave()
     {
         return true;
     }

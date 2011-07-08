@@ -205,7 +205,7 @@ public class EntityTrackerEntry
                 if(trackedEntity instanceof EntityPlayer)
                 {
                     EntityPlayer entityplayer = (EntityPlayer)trackedEntity;
-                    if(entityplayer.func_30001_K())
+                    if(entityplayer.func_22057_E())
                     {
                         entityplayermp.playerNetServerHandler.sendPacket(new Packet17Sleep(trackedEntity, 0, MathHelper.floor_double(trackedEntity.posX), MathHelper.floor_double(trackedEntity.posY), MathHelper.floor_double(trackedEntity.posZ)));
                     }

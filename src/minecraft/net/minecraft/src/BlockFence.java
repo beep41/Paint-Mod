@@ -20,7 +20,7 @@ public class BlockFence extends Block
     {
         if(world.getBlockId(i, j - 1, k) == blockID)
         {
-            return false;
+            return true;
         }
         if(!world.getBlockMaterial(i, j - 1, k).isSolid())
         {

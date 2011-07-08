@@ -18,7 +18,7 @@ public abstract class EntityLiving extends Entity
     public EntityLiving(World world)
     {
         super(world);
-        field_9366_o = 20;
+        heartsHalvesLife = 20;
         renderYawOffset = 0.0F;
         prevRenderYawOffset = 0.0F;
         field_9358_y = true;
@@ -142,9 +142,9 @@ public abstract class EntityLiving extends Entity
         {
             hurtTime--;
         }
-        if(field_9306_bj > 0)
+        if(heartsLife > 0)
         {
-            field_9306_bj--;
+            heartsLife--;
         }
         if(health <= 0)
         {
@@ -277,7 +277,7 @@ public abstract class EntityLiving extends Entity
         {
             health = 20;
         }
-        field_9306_bj = field_9366_o / 2;
+        heartsLife = heartsHalvesLife / 2;
     }
 
     public boolean attackEntityFrom(Entity entity, int i)
@@ -293,7 +293,7 @@ public abstract class EntityLiving extends Entity
         }
         field_704_R = 1.5F;
         boolean flag = true;
-        if((float)field_9306_bj > (float)field_9366_o / 2.0F)
+        if((float)heartsLife > (float)heartsHalvesLife / 2.0F)
         {
             if(i <= field_9346_af)
             {
@@ -306,7 +306,7 @@ public abstract class EntityLiving extends Entity
         {
             field_9346_af = i;
             prevHealth = health;
-            field_9306_bj = field_9366_o;
+            heartsLife = heartsHalvesLife;
             damageEntity(i);
             hurtTime = maxHurtTime = 10;
         }
@@ -890,7 +890,7 @@ public abstract class EntityLiving extends Entity
         if(byte0 == 2)
         {
             field_704_R = 1.5F;
-            field_9306_bj = field_9366_o;
+            heartsLife = heartsHalvesLife;
             hurtTime = maxHurtTime = 10;
             attackedAtYaw = 0.0F;
             worldObj.playSoundAtEntity(this, getHurtSound(), getSoundVolume(), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
@@ -917,7 +917,7 @@ public abstract class EntityLiving extends Entity
         return itemstack.getIconIndex();
     }
 
-    public int field_9366_o;
+    public int heartsHalvesLife;
     public float field_9365_p;
     public float field_9363_r;
     public float renderYawOffset;

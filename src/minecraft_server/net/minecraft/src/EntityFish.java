@@ -246,7 +246,7 @@ public class EntityFish extends Entity
             } else
             {
                 char c = '\u01F4';
-                if(worldObj.func_27072_q(MathHelper.floor_double(posX), MathHelper.floor_double(posY) + 1, MathHelper.floor_double(posZ)))
+                if(worldObj.canLightningStrikeAt(MathHelper.floor_double(posX), MathHelper.floor_double(posY) + 1, MathHelper.floor_double(posZ)))
                 {
                     c = '\u012C';
                 }

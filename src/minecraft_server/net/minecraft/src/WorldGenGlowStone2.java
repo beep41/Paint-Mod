@@ -26,7 +26,7 @@ public class WorldGenGlowStone2 extends WorldGenerator
         {
             return false;
         }
-        world.setBlockWithNotify(i, j, k, Block.lightStone.blockID);
+        world.setBlockWithNotify(i, j, k, Block.glowStone.blockID);
         for(int l = 0; l < 1500; l++)
         {
             int i1 = (i + random.nextInt(8)) - random.nextInt(8);
@@ -64,7 +64,7 @@ public class WorldGenGlowStone2 extends WorldGenerator
                 {
                     j2 = world.getBlockId(i1, j1, k1 + 1);
                 }
-                if(j2 == Block.lightStone.blockID)
+                if(j2 == Block.glowStone.blockID)
                 {
                     l1++;
                 }
@@ -72,7 +72,7 @@ public class WorldGenGlowStone2 extends WorldGenerator
 
             if(l1 == 1)
             {
-                world.setBlockWithNotify(i1, j1, k1, Block.lightStone.blockID);
+                world.setBlockWithNotify(i1, j1, k1, Block.glowStone.blockID);
             }
         }
 

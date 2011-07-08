@@ -82,27 +82,27 @@ public class BlockRedstoneOre extends Block
             double d1 = (float)i + random.nextFloat();
             double d2 = (float)j + random.nextFloat();
             double d3 = (float)k + random.nextFloat();
-            if(l == 0 && !world.func_28095_p(i, j + 1, k))
+            if(l == 0 && !world.isBlockOpaqueCube(i, j + 1, k))
             {
                 d2 = (double)(j + 1) + d;
             }
-            if(l == 1 && !world.func_28095_p(i, j - 1, k))
+            if(l == 1 && !world.isBlockOpaqueCube(i, j - 1, k))
             {
                 d2 = (double)(j + 0) - d;
             }
-            if(l == 2 && !world.func_28095_p(i, j, k + 1))
+            if(l == 2 && !world.isBlockOpaqueCube(i, j, k + 1))
             {
                 d3 = (double)(k + 1) + d;
             }
-            if(l == 3 && !world.func_28095_p(i, j, k - 1))
+            if(l == 3 && !world.isBlockOpaqueCube(i, j, k - 1))
             {
                 d3 = (double)(k + 0) - d;
             }
-            if(l == 4 && !world.func_28095_p(i + 1, j, k))
+            if(l == 4 && !world.isBlockOpaqueCube(i + 1, j, k))
             {
                 d1 = (double)(i + 1) + d;
             }
-            if(l == 5 && !world.func_28095_p(i - 1, j, k))
+            if(l == 5 && !world.isBlockOpaqueCube(i - 1, j, k))
             {
                 d1 = (double)(i + 0) - d;
             }

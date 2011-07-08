@@ -43,17 +43,17 @@ public class StatFileWriter
             }
         }
 
-        field_27188_d = new StatsSyncher(session, this, file1);
+        statsSyncher = new StatsSyncher(session, this, file1);
     }
 
-    public void func_25100_a(StatBase statbase, int i)
+    public void readStat(StatBase statbase, int i)
     {
-        func_27186_a(field_25101_b, statbase, i);
-        func_27186_a(field_25102_a, statbase, i);
+        writeStatToMap(field_25101_b, statbase, i);
+        writeStatToMap(field_25102_a, statbase, i);
         field_27189_c = true;
     }
 
-    private void func_27186_a(Map map, StatBase statbase, int i)
+    private void writeStatToMap(Map map, StatBase statbase, int i)
     {
         Integer integer = (Integer)map.get(statbase);
         int j = integer != null ? integer.intValue() : 0;
@@ -73,10 +73,10 @@ public class StatFileWriter
         }
         field_27189_c = true;
         StatBase statbase;
-        for(Iterator iterator = map.keySet().iterator(); iterator.hasNext(); func_27186_a(field_25102_a, statbase, ((Integer)map.get(statbase)).intValue()))
+        for(Iterator iterator = map.keySet().iterator(); iterator.hasNext(); writeStatToMap(field_25102_a, statbase, ((Integer)map.get(statbase)).intValue()))
         {
             statbase = (StatBase)iterator.next();
-            func_27186_a(field_25101_b, statbase, ((Integer)map.get(statbase)).intValue());
+            writeStatToMap(field_25101_b, statbase, ((Integer)map.get(statbase)).intValue());
         }
 
     }
@@ -106,7 +106,7 @@ public class StatFileWriter
         }
         field_27189_c = true;
         StatBase statbase;
-        for(Iterator iterator = map.keySet().iterator(); iterator.hasNext(); func_27186_a(field_25101_b, statbase, ((Integer)map.get(statbase)).intValue()))
+        for(Iterator iterator = map.keySet().iterator(); iterator.hasNext(); writeStatToMap(field_25101_b, statbase, ((Integer)map.get(statbase)).intValue()))
         {
             statbase = (StatBase)iterator.next();
         }
@@ -210,7 +210,7 @@ public class StatFileWriter
         return achievement.parentAchievement == null || hasAchievementUnlocked(achievement.parentAchievement);
     }
 
-    public int func_27184_a(StatBase statbase)
+    public int writeStat(StatBase statbase)
     {
         Integer integer = (Integer)field_25102_a.get(statbase);
         return integer != null ? integer.intValue() : 0;
@@ -220,22 +220,22 @@ public class StatFileWriter
     {
     }
 
-    public void func_27182_c()
+    public void syncStats()
     {
-        field_27188_d.func_27407_b(func_27176_a());
+        statsSyncher.syncStatsFileWithMap(func_27176_a());
     }
 
     public void func_27178_d()
     {
-        if(field_27189_c && field_27188_d.func_27420_b())
+        if(field_27189_c && statsSyncher.func_27420_b())
         {
-            field_27188_d.func_27424_a(func_27176_a());
+            statsSyncher.func_27424_a(func_27176_a());
         }
-        field_27188_d.func_27425_c();
+        statsSyncher.func_27425_c();
     }
 
     private Map field_25102_a;
     private Map field_25101_b;
     private boolean field_27189_c;
-    private StatsSyncher field_27188_d;
+    private StatsSyncher statsSyncher;
 }

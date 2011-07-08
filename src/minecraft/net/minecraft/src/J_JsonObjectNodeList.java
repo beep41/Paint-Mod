@@ -14,8 +14,8 @@ class J_JsonObjectNodeList extends HashMap
 
     J_JsonObjectNodeList(J_JsonObjectNodeBuilder j_jsonobjectnodebuilder)
     {
-        field_27308_a = j_jsonobjectnodebuilder;
 //        super();
+        field_27308_a = j_jsonobjectnodebuilder;
         J_JsonFieldBuilder j_jsonfieldbuilder;
         for(Iterator iterator = J_JsonObjectNodeBuilder.func_27236_a(field_27308_a).iterator(); iterator.hasNext(); put(j_jsonfieldbuilder.func_27303_b(), j_jsonfieldbuilder.func_27302_c()))
         {

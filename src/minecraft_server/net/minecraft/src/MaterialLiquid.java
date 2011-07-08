@@ -15,6 +15,7 @@ public class MaterialLiquid extends Material
     {
         super(mapcolor);
         func_27089_f();
+        setNoPushMobility();
     }
 
     public boolean getIsLiquid()

@@ -442,7 +442,14 @@ public class Chunk
             blockcontainer.onBlockAdded(worldObj, xPosition * 16 + i, j, zPosition * 16 + k);
             tileentity = (TileEntity)chunkTileEntityMap.get(chunkposition);
         }
-        return tileentity;
+        if(tileentity != null && tileentity.func_31006_g())
+        {
+            chunkTileEntityMap.remove(chunkposition);
+            return null;
+        } else
+        {
+            return tileentity;
+        }
     }
 
     public void addTileEntity(TileEntity tileentity)
@@ -451,6 +458,10 @@ public class Chunk
         int j = tileentity.yCoord;
         int k = tileentity.zCoord - zPosition * 16;
         setChunkBlockTileEntity(i, j, k, tileentity);
+        if(isChunkLoaded)
+        {
+            worldObj.loadedTileEntityList.add(tileentity);
+        }
     }
 
     public void setChunkBlockTileEntity(int i, int j, int k, TileEntity tileentity)
@@ -464,16 +475,12 @@ public class Chunk
         {
             System.out.println("Attempted to place a tile entity where there was no entity tile!");
             return;
-        }
-        if(isChunkLoaded)
+        } else
         {
-            if(chunkTileEntityMap.get(chunkposition) != null)
-            {
-                worldObj.loadedTileEntityList.remove(chunkTileEntityMap.get(chunkposition));
-            }
-            worldObj.loadedTileEntityList.add(tileentity);
+            tileentity.func_31004_j();
+            chunkTileEntityMap.put(chunkposition, tileentity);
+            return;
         }
-        chunkTileEntityMap.put(chunkposition, tileentity);
     }
 
     public void removeChunkBlockTileEntity(int i, int j, int k)
@@ -481,14 +488,18 @@ public class Chunk
         ChunkPosition chunkposition = new ChunkPosition(i, j, k);
         if(isChunkLoaded)
         {
-            worldObj.loadedTileEntityList.remove(chunkTileEntityMap.remove(chunkposition));
+            TileEntity tileentity = (TileEntity)chunkTileEntityMap.remove(chunkposition);
+            if(tileentity != null)
+            {
+                tileentity.func_31005_i();
+            }
         }
     }
 
     public void onChunkLoad()
     {
         isChunkLoaded = true;
-        worldObj.loadedTileEntityList.addAll(chunkTileEntityMap.values());
+        worldObj.func_31054_a(chunkTileEntityMap.values());
         for(int i = 0; i < entities.length; i++)
         {
             worldObj.func_636_a(entities[i]);
@@ -499,7 +510,12 @@ public class Chunk
     public void onChunkUnload()
     {
         isChunkLoaded = false;
-        worldObj.loadedTileEntityList.removeAll(chunkTileEntityMap.values());
+        TileEntity tileentity;
+        for(Iterator iterator = chunkTileEntityMap.values().iterator(); iterator.hasNext(); tileentity.func_31005_i())
+        {
+            tileentity = (TileEntity)iterator.next();
+        }
+
         for(int i = 0; i < entities.length; i++)
         {
             worldObj.func_632_b(entities[i]);

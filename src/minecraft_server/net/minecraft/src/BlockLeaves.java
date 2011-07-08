@@ -8,7 +8,8 @@ import java.util.Random;
 
 // Referenced classes of package net.minecraft.src:
 //            BlockLeavesBase, Material, World, Block, 
-//            Entity
+//            EntityPlayer, ItemStack, Item, ItemShears, 
+//            StatList, Entity
 
 public class BlockLeaves extends BlockLeavesBase
 {
@@ -162,6 +163,18 @@ public class BlockLeaves extends BlockLeavesBase
     public int idDropped(int i, Random random)
     {
         return Block.sapling.blockID;
+    }
+
+    public void harvestBlock(World world, EntityPlayer entityplayer, int i, int j, int k, int l)
+    {
+        if(!world.singleplayerWorld && entityplayer.getCurrentEquippedItem() != null && entityplayer.getCurrentEquippedItem().itemID == Item.field_31022_bc.shiftedIndex)
+        {
+            entityplayer.addStat(StatList.mineBlockStatArray[blockID], 1);
+            dropBlockAsItem_do(world, i, j, k, new ItemStack(Block.leaves.blockID, 1, l & 3));
+        } else
+        {
+            super.harvestBlock(world, entityplayer, i, j, k, l);
+        }
     }
 
     protected int damageDropped(int i)

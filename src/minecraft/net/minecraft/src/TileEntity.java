@@ -11,7 +11,7 @@ import java.util.Map;
 // Referenced classes of package net.minecraft.src:
 //            NBTTagCompound, World, Block, TileEntityFurnace, 
 //            TileEntityChest, TileEntityRecordPlayer, TileEntityDispenser, TileEntitySign, 
-//            TileEntityMobSpawner, TileEntityNote
+//            TileEntityMobSpawner, TileEntityNote, TileEntityPiston
 
 public class TileEntity
 {
@@ -111,6 +111,21 @@ public class TileEntity
         return Block.blocksList[worldObj.getBlockId(xCoord, yCoord, zCoord)];
     }
 
+    public boolean func_31006_g()
+    {
+        return field_31007_h;
+    }
+
+    public void func_31005_i()
+    {
+        field_31007_h = true;
+    }
+
+    public void func_31004_j()
+    {
+        field_31007_h = false;
+    }
+
     static Class _mthclass$(String s)
     {
         try
@@ -129,6 +144,7 @@ public class TileEntity
     public int xCoord;
     public int yCoord;
     public int zCoord;
+    protected boolean field_31007_h;
 
     static 
     {
@@ -139,5 +155,6 @@ public class TileEntity
         addMapping(net.minecraft.src.TileEntitySign.class, "Sign");
         addMapping(net.minecraft.src.TileEntityMobSpawner.class, "MobSpawner");
         addMapping(net.minecraft.src.TileEntityNote.class, "Music");
+        addMapping(net.minecraft.src.TileEntityPiston.class, "Piston");
     }
 }

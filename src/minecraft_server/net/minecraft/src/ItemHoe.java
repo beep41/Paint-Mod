@@ -33,7 +33,7 @@ public class ItemHoe extends Item
             } else
             {
                 world.setBlockWithNotify(i, j, k, block.blockID);
-                itemstack.func_25125_a(1, entityplayer);
+                itemstack.damageItem(1, entityplayer);
                 return true;
             }
         } else

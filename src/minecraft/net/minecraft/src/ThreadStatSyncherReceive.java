@@ -14,8 +14,8 @@ class ThreadStatSyncherReceive extends Thread
 
     ThreadStatSyncherReceive(StatsSyncher statssyncher)
     {
-        field_27231_a = statssyncher;
 //        super();
+        field_27231_a = statssyncher;
     }
 
     public void run()

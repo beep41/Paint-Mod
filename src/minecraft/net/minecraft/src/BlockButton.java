@@ -41,36 +41,36 @@ public class BlockButton extends Block
 
     public boolean canPlaceBlockOnSide(World world, int i, int j, int k, int l)
     {
-        if(l == 2 && world.func_28100_h(i, j, k + 1))
+        if(l == 2 && world.isBlockNormalCube(i, j, k + 1))
         {
             return true;
         }
-        if(l == 3 && world.func_28100_h(i, j, k - 1))
+        if(l == 3 && world.isBlockNormalCube(i, j, k - 1))
         {
             return true;
         }
-        if(l == 4 && world.func_28100_h(i + 1, j, k))
+        if(l == 4 && world.isBlockNormalCube(i + 1, j, k))
         {
             return true;
         }
-        return l == 5 && world.func_28100_h(i - 1, j, k);
+        return l == 5 && world.isBlockNormalCube(i - 1, j, k);
     }
 
     public boolean canPlaceBlockAt(World world, int i, int j, int k)
     {
-        if(world.func_28100_h(i - 1, j, k))
+        if(world.isBlockNormalCube(i - 1, j, k))
         {
             return true;
         }
-        if(world.func_28100_h(i + 1, j, k))
+        if(world.isBlockNormalCube(i + 1, j, k))
         {
             return true;
         }
-        if(world.func_28100_h(i, j, k - 1))
+        if(world.isBlockNormalCube(i, j, k - 1))
         {
             return true;
         }
-        return world.func_28100_h(i, j, k + 1);
+        return world.isBlockNormalCube(i, j, k + 1);
     }
 
     public void onBlockPlaced(World world, int i, int j, int k, int l)
@@ -78,19 +78,19 @@ public class BlockButton extends Block
         int i1 = world.getBlockMetadata(i, j, k);
         int j1 = i1 & 8;
         i1 &= 7;
-        if(l == 2 && world.func_28100_h(i, j, k + 1))
+        if(l == 2 && world.isBlockNormalCube(i, j, k + 1))
         {
             i1 = 4;
         } else
-        if(l == 3 && world.func_28100_h(i, j, k - 1))
+        if(l == 3 && world.isBlockNormalCube(i, j, k - 1))
         {
             i1 = 3;
         } else
-        if(l == 4 && world.func_28100_h(i + 1, j, k))
+        if(l == 4 && world.isBlockNormalCube(i + 1, j, k))
         {
             i1 = 2;
         } else
-        if(l == 5 && world.func_28100_h(i - 1, j, k))
+        if(l == 5 && world.isBlockNormalCube(i - 1, j, k))
         {
             i1 = 1;
         } else
@@ -102,19 +102,19 @@ public class BlockButton extends Block
 
     private int getOrientation(World world, int i, int j, int k)
     {
-        if(world.func_28100_h(i - 1, j, k))
+        if(world.isBlockNormalCube(i - 1, j, k))
         {
             return 1;
         }
-        if(world.func_28100_h(i + 1, j, k))
+        if(world.isBlockNormalCube(i + 1, j, k))
         {
             return 2;
         }
-        if(world.func_28100_h(i, j, k - 1))
+        if(world.isBlockNormalCube(i, j, k - 1))
         {
             return 3;
         }
-        return !world.func_28100_h(i, j, k + 1) ? 1 : 4;
+        return !world.isBlockNormalCube(i, j, k + 1) ? 1 : 4;
     }
 
     public void onNeighborBlockChange(World world, int i, int j, int k, int l)
@@ -123,19 +123,19 @@ public class BlockButton extends Block
         {
             int i1 = world.getBlockMetadata(i, j, k) & 7;
             boolean flag = false;
-            if(!world.func_28100_h(i - 1, j, k) && i1 == 1)
+            if(!world.isBlockNormalCube(i - 1, j, k) && i1 == 1)
             {
                 flag = true;
             }
-            if(!world.func_28100_h(i + 1, j, k) && i1 == 2)
+            if(!world.isBlockNormalCube(i + 1, j, k) && i1 == 2)
             {
                 flag = true;
             }
-            if(!world.func_28100_h(i, j, k - 1) && i1 == 3)
+            if(!world.isBlockNormalCube(i, j, k - 1) && i1 == 3)
             {
                 flag = true;
             }
-            if(!world.func_28100_h(i, j, k + 1) && i1 == 4)
+            if(!world.isBlockNormalCube(i, j, k + 1) && i1 == 4)
             {
                 flag = true;
             }

@@ -97,7 +97,7 @@ public class BlockRail extends Block
 
     public boolean canPlaceBlockAt(World world, int i, int j, int k)
     {
-        return world.func_28100_h(i, j - 1, k);
+        return world.isBlockNormalCube(i, j - 1, k);
     }
 
     public void onBlockAdded(World world, int i, int j, int k)
@@ -121,23 +121,23 @@ public class BlockRail extends Block
             j1 &= 7;
         }
         boolean flag = false;
-        if(!world.func_28100_h(i, j - 1, k))
+        if(!world.isBlockNormalCube(i, j - 1, k))
         {
             flag = true;
         }
-        if(j1 == 2 && !world.func_28100_h(i + 1, j, k))
+        if(j1 == 2 && !world.isBlockNormalCube(i + 1, j, k))
         {
             flag = true;
         }
-        if(j1 == 3 && !world.func_28100_h(i - 1, j, k))
+        if(j1 == 3 && !world.isBlockNormalCube(i - 1, j, k))
         {
             flag = true;
         }
-        if(j1 == 4 && !world.func_28100_h(i, j, k - 1))
+        if(j1 == 4 && !world.isBlockNormalCube(i, j, k - 1))
         {
             flag = true;
         }
-        if(j1 == 5 && !world.func_28100_h(i, j, k + 1))
+        if(j1 == 5 && !world.isBlockNormalCube(i, j, k + 1))
         {
             flag = true;
         }
@@ -304,6 +304,11 @@ public class BlockRail extends Block
             }
         }
         return false;
+    }
+
+    public int getMobilityFlag()
+    {
+        return 0;
     }
 
     static boolean isPoweredBlockRail(BlockRail blockrail)

@@ -46,7 +46,7 @@ public class BlockPressurePlate extends Block
 
     public boolean canPlaceBlockAt(World world, int i, int j, int k)
     {
-        return world.func_28100_h(i, j - 1, k);
+        return world.isBlockNormalCube(i, j - 1, k);
     }
 
     public void onBlockAdded(World world, int i, int j, int k)
@@ -56,7 +56,7 @@ public class BlockPressurePlate extends Block
     public void onNeighborBlockChange(World world, int i, int j, int k, int l)
     {
         boolean flag = false;
-        if(!world.func_28100_h(i, j - 1, k))
+        if(!world.isBlockNormalCube(i, j - 1, k))
         {
             flag = true;
         }
@@ -194,6 +194,11 @@ public class BlockPressurePlate extends Block
         float f1 = 0.125F;
         float f2 = 0.5F;
         setBlockBounds(0.5F - f, 0.5F - f1, 0.5F - f2, 0.5F + f, 0.5F + f1, 0.5F + f2);
+    }
+
+    public int getMobilityFlag()
+    {
+        return 1;
     }
 
     private EnumMobType triggerMobType;

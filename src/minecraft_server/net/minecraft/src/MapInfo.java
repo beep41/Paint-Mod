@@ -14,8 +14,8 @@ public class MapInfo
 
     public MapInfo(MapData mapdata, EntityPlayer entityplayer)
     {
-        field_28124_d = mapdata;
 //        super();
+        field_28124_d = mapdata;
         field_28119_b = new int[128];
         field_28125_c = new int[128];
         field_28123_e = 0;

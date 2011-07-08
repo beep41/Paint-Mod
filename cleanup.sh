@@ -1,2 +1,2 @@
 #!/bin/bash
-python runtime/cleanup.py conf/mcp.cfg
+python runtime/cleanup.py "$@"

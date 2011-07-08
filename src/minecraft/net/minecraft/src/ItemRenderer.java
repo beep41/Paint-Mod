@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 // Referenced classes of package net.minecraft.src:
 //            RenderBlocks, MapItemRenderer, ItemStack, Block, 
-//            RenderEngine, Tessellator, EntityLiving, EntityPlayer, 
+//            RenderEngine, EntityLiving, Tessellator, EntityPlayer, 
 //            RenderHelper, MathHelper, World, Item, 
 //            ItemMap, EntityPlayerSP, RenderManager, RenderPlayer, 
 //            Material, BlockFire, InventoryPlayer
@@ -34,7 +34,7 @@ public class ItemRenderer
         if(itemstack.itemID < 256 && RenderBlocks.renderItemIn3d(Block.blocksList[itemstack.itemID].getRenderType()))
         {
             GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, mc.renderEngine.getTexture("/terrain.png"));
-            renderBlocksInstance.renderBlockOnInventory(Block.blocksList[itemstack.itemID], itemstack.getItemDamage());
+            renderBlocksInstance.renderBlockOnInventory(Block.blocksList[itemstack.itemID], itemstack.getItemDamage(), entityliving.getEntityBrightness(1.0F));
         } else
         {
             if(itemstack.itemID < 256)
@@ -146,62 +146,72 @@ public class ItemRenderer
         GL11.glRotatef(((EntityPlayer) (entityplayersp)).prevRotationYaw + (((EntityPlayer) (entityplayersp)).rotationYaw - ((EntityPlayer) (entityplayersp)).prevRotationYaw) * f, 0.0F, 1.0F, 0.0F);
         RenderHelper.enableStandardItemLighting();
         GL11.glPopMatrix();
-        float f3 = mc.theWorld.getLightBrightness(MathHelper.floor_double(((EntityPlayer) (entityplayersp)).posX), MathHelper.floor_double(((EntityPlayer) (entityplayersp)).posY), MathHelper.floor_double(((EntityPlayer) (entityplayersp)).posZ));
-        GL11.glColor4f(f3, f3, f3, 1.0F);
         ItemStack itemstack = itemToRender;
+        float f3 = mc.theWorld.getLightBrightness(MathHelper.floor_double(((EntityPlayer) (entityplayersp)).posX), MathHelper.floor_double(((EntityPlayer) (entityplayersp)).posY), MathHelper.floor_double(((EntityPlayer) (entityplayersp)).posZ));
+        if(itemstack != null)
+        {
+            int i = Item.itemsList[itemstack.itemID].getColorFromDamage(itemstack.getItemDamage());
+            float f7 = (float)(i >> 16 & 0xff) / 255F;
+            float f11 = (float)(i >> 8 & 0xff) / 255F;
+            float f15 = (float)(i & 0xff) / 255F;
+            GL11.glColor4f(f3 * f7, f3 * f11, f3 * f15, 1.0F);
+        } else
+        {
+            GL11.glColor4f(f3, f3, f3, 1.0F);
+        }
         if(itemstack != null && itemstack.itemID == Item.mapItem.shiftedIndex)
         {
             GL11.glPushMatrix();
             float f4 = 0.8F;
-            float f7 = entityplayersp.getSwingProgress(f);
-            float f10 = MathHelper.sin(f7 * 3.141593F);
-            float f13 = MathHelper.sin(MathHelper.sqrt_float(f7) * 3.141593F);
-            GL11.glTranslatef(-f13 * 0.4F, MathHelper.sin(MathHelper.sqrt_float(f7) * 3.141593F * 2.0F) * 0.2F, -f10 * 0.2F);
-            f7 = (1.0F - f2 / 45F) + 0.1F;
-            if(f7 < 0.0F)
+            float f8 = entityplayersp.getSwingProgress(f);
+            float f12 = MathHelper.sin(f8 * 3.141593F);
+            float f16 = MathHelper.sin(MathHelper.sqrt_float(f8) * 3.141593F);
+            GL11.glTranslatef(-f16 * 0.4F, MathHelper.sin(MathHelper.sqrt_float(f8) * 3.141593F * 2.0F) * 0.2F, -f12 * 0.2F);
+            f8 = (1.0F - f2 / 45F) + 0.1F;
+            if(f8 < 0.0F)
             {
-                f7 = 0.0F;
+                f8 = 0.0F;
             }
-            if(f7 > 1.0F)
+            if(f8 > 1.0F)
             {
-                f7 = 1.0F;
+                f8 = 1.0F;
             }
-            f7 = -MathHelper.cos(f7 * 3.141593F) * 0.5F + 0.5F;
-            GL11.glTranslatef(0.0F, (0.0F * f4 - (1.0F - f1) * 1.2F - f7 * 0.5F) + 0.04F, -0.9F * f4);
+            f8 = -MathHelper.cos(f8 * 3.141593F) * 0.5F + 0.5F;
+            GL11.glTranslatef(0.0F, (0.0F * f4 - (1.0F - f1) * 1.2F - f8 * 0.5F) + 0.04F, -0.9F * f4);
             GL11.glRotatef(90F, 0.0F, 1.0F, 0.0F);
-            GL11.glRotatef(f7 * -85F, 0.0F, 0.0F, 1.0F);
+            GL11.glRotatef(f8 * -85F, 0.0F, 0.0F, 1.0F);
             GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
             GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, mc.renderEngine.getTextureForDownloadableImage(mc.thePlayer.skinUrl, mc.thePlayer.getEntityTexture()));
-            for(f10 = 0; f10 < 2; f10++)
+            for(f12 = 0; f12 < 2; f12++)
             {
-                f13 = f10 * 2 - 1;
+                f16 = f12 * 2 - 1;
                 GL11.glPushMatrix();
-                GL11.glTranslatef(-0F, -0.6F, 1.1F * (float)f13);
-                GL11.glRotatef(-45 * f13, 1.0F, 0.0F, 0.0F);
+                GL11.glTranslatef(-0F, -0.6F, 1.1F * (float)f16);
+                GL11.glRotatef(-45 * f16, 1.0F, 0.0F, 0.0F);
                 GL11.glRotatef(-90F, 0.0F, 0.0F, 1.0F);
                 GL11.glRotatef(59F, 0.0F, 0.0F, 1.0F);
-                GL11.glRotatef(-65 * f13, 0.0F, 1.0F, 0.0F);
+                GL11.glRotatef(-65 * f16, 0.0F, 1.0F, 0.0F);
                 Render render1 = RenderManager.instance.getEntityRenderObject(mc.thePlayer);
                 RenderPlayer renderplayer1 = (RenderPlayer)render1;
-                float f17 = 1.0F;
-                GL11.glScalef(f17, f17, f17);
+                float f20 = 1.0F;
+                GL11.glScalef(f20, f20, f20);
                 renderplayer1.drawFirstPersonHand();
                 GL11.glPopMatrix();
             }
 
-            f10 = entityplayersp.getSwingProgress(f);
-            f13 = MathHelper.sin(f10 * f10 * 3.141593F);
-            float f16 = MathHelper.sin(MathHelper.sqrt_float(f10) * 3.141593F);
-            GL11.glRotatef(-f13 * 20F, 0.0F, 1.0F, 0.0F);
-            GL11.glRotatef(-f16 * 20F, 0.0F, 0.0F, 1.0F);
-            GL11.glRotatef(-f16 * 80F, 1.0F, 0.0F, 0.0F);
-            f10 = 0.38F;
-            GL11.glScalef(f10, f10, f10);
+            f12 = entityplayersp.getSwingProgress(f);
+            f16 = MathHelper.sin(f12 * f12 * 3.141593F);
+            float f19 = MathHelper.sin(MathHelper.sqrt_float(f12) * 3.141593F);
+            GL11.glRotatef(-f16 * 20F, 0.0F, 1.0F, 0.0F);
+            GL11.glRotatef(-f19 * 20F, 0.0F, 0.0F, 1.0F);
+            GL11.glRotatef(-f19 * 80F, 1.0F, 0.0F, 0.0F);
+            f12 = 0.38F;
+            GL11.glScalef(f12, f12, f12);
             GL11.glRotatef(90F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
             GL11.glTranslatef(-1F, -1F, 0.0F);
-            f13 = 0.015625F;
-            GL11.glScalef(f13, f13, f13);
+            f16 = 0.015625F;
+            GL11.glScalef(f16, f16, f16);
             mc.renderEngine.bindTexture(mc.renderEngine.getTexture("/misc/mapbg.png"));
             Tessellator tessellator = Tessellator.instance;
             GL11.glNormal3f(0.0F, 0.0F, -1F);
@@ -220,21 +230,21 @@ public class ItemRenderer
         {
             GL11.glPushMatrix();
             float f5 = 0.8F;
-            float f8 = entityplayersp.getSwingProgress(f);
-            float f11 = MathHelper.sin(f8 * 3.141593F);
-            float f14 = MathHelper.sin(MathHelper.sqrt_float(f8) * 3.141593F);
-            GL11.glTranslatef(-f14 * 0.4F, MathHelper.sin(MathHelper.sqrt_float(f8) * 3.141593F * 2.0F) * 0.2F, -f11 * 0.2F);
+            float f9 = entityplayersp.getSwingProgress(f);
+            float f13 = MathHelper.sin(f9 * 3.141593F);
+            float f17 = MathHelper.sin(MathHelper.sqrt_float(f9) * 3.141593F);
+            GL11.glTranslatef(-f17 * 0.4F, MathHelper.sin(MathHelper.sqrt_float(f9) * 3.141593F * 2.0F) * 0.2F, -f13 * 0.2F);
             GL11.glTranslatef(0.7F * f5, -0.65F * f5 - (1.0F - f1) * 0.6F, -0.9F * f5);
             GL11.glRotatef(45F, 0.0F, 1.0F, 0.0F);
             GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
-            f8 = entityplayersp.getSwingProgress(f);
-            f11 = MathHelper.sin(f8 * f8 * 3.141593F);
-            f14 = MathHelper.sin(MathHelper.sqrt_float(f8) * 3.141593F);
-            GL11.glRotatef(-f11 * 20F, 0.0F, 1.0F, 0.0F);
-            GL11.glRotatef(-f14 * 20F, 0.0F, 0.0F, 1.0F);
-            GL11.glRotatef(-f14 * 80F, 1.0F, 0.0F, 0.0F);
-            f8 = 0.4F;
-            GL11.glScalef(f8, f8, f8);
+            f9 = entityplayersp.getSwingProgress(f);
+            f13 = MathHelper.sin(f9 * f9 * 3.141593F);
+            f17 = MathHelper.sin(MathHelper.sqrt_float(f9) * 3.141593F);
+            GL11.glRotatef(-f13 * 20F, 0.0F, 1.0F, 0.0F);
+            GL11.glRotatef(-f17 * 20F, 0.0F, 0.0F, 1.0F);
+            GL11.glRotatef(-f17 * 80F, 1.0F, 0.0F, 0.0F);
+            f9 = 0.4F;
+            GL11.glScalef(f9, f9, f9);
             if(itemstack.getItem().shouldRotateAroundWhenRendering())
             {
                 GL11.glRotatef(180F, 0.0F, 1.0F, 0.0F);
@@ -245,18 +255,18 @@ public class ItemRenderer
         {
             GL11.glPushMatrix();
             float f6 = 0.8F;
-            float f9 = entityplayersp.getSwingProgress(f);
-            float f12 = MathHelper.sin(f9 * 3.141593F);
-            float f15 = MathHelper.sin(MathHelper.sqrt_float(f9) * 3.141593F);
-            GL11.glTranslatef(-f15 * 0.3F, MathHelper.sin(MathHelper.sqrt_float(f9) * 3.141593F * 2.0F) * 0.4F, -f12 * 0.4F);
+            float f10 = entityplayersp.getSwingProgress(f);
+            float f14 = MathHelper.sin(f10 * 3.141593F);
+            float f18 = MathHelper.sin(MathHelper.sqrt_float(f10) * 3.141593F);
+            GL11.glTranslatef(-f18 * 0.3F, MathHelper.sin(MathHelper.sqrt_float(f10) * 3.141593F * 2.0F) * 0.4F, -f14 * 0.4F);
             GL11.glTranslatef(0.8F * f6, -0.75F * f6 - (1.0F - f1) * 0.6F, -0.9F * f6);
             GL11.glRotatef(45F, 0.0F, 1.0F, 0.0F);
             GL11.glEnable(32826 /*GL_RESCALE_NORMAL_EXT*/);
-            f9 = entityplayersp.getSwingProgress(f);
-            f12 = MathHelper.sin(f9 * f9 * 3.141593F);
-            f15 = MathHelper.sin(MathHelper.sqrt_float(f9) * 3.141593F);
-            GL11.glRotatef(f15 * 70F, 0.0F, 1.0F, 0.0F);
-            GL11.glRotatef(-f12 * 20F, 0.0F, 0.0F, 1.0F);
+            f10 = entityplayersp.getSwingProgress(f);
+            f14 = MathHelper.sin(f10 * f10 * 3.141593F);
+            f18 = MathHelper.sin(MathHelper.sqrt_float(f10) * 3.141593F);
+            GL11.glRotatef(f18 * 70F, 0.0F, 1.0F, 0.0F);
+            GL11.glRotatef(-f14 * 20F, 0.0F, 0.0F, 1.0F);
             GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, mc.renderEngine.getTextureForDownloadableImage(mc.thePlayer.skinUrl, mc.thePlayer.getEntityTexture()));
             GL11.glTranslatef(-1F, 3.6F, 3.5F);
             GL11.glRotatef(120F, 0.0F, 0.0F, 1.0F);
@@ -266,8 +276,8 @@ public class ItemRenderer
             GL11.glTranslatef(5.6F, 0.0F, 0.0F);
             Render render = RenderManager.instance.getEntityRenderObject(mc.thePlayer);
             RenderPlayer renderplayer = (RenderPlayer)render;
-            f15 = 1.0F;
-            GL11.glScalef(f15, f15, f15);
+            f18 = 1.0F;
+            GL11.glScalef(f18, f18, f18);
             renderplayer.drawFirstPersonHand();
             GL11.glPopMatrix();
         }
@@ -292,7 +302,7 @@ public class ItemRenderer
             int j1 = mc.renderEngine.getTexture("/terrain.png");
             GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, j1);
             int k1 = mc.theWorld.getBlockId(j, l, i1);
-            if(mc.theWorld.func_28100_h(j, l, i1))
+            if(mc.theWorld.isBlockNormalCube(j, l, i1))
             {
                 renderInsideOfBlock(f, Block.blocksList[k1].getBlockTextureFromSide(2));
             } else
@@ -305,7 +315,7 @@ public class ItemRenderer
                     int i2 = MathHelper.floor_float((float)j + f1);
                     int j2 = MathHelper.floor_float((float)l + f2);
                     int k2 = MathHelper.floor_float((float)i1 + f3);
-                    if(mc.theWorld.func_28100_h(i2, j2, k2))
+                    if(mc.theWorld.isBlockNormalCube(i2, j2, k2))
                     {
                         k1 = mc.theWorld.getBlockId(i2, j2, k2);
                     }

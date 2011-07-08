@@ -68,7 +68,7 @@ public class MinecraftServer
         threadcommandreader.setDaemon(true);
         threadcommandreader.start();
         ConsoleLogManager.init();
-        logger.info("Starting minecraft server version Beta 1.6.6");
+        logger.info("Starting minecraft server version Beta 1.7.3");
         if(Runtime.getRuntime().maxMemory() / 1024L / 1024L < 512L)
         {
             logger.warning("**** NOT ENOUGH RAM!");
@@ -218,7 +218,7 @@ label0:
         {
             WorldServer worldserver = worldMngr[i];
             worldserver.saveWorld(true, null);
-            worldserver.func_30007_w();
+            worldserver.func_30006_w();
         }
 
     }
@@ -246,73 +246,94 @@ label0:
         serverRunning = false;
     }
 
-    public void run() {
-        try {
-           if(this.startServer()) {
-              long var1 = System.currentTimeMillis();
-
-              for(long var3 = 0L; this.serverRunning; Thread.sleep(1L)) {
-                 long var5 = System.currentTimeMillis();
-                 long var7 = var5 - var1;
-                 if(var7 > 2000L) {
-                    logger.warning("Can\'t keep up! Did the system time change, or is the server overloaded?");
-                    var7 = 2000L;
-                 }
-
-                 if(var7 < 0L) {
-                    logger.warning("Time ran backwards! Did the system time change?");
-                    var7 = 0L;
-                 }
-
-                 var3 += var7;
-                 var1 = var5;
-                 if(this.worldMngr[0].isAllPlayersFullyAsleep()) {
-                    this.doTick();
-                    var3 = 0L;
-                 } else {
-                    while(var3 > 50L) {
-                       var3 -= 50L;
-                       this.doTick();
+    public void run()
+    {
+        try
+        {
+            if(startServer())
+            {
+                long l = System.currentTimeMillis();
+                long l1 = 0L;
+                while(serverRunning) 
+                {
+                    long l2 = System.currentTimeMillis();
+                    long l3 = l2 - l;
+                    if(l3 > 2000L)
+                    {
+                        logger.warning("Can't keep up! Did the system time change, or is the server overloaded?");
+                        l3 = 2000L;
                     }
-                 }
-              }
-           } else {
-              while(this.serverRunning) {
-                 this.commandLineParser();
-
-                 try {
-                    Thread.sleep(10L);
-                 } catch (InterruptedException var57) {
-                    var57.printStackTrace();
-                 }
-              }
-           }
-        } catch (Throwable var58) {
-           var58.printStackTrace();
-           logger.log(Level.SEVERE, "Unexpected exception", var58);
-
-           while(this.serverRunning) {
-              this.commandLineParser();
-
-              try {
-                 Thread.sleep(10L);
-              } catch (InterruptedException var56) {
-                 var56.printStackTrace();
-              }
-           }
-        } finally {
-           try {
-              this.stopServer();
-              this.serverStopped = true;
-           } catch (Throwable var54) {
-              var54.printStackTrace();
-           } finally {
-              System.exit(0);
-           }
-
+                    if(l3 < 0L)
+                    {
+                        logger.warning("Time ran backwards! Did the system time change?");
+                        l3 = 0L;
+                    }
+                    l1 += l3;
+                    l = l2;
+                    if(worldMngr[0].isAllPlayersFullyAsleep())
+                    {
+                        doTick();
+                        l1 = 0L;
+                    } else
+                    {
+                        while(l1 > 50L) 
+                        {
+                            l1 -= 50L;
+                            doTick();
+                        }
+                    }
+                    Thread.sleep(1L);
+                }
+            } else
+            {
+                while(serverRunning) 
+                {
+                    commandLineParser();
+                    try
+                    {
+                        Thread.sleep(10L);
+                    }
+                    catch(InterruptedException interruptedexception)
+                    {
+                        interruptedexception.printStackTrace();
+                    }
+                }
+            }
         }
-
-     }
+        catch(Throwable throwable1)
+        {
+            throwable1.printStackTrace();
+            logger.log(Level.SEVERE, "Unexpected exception", throwable1);
+            while(serverRunning) 
+            {
+                commandLineParser();
+                try
+                {
+                    Thread.sleep(10L);
+                }
+                catch(InterruptedException interruptedexception1)
+                {
+                    interruptedexception1.printStackTrace();
+                }
+            }
+        }
+        finally
+        {
+            try
+            {
+                stopServer();
+                serverStopped = true;
+            }
+            catch(Throwable throwable2)
+            {
+                throwable2.printStackTrace();
+            }
+            finally
+            {
+                System.exit(0);
+            }
+        }
+    }
 
     private void doTick()
     {

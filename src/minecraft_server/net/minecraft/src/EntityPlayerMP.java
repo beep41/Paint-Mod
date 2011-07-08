@@ -187,39 +187,43 @@ public class EntityPlayerMP extends EntityPlayer
                 }
             }
         }
-        if(field_28015_D)
+        if(inPortal)
         {
             if(mcServer.propertyManagerObj.getBooleanProperty("allow-nether", true))
             {
+                if(currentCraftingInventory != personalCraftingInventory)
+                {
+                    usePersonalCraftingInventory();
+                }
                 if(ridingEntity != null)
                 {
                     mountEntity(ridingEntity);
                 } else
                 {
-                    field_28014_E += 0.0125F;
-                    if(field_28014_E >= 1.0F)
+                    timeInPortal += 0.0125F;
+                    if(timeInPortal >= 1.0F)
                     {
-                        field_28014_E = 1.0F;
-                        field_28016_C = 10;
+                        timeInPortal = 1.0F;
+                        timeUntilPortal = 10;
                         mcServer.configManager.sendPlayerToOtherDimension(this);
                     }
                 }
-                field_28015_D = false;
+                inPortal = false;
             }
         } else
         {
-            if(field_28014_E > 0.0F)
+            if(timeInPortal > 0.0F)
             {
-                field_28014_E -= 0.05F;
+                timeInPortal -= 0.05F;
             }
-            if(field_28014_E < 0.0F)
+            if(timeInPortal < 0.0F)
             {
-                field_28014_E = 0.0F;
+                timeInPortal = 0.0F;
             }
         }
-        if(field_28016_C > 0)
+        if(timeUntilPortal > 0)
         {
-            field_28016_C--;
+            timeUntilPortal--;
         }
         if(health != lastHealth)
         {
@@ -294,7 +298,7 @@ public class EntityPlayerMP extends EntityPlayer
 
     public void wakeUpPlayer(boolean flag, boolean flag1, boolean flag2)
     {
-        if(func_30001_K())
+        if(func_22057_E())
         {
             EntityTracker entitytracker = mcServer.getEntityTracker(dimension);
             entitytracker.sendPacketToTrackedPlayersAndTrackedEntity(this, new Packet18Animation(this, 3));
@@ -428,7 +432,7 @@ public class EntityPlayerMP extends EntityPlayer
         moveStrafing = f;
         moveForward = f1;
         isJumping = flag;
-        func_21043_b(flag1);
+        setSneaking(flag1);
         rotationPitch = f2;
         rotationYaw = f3;
     }
@@ -450,7 +454,7 @@ public class EntityPlayerMP extends EntityPlayer
         }
     }
 
-    public void func_30003_A()
+    public void func_30002_A()
     {
         if(ridingEntity != null)
         {
@@ -466,7 +470,7 @@ public class EntityPlayerMP extends EntityPlayer
         }
     }
 
-    public void func_30002_B()
+    public void func_30001_B()
     {
         lastHealth = 0xfa0a1f01;
     }

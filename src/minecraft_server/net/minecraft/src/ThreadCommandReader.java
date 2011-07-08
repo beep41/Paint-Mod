@@ -12,8 +12,8 @@ public class ThreadCommandReader extends Thread
 
     public ThreadCommandReader(MinecraftServer minecraftserver)
     {
-        mcServer = minecraftserver;
 //        super();
+        mcServer = minecraftserver;
     }
 
     public void run()

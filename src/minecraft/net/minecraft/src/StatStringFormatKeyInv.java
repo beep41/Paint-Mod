@@ -16,16 +16,16 @@ public class StatStringFormatKeyInv
 
     public StatStringFormatKeyInv(Minecraft minecraft)
     {
-        field_27344_a = minecraft;
 //        super();
+        mc = minecraft;
     }
 
     public String formatString(String s)
     {
         return String.format(s, new Object[] {
-            Keyboard.getKeyName(field_27344_a.gameSettings.keyBindInventory.keyCode)
+            Keyboard.getKeyName(mc.gameSettings.keyBindInventory.keyCode)
         });
     }
 
-    final Minecraft field_27344_a; /* synthetic field */
+    final Minecraft mc; /* synthetic field */
 }

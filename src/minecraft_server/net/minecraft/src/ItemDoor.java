@@ -57,8 +57,8 @@ public class ItemDoor extends Item
         {
             byte0 = 1;
         }
-        int j1 = (world.isBlockOpaqueCube(i - byte0, j, k - byte1) ? 1 : 0) + (world.isBlockOpaqueCube(i - byte0, j + 1, k - byte1) ? 1 : 0);
-        int k1 = (world.isBlockOpaqueCube(i + byte0, j, k + byte1) ? 1 : 0) + (world.isBlockOpaqueCube(i + byte0, j + 1, k + byte1) ? 1 : 0);
+        int j1 = (world.isBlockNormalCube(i - byte0, j, k - byte1) ? 1 : 0) + (world.isBlockNormalCube(i - byte0, j + 1, k - byte1) ? 1 : 0);
+        int k1 = (world.isBlockNormalCube(i + byte0, j, k + byte1) ? 1 : 0) + (world.isBlockNormalCube(i + byte0, j + 1, k + byte1) ? 1 : 0);
         boolean flag = world.getBlockId(i - byte0, j, k - byte1) == block.blockID || world.getBlockId(i - byte0, j + 1, k - byte1) == block.blockID;
         boolean flag1 = world.getBlockId(i + byte0, j, k + byte1) == block.blockID || world.getBlockId(i + byte0, j + 1, k + byte1) == block.blockID;
         boolean flag2 = false;

@@ -14,9 +14,9 @@ class ThreadStatSyncherSend extends Thread
 
     ThreadStatSyncherSend(StatsSyncher statssyncher, Map map)
     {
+//        super();
         field_27232_b = statssyncher;
         field_27233_a = map;
-//        super();
     }
 
     public void run()

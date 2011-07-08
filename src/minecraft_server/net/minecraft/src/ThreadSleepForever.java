@@ -11,8 +11,8 @@ public class ThreadSleepForever extends Thread
 
     public ThreadSleepForever(MinecraftServer minecraftserver)
     {
-        mc = minecraftserver;
 //        super();
+        mc = minecraftserver;
         setDaemon(true);
         start();
     }

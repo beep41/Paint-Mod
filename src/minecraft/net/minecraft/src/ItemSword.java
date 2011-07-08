@@ -6,7 +6,7 @@ package net.minecraft.src;
 
 
 // Referenced classes of package net.minecraft.src:
-//            Item, EnumToolMaterial, ItemStack, Block, 
+//            Item, EnumToolMaterial, Block, ItemStack, 
 //            EntityLiving, Entity
 
 public class ItemSword extends Item
@@ -22,7 +22,7 @@ public class ItemSword extends Item
 
     public float getStrVsBlock(ItemStack itemstack, Block block)
     {
-        return 1.5F;
+        return block.blockID != Block.web.blockID ? 1.5F : 15F;
     }
 
     public boolean hitEntity(ItemStack itemstack, EntityLiving entityliving, EntityLiving entityliving1)
@@ -45,6 +45,11 @@ public class ItemSword extends Item
     public boolean isFull3D()
     {
         return true;
+    }
+
+    public boolean canHarvestBlock(Block block)
+    {
+        return block.blockID == Block.web.blockID;
     }
 
     private int weaponDamage;

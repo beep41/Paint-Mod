@@ -44,11 +44,12 @@ public abstract class Entity
         fire = 0;
         maxAir = 300;
         inWater = false;
-        field_9306_bj = 0;
+        heartsLife = 0;
         air = 300;
         isFirstUpdate = true;
         isImmuneToFire = false;
         dataWatcher = new DataWatcher();
+        entityBrightness = 0.0F;
         addedToChunk = false;
         worldObj = world;
         setPosition(0.0D, 0.0D, 0.0D);
@@ -638,10 +639,15 @@ public abstract class Entity
         int k = MathHelper.floor_double(posZ);
         if(worldObj.checkChunksExist(MathHelper.floor_double(boundingBox.minX), MathHelper.floor_double(boundingBox.minY), MathHelper.floor_double(boundingBox.minZ), MathHelper.floor_double(boundingBox.maxX), MathHelper.floor_double(boundingBox.maxY), MathHelper.floor_double(boundingBox.maxZ)))
         {
-            return worldObj.getLightBrightness(i, j, k);
+            float f1 = worldObj.getLightBrightness(i, j, k);
+            if(f1 < entityBrightness)
+            {
+                f1 = entityBrightness;
+            }
+            return f1;
         } else
         {
-            return 0.0F;
+            return entityBrightness;
         }
     }
 
@@ -943,7 +949,7 @@ public abstract class Entity
             int j = MathHelper.floor_double(posX + (double)f);
             int k = MathHelper.floor_double(posY + (double)getEyeHeight() + (double)f1);
             int l = MathHelper.floor_double(posZ + (double)f2);
-            if(worldObj.func_28100_h(j, k, l))
+            if(worldObj.isBlockNormalCube(j, k, l))
             {
                 return true;
             }
@@ -1171,14 +1177,14 @@ public abstract class Entity
         double d3 = d - (double)i;
         double d4 = d1 - (double)j;
         double d5 = d2 - (double)k;
-        if(worldObj.func_28100_h(i, j, k))
+        if(worldObj.isBlockNormalCube(i, j, k))
         {
-            boolean flag = !worldObj.func_28100_h(i - 1, j, k);
-            boolean flag1 = !worldObj.func_28100_h(i + 1, j, k);
-            boolean flag2 = !worldObj.func_28100_h(i, j - 1, k);
-            boolean flag3 = !worldObj.func_28100_h(i, j + 1, k);
-            boolean flag4 = !worldObj.func_28100_h(i, j, k - 1);
-            boolean flag5 = !worldObj.func_28100_h(i, j, k + 1);
+            boolean flag = !worldObj.isBlockNormalCube(i - 1, j, k);
+            boolean flag1 = !worldObj.isBlockNormalCube(i + 1, j, k);
+            boolean flag2 = !worldObj.isBlockNormalCube(i, j - 1, k);
+            boolean flag3 = !worldObj.isBlockNormalCube(i, j + 1, k);
+            boolean flag4 = !worldObj.isBlockNormalCube(i, j, k - 1);
+            boolean flag5 = !worldObj.isBlockNormalCube(i, j, k + 1);
             byte byte0 = -1;
             double d6 = 9999D;
             if(flag && d3 < d6)
@@ -1289,13 +1295,14 @@ public abstract class Entity
     public int fire;
     protected int maxAir;
     protected boolean inWater;
-    public int field_9306_bj;
+    public int heartsLife;
     public int air;
     private boolean isFirstUpdate;
     public String skinUrl;
     public String cloakUrl;
     protected boolean isImmuneToFire;
     protected DataWatcher dataWatcher;
+    public float entityBrightness;
     private double entityRiderPitchDelta;
     private double entityRiderYawDelta;
     public boolean addedToChunk;

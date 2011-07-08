@@ -30,7 +30,7 @@ public class BlockTrapDoor extends Block
         return false;
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return false;
     }
@@ -130,7 +130,7 @@ public class BlockTrapDoor extends Block
         {
             j1--;
         }
-        if(!world.isBlockOpaqueCube(j1, j, k1))
+        if(!world.isBlockNormalCube(j1, j, k1))
         {
             world.setBlockWithNotify(i, j, k, 0);
             dropBlockAsItem(world, i, j, k, i1);
@@ -170,7 +170,7 @@ public class BlockTrapDoor extends Block
         world.setBlockMetadataWithNotify(i, j, k, byte0);
     }
 
-    public boolean func_28026_e(World world, int i, int j, int k, int l)
+    public boolean canPlaceBlockOnSide(World world, int i, int j, int k, int l)
     {
         if(l == 0)
         {
@@ -196,7 +196,7 @@ public class BlockTrapDoor extends Block
         {
             i--;
         }
-        return world.isBlockOpaqueCube(i, j, k);
+        return world.isBlockNormalCube(i, j, k);
     }
 
     public static boolean func_28038_d(int i)

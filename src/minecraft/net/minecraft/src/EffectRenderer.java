@@ -144,7 +144,8 @@ public class EffectRenderer
                     double d = (double)i + ((double)k1 + 0.5D) / (double)j1;
                     double d1 = (double)j + ((double)l1 + 0.5D) / (double)j1;
                     double d2 = (double)k + ((double)i2 + 0.5D) / (double)j1;
-                    addEffect((new EntityDiggingFX(worldObj, d, d1, d2, d - (double)i - 0.5D, d1 - (double)j - 0.5D, d2 - (double)k - 0.5D, block)).func_4041_a(i, j, k));
+                    int j2 = rand.nextInt(6);
+                    addEffect((new EntityDiggingFX(worldObj, d, d1, d2, d - (double)i - 0.5D, d1 - (double)j - 0.5D, d2 - (double)k - 0.5D, block, j2, i1)).func_4041_a(i, j, k));
                 }
 
             }
@@ -189,7 +190,7 @@ public class EffectRenderer
         {
             d = (double)i + block.maxX + (double)f;
         }
-        addEffect((new EntityDiggingFX(worldObj, d, d1, d2, 0.0D, 0.0D, 0.0D, block)).func_4041_a(i, j, k).func_407_b(0.2F).func_405_d(0.6F));
+        addEffect((new EntityDiggingFX(worldObj, d, d1, d2, 0.0D, 0.0D, 0.0D, block, l, worldObj.getBlockMetadata(i, j, k))).func_4041_a(i, j, k).func_407_b(0.2F).func_405_d(0.6F));
     }
 
     public String getStatistics()

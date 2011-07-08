@@ -5,6 +5,7 @@ Created on Fri Apr  8 16:36:26 2011
 @author: ProfMobius & Searge
 @version: v1.2
 """
+import fnmatch
 import warnings
 warnings.simplefilter('ignore')
 import sys
@@ -21,11 +22,12 @@ from hashlib import md5
 class Commands(object):
     """Contains the commands and initialisation for a full mcp run"""
 
-    MCPVersion = '4.1'
+    MCPVersion = '4.3'
     _instance  = None    #Small trick to create a singleton
     _single    = False   #Small trick to create a singleton
+    _default_config = 'conf/mcp.cfg'
 
-    def __init__(self, conffile):
+    def __init__(self, conffile=None):
         #HINT: This is for the singleton pattern. If we already did __init__, we skip it
         if     Commands._single:return
         if not Commands._single:Commands._single=True
@@ -68,7 +70,7 @@ class Commands(object):
         self.cmdpatch    = self.config.get('COMMANDS', 'CmdPatch%s'%self.osname).replace('/',os.sep).replace('\\',os.sep)
         self.fernflower  = self.config.get('COMMANDS', 'Fernflower').replace('/',os.sep).replace('\\',os.sep)
         self.exceptor    = self.config.get('COMMANDS', 'Exceptor').replace('/',os.sep).replace('\\',os.sep)
-        
+
         self.cmdrg         = self.config.get('COMMANDS', 'CmdRG',         raw=1)%self.cmdjava
         self.cmdrgreobf    = self.config.get('COMMANDS', 'CmdRGReobf',    raw=1)%self.cmdjava
         self.cmdjadretro   = self.config.get('COMMANDS', 'CmdJadretro',   raw=1)%self.cmdjava
@@ -115,7 +117,9 @@ class Commands(object):
     def readconf(self):
         """Read the configuration file to setup some basic paths"""
         config = ConfigParser.SafeConfigParser()
-        config.read(self.conffile)
+        config.readfp(open(self._default_config))
+        if self.conffile is not None:
+            config.read(self.conffile)
         self.config = config
 
         #HINT: We read the directories for cleanup
@@ -229,31 +233,60 @@ class Commands(object):
         self.mcplogfile     = config.get('MCP', 'LogFile')
         self.mcperrlogfile  = config.get('MCP', 'LogFileErr')
 
+        try:
+            self.rgreobconfig   = config.get('RETROGUARD', 'RetroReobConf')
+            self.rgclientreobconf = config.get('RETROGUARD', 'ClientReobConf')
+            self.rgserverreobconf = config.get('RETROGUARD', 'ServerReobConf')
+        except ConfigParser.NoOptionError:
+            pass
+
     def creatergcfg(self):
+        """Create the files necessary for both deobf and obf RetroGuard"""
+        self.createsinglergcfg()
+        self.createsinglergcfg(True)
+
+    def createsinglergcfg(self, reobf=False):
         """Create the files necessary for RetroGuard"""
-        rgout = open(self.rgconfig,'wb')
+        if reobf:
+            rgout = open(self.rgreobconfig, 'wb')
+        else:
+            rgout = open(self.rgconfig, 'wb')
         rgout.write('.option Application\n')
         rgout.write('.option Applet\n')
         rgout.write('.option Repackage\n')
-        rgout.write('.attribute LineNumberTable\n')
+
         rgout.write('.option Annotations\n')
+        rgout.write('.option MapClassString\n')
+        rgout.write('.attribute LineNumberTable\n')
         rgout.write('.attribute EnclosingMethod\n')
         rgout.write('.attribute Deprecated\n')
-        # those will mess up the decompiler patches:
-        #rgout.write('.attribute LocalVariableTable\n')
-        #rgout.write('.attribute LocalVariableTypeTable\n')
-        #rgout.write('.option Generic\n')
-        #rgout.write('.option MapClassString\n')
-        #rgout.write('.attribute SourceFile\n')
+
+        if reobf:
+            # this is obfuscated in vanilla and breaks the patches
+            rgout.write('.attribute SourceFile\n')
+
+            # this will mess up the patches with mods:
+            rgout.write('.attribute LocalVariableTable\n')
+
+            # rg doesn't remap generic signatures:
+            rgout.write('.option Generic\n')
+            rgout.write('.attribute LocalVariableTypeTable\n')
+
         rgout.close()
 
-        rgout = open(self.rgclientconf,'w')
+        if reobf:
+            rgout = open(self.rgclientreobconf,'w')
+        else:
+            rgout = open(self.rgclientconf,'w')
         rgout.write('%s = %s\n'%('startindex', '0'))
         rgout.write('%s = %s\n'%('input', self.jarclient))
         rgout.write('%s = %s\n'%('output', self.rgclientout))
         rgout.write('%s = %s\n'%('reobinput', self.cmpjarclient))
         rgout.write('%s = %s\n'%('reoboutput', self.reobfjarclient))
-        rgout.write('%s = %s\n'%('script', self.rgconfig))
+        if reobf:
+            rgout.write('%s = %s\n'%('script', self.rgreobconfig))
+        else:
+            rgout.write('%s = %s\n'%('script', self.rgconfig))
         rgout.write('%s = %s\n'%('log', self.rgclientlog))
         rgout.write('%s = %s\n'%('packages', self.srgsclient))
         rgout.write('%s = %s\n'%('classes', self.srgsclient))
@@ -266,13 +299,19 @@ class Commands(object):
             rgout.write('%s = %s\n'%('protectedpackage', pkg))
         rgout.close()
 
-        rgout = open(self.rgserverconf,'w')
+        if reobf:
+            rgout = open(self.rgserverreobconf,'w')
+        else:
+            rgout = open(self.rgserverconf,'w')
         rgout.write('%s = %s\n'%('startindex', '0'))
         rgout.write('%s = %s\n'%('input', self.jarserver))
         rgout.write('%s = %s\n'%('output', self.rgserverout))
         rgout.write('%s = %s\n'%('reobinput', self.cmpjarserver))
         rgout.write('%s = %s\n'%('reoboutput', self.reobfjarserver))
-        rgout.write('%s = %s\n'%('script', self.rgconfig))
+        if reobf:
+            rgout.write('%s = %s\n'%('script', self.rgreobconfig))
+        else:
+            rgout.write('%s = %s\n'%('script', self.rgconfig))
         rgout.write('%s = %s\n'%('log', self.rgserverlog))
         rgout.write('%s = %s\n'%('packages', self.srgsserver))
         rgout.write('%s = %s\n'%('classes', self.srgsserver))
@@ -331,7 +370,6 @@ class Commands(object):
             if subprocess.call('javac.exe 1>NUL 2>NUL', shell=True) == 2:
                 self.cmdjava  = 'java.exe'
                 self.cmdjavac = 'javac.exe'
-                self.cmdjar   = 'jar.exe'
                 return
             else:
                 import _winreg
@@ -346,9 +384,8 @@ class Commands(object):
                         if subprocess.call('"%s" 1>NUL 2>NUL' % os.path.join(path, "bin", "javac.exe"), shell=True) == 2:
                             self.cmdjava = '"%s"' % os.path.join(path, "bin", "java.exe")
                             self.cmdjavac = '"%s"' % os.path.join(path, "bin", "javac.exe")
-                            self.cmdjar = '"%s"' % os.path.join(path, "bin", "jar.exe")
                             return
-                    except:
+                    except OSError:
                         pass
 
                 if 'ProgramW6432' in os.environ:
@@ -362,7 +399,6 @@ class Commands(object):
             if subprocess.call('javac 1> /dev/null 2> /dev/null', shell=True) == 2:
                 self.cmdjava  = 'java'
                 self.cmdjavac = 'javac'
-                self.cmdjar   = 'jar'
                 return
             else:
                 results.extend(whereis('javac', '/usr/bin'))
@@ -376,11 +412,9 @@ class Commands(object):
             if self.osname == 'win':
                 self.cmdjavac = '"%s"'%os.path.join(results[0],'javac.exe')
                 self.cmdjava  = '"%s"'%os.path.join(results[0],'java.exe')
-                self.cmdjar   = '"%s"'%os.path.join(results[0],'jar.exe')
             if self.osname  in ['linux','osx']:
                 self.cmdjavac = os.path.join(results[0],'javac')
                 self.cmdjava  = os.path.join(results[0],'java')
-                self.cmdjar   = os.path.join(results[0],'jar')
 
     def checkjars(self, side):
         jarlk     = {0:self.jarclient, 1:self.jarserver}
@@ -545,7 +579,7 @@ class Commands(object):
         if side == 0:
             ffconf = self.ffclientconf
             ffsrc  = self.xclientout
-            
+
         if side == 1:
             ffconf = self.ffserverconf
             ffsrc  = self.xserverout
@@ -612,7 +646,7 @@ class Commands(object):
 
         #HINT: Here we transform the patches to match the directory separator of the specific platform
         patch    = open(patchlk[side],'r').read().splitlines()
-        outpatch = open(self.patchtemp,'w')
+        outpatch = open(self.patchtemp,'wb')
         for line in patch:
             if line[:3] in ['+++','---', 'Onl', 'dif']:
                  outpatch.write(line.replace('\\',os.sep).replace('/',os.sep) + '\r\n')
@@ -629,7 +663,7 @@ class Commands(object):
         while True:
             o = p.stdout.readline()
             retcode = p.poll()
-            if o == '' and retcode != None:
+            if o == '' and retcode is not None:
                 break
             if o != '':
                 buffer.append(o.strip())
@@ -660,7 +694,7 @@ class Commands(object):
 
         #HINT: Here we transform the patches to match the directory separator of the specific platform
         patch    = open(patchlk[side],'r').read().splitlines()
-        outpatch = open(self.patchtemp,'w')
+        outpatch = open(self.patchtemp,'wb')
         for line in patch:
             if line[:3] in ['+++','---', 'Onl', 'dif']:
                  outpatch.write(line.replace('\\',os.sep).replace('/',os.sep) + '\r\n')
@@ -677,7 +711,7 @@ class Commands(object):
         while True:
             o = p.stdout.readline()
             retcode = p.poll()
-            if o == '' and retcode != None:
+            if o == '' and retcode is not None:
                 break
             if o != '':
                 buffer.append(o.strip())
@@ -734,7 +768,7 @@ class Commands(object):
         while True:
             o = p.stdout.readline()
             retcode = p.poll()
-            if o == '' and retcode != None:
+            if o == '' and retcode is not None:
                 break
             if o != '':
                 buffer.append(o.strip())
@@ -773,12 +807,14 @@ class Commands(object):
         self.runmc(forkcmd)
 
     def startclient(self):
-        cpc = list(self.cpathclient)
-        cpc.insert(2, self.binclient)
+        cpc = ['../'+p for p in self.cpathclient]
+        cpc.insert(2, '../'+self.binclient)
         cpc = os.pathsep.join(cpc)
         #self.logger.info("classpath: '"+cpc+"'")
 
-        forkcmd = self.cmdstartclt.format(classpath=cpc, natives=self.dirnatives)
+        os.chdir(self.dirjars)
+
+        forkcmd = self.cmdstartclt.format(classpath=cpc, natives='../'+self.dirnatives)
         self.runmc(forkcmd)
 
     def runcmd(self, forkcmd):
@@ -789,7 +825,7 @@ class Commands(object):
         while True:
             o = p.stdout.readline()
             retcode = p.poll()
-            if o == '' and retcode != None:
+            if o == '' and retcode is not None:
                 break
             if o != '':
                 buffer.append(o.strip())
@@ -811,7 +847,7 @@ class Commands(object):
         while True:
             o = pclient.stdout.readline()
             returnvalue = pclient.poll()
-            if o == '' and returnvalue != None:
+            if o == '' and returnvalue is not None:
                 break
             if o != '':
                 self.loggermc.debug(o.strip())
@@ -855,15 +891,38 @@ class Commands(object):
         zipjar = zipfile.ZipFile(jarlk[side])
         zipjar.extractall(pathbinlk[side])
 
-        if not os.path.exists(pathsrclk[side]):
-            os.mkdir(pathsrclk[side])
+        self.copyandfixsrc(pathbinlk[side], pathsrclk[side])
 
-        srcsrc = os.path.join(pathbinlk[side], self.ffsource).replace('/',os.sep).replace('\\',os.sep)
-        srcdest = os.path.join(pathsrclk[side], self.ffsource).replace('/',os.sep).replace('\\',os.sep)
-        
-        if os.path.exists(srcdest):
-            os.rmtree(srcdest)
-        shutil.copytree(srcsrc, srcdest)
+    def copyandfixsrc(self, src_dir, dest_dir):
+        src_dir = os.path.normpath(src_dir)
+        dest_dir = os.path.normpath(dest_dir)
+
+        for path, dirlist, filelist in os.walk(src_dir):
+            sub_dir = os.path.relpath(path, src_dir)
+            if sub_dir == '.':
+                sub_dir = ''
+
+            for cur_dir in dirlist:
+                if os.path.join(sub_dir, cur_dir).replace(os.sep, '/') in self.ignorepkg:
+                    # if the full subdir is in the ignored package list delete it so that we don't descend into it
+                    dirlist.remove(cur_dir)
+
+            for cur_file in fnmatch.filter(filelist, '*.java'):
+                src_file = os.path.join(src_dir, sub_dir, cur_file)
+                dest_file = os.path.join(dest_dir, sub_dir, cur_file)
+
+                if not os.path.exists(os.path.dirname(dest_file)):
+                    os.makedirs(os.path.dirname(dest_file))
+
+                # don't bother fixing line endings in windows
+                if self.osname == 'win':
+                    shutil.copyfile(src_file, dest_file)
+                else:
+                    # read each line in the file, stripping existing line end and adding dos line end
+                    with open(src_file, 'r') as in_file:
+                        with open(dest_file, 'wb') as out_file:
+                            for line in in_file:
+                                out_file.write(line.rstrip() + '\r\n')
 
     def rename(self, side):
         """Rename the sources using the CSV data"""
@@ -917,8 +976,8 @@ class Commands(object):
                 #HINT: We annotate the GL constants
                 annotate_file(src_file)
 
-    def renamereobsrg(self,side):
-        deoblk = {0:'logs/client_deob.log',1:'logs/server_deob.log'}
+    def renamereobsrg(self, side):
+        deoblk = {0:self.rgclientdeoblog, 1:self.rgserverdeoblog}
         reoblk = {0:self.reobsrgclient, 1:self.reobsrgserver}
 
         deoblog = open(deoblk[side],'r').read()
@@ -980,13 +1039,13 @@ class Commands(object):
     def reobfuscate(self, side):
         # add retroguard.jar to copy of client classpath
         if side == 0:
-            rgconf = self.rgclientconf
+            rgconf = self.rgclientreobconf
             rgcp = [self.retroguard] + self.cpathclient
             rgcp = os.pathsep.join(rgcp)
 
         # add retroguard.jar to copy of server classpath
         if side == 1:
-            rgconf = self.rgserverconf
+            rgconf = self.rgserverreobconf
             rgcp = [self.retroguard] + self.cpathserver
             rgcp = os.pathsep.join(rgcp)
 

@@ -21,7 +21,7 @@ public class BlockFire extends Block
         setTickOnLoad(true);
     }
 
-    public void preRenderSlimeSize()
+    public void initializeBlock()
     {
         setBurnRate(Block.planks.blockID, 5, 20);
         setBurnRate(Block.fence.blockID, 5, 20);
@@ -90,7 +90,7 @@ public class BlockFire extends Block
         world.scheduleBlockUpdate(i, j, k, blockID, tickRate());
         if(!flag && !func_263_h(world, i, j, k))
         {
-            if(!world.func_28100_h(i, j - 1, k) || l > 3)
+            if(!world.isBlockNormalCube(i, j - 1, k) || l > 3)
             {
                 world.setBlockWithNotify(i, j, k, 0);
             }
@@ -166,7 +166,7 @@ public class BlockFire extends Block
             }
             if(flag)
             {
-                Block.tnt.onBlockDestroyedByPlayer(world, i, j, k, 0);
+                Block.tnt.onBlockDestroyedByPlayer(world, i, j, k, 1);
             }
         }
     }
@@ -238,12 +238,12 @@ public class BlockFire extends Block
 
     public boolean canPlaceBlockAt(World world, int i, int j, int k)
     {
-        return world.func_28100_h(i, j - 1, k) || func_263_h(world, i, j, k);
+        return world.isBlockNormalCube(i, j - 1, k) || func_263_h(world, i, j, k);
     }
 
     public void onNeighborBlockChange(World world, int i, int j, int k, int l)
     {
-        if(!world.func_28100_h(i, j - 1, k) && !func_263_h(world, i, j, k))
+        if(!world.isBlockNormalCube(i, j - 1, k) && !func_263_h(world, i, j, k))
         {
             world.setBlockWithNotify(i, j, k, 0);
             return;
@@ -259,7 +259,7 @@ public class BlockFire extends Block
         {
             return;
         }
-        if(!world.func_28100_h(i, j - 1, k) && !func_263_h(world, i, j, k))
+        if(!world.isBlockNormalCube(i, j - 1, k) && !func_263_h(world, i, j, k))
         {
             world.setBlockWithNotify(i, j, k, 0);
             return;
@@ -276,7 +276,7 @@ public class BlockFire extends Block
         {
             world.playSoundEffect((float)i + 0.5F, (float)j + 0.5F, (float)k + 0.5F, "fire.fire", 1.0F + random.nextFloat(), random.nextFloat() * 0.7F + 0.3F);
         }
-        if(world.func_28100_h(i, j - 1, k) || Block.fire.canBlockCatchFire(world, i, j - 1, k))
+        if(world.isBlockNormalCube(i, j - 1, k) || Block.fire.canBlockCatchFire(world, i, j - 1, k))
         {
             for(int l = 0; l < 3; l++)
             {

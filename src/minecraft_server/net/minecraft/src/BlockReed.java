@@ -103,7 +103,7 @@ public class BlockReed extends Block
         return false;
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return false;
     }

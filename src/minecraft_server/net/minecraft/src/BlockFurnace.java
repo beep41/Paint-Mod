@@ -8,8 +8,8 @@ import java.util.Random;
 
 // Referenced classes of package net.minecraft.src:
 //            BlockContainer, Material, Block, World, 
-//            TileEntityFurnace, EntityPlayer, EntityLiving, MathHelper, 
-//            IInventory, ItemStack, EntityItem, TileEntity
+//            TileEntityFurnace, EntityPlayer, TileEntity, EntityLiving, 
+//            MathHelper, IInventory, ItemStack, EntityItem
 
 public class BlockFurnace extends BlockContainer
 {
@@ -109,6 +109,7 @@ public class BlockFurnace extends BlockContainer
         }
         field_28034_c = false;
         world.setBlockMetadataWithNotify(i, j, k, l);
+        tileentity.validate();
         world.setBlockTileEntity(i, j, k, tileentity);
     }
 

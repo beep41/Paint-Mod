@@ -43,7 +43,7 @@ public class BlockPortal extends BlockBreakable
         return false;
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return false;
     }

@@ -8,7 +8,7 @@ import java.util.*;
 
 // Referenced classes of package net.minecraft.src:
 //            Block, Material, World, ChunkPosition, 
-//            Item, IBlockAccess, AxisAlignedBB
+//            Item, IBlockAccess, ModelBed, AxisAlignedBB
 
 public class BlockRedstoneWire extends Block
 {
@@ -53,7 +53,7 @@ public class BlockRedstoneWire extends Block
 
     public boolean canPlaceBlockAt(World world, int i, int j, int k)
     {
-        return world.func_28100_h(i, j - 1, k);
+        return world.isBlockNormalCube(i, j - 1, k);
     }
 
     private void updateAndPropagateCurrentStrength(World world, int i, int j, int k)
@@ -105,7 +105,7 @@ public class BlockRedstoneWire extends Block
                 {
                     l1 = getMaxCurrentStrength(world, k2, j, i3, l1);
                 }
-                if(world.func_28100_h(k2, j, i3) && !world.func_28100_h(i, j + 1, k))
+                if(world.isBlockNormalCube(k2, j, i3) && !world.isBlockNormalCube(i, j + 1, k))
                 {
                     if(k2 != l || j + 1 != i1 || i3 != j1)
                     {
@@ -113,7 +113,7 @@ public class BlockRedstoneWire extends Block
                     }
                     continue;
                 }
-                if(!world.func_28100_h(k2, j, i3) && (k2 != l || j - 1 != i1 || i3 != j1))
+                if(!world.isBlockNormalCube(k2, j, i3) && (k2 != l || j - 1 != i1 || i3 != j1))
                 {
                     l1 = getMaxCurrentStrength(world, k2, j - 1, i3, l1);
                 }
@@ -154,7 +154,7 @@ public class BlockRedstoneWire extends Block
                 {
                     j3++;
                 }
-                if(world.func_28100_h(l2, j, j3))
+                if(world.isBlockNormalCube(l2, j, j3))
                 {
                     k3 += 2;
                 }
@@ -226,28 +226,28 @@ public class BlockRedstoneWire extends Block
         notifyWireNeighborsOfNeighborChange(world, i + 1, j, k);
         notifyWireNeighborsOfNeighborChange(world, i, j, k - 1);
         notifyWireNeighborsOfNeighborChange(world, i, j, k + 1);
-        if(world.func_28100_h(i - 1, j, k))
+        if(world.isBlockNormalCube(i - 1, j, k))
         {
             notifyWireNeighborsOfNeighborChange(world, i - 1, j + 1, k);
         } else
         {
             notifyWireNeighborsOfNeighborChange(world, i - 1, j - 1, k);
         }
-        if(world.func_28100_h(i + 1, j, k))
+        if(world.isBlockNormalCube(i + 1, j, k))
         {
             notifyWireNeighborsOfNeighborChange(world, i + 1, j + 1, k);
         } else
         {
             notifyWireNeighborsOfNeighborChange(world, i + 1, j - 1, k);
         }
-        if(world.func_28100_h(i, j, k - 1))
+        if(world.isBlockNormalCube(i, j, k - 1))
         {
             notifyWireNeighborsOfNeighborChange(world, i, j + 1, k - 1);
         } else
         {
             notifyWireNeighborsOfNeighborChange(world, i, j - 1, k - 1);
         }
-        if(world.func_28100_h(i, j, k + 1))
+        if(world.isBlockNormalCube(i, j, k + 1))
         {
             notifyWireNeighborsOfNeighborChange(world, i, j + 1, k + 1);
         } else
@@ -270,28 +270,28 @@ public class BlockRedstoneWire extends Block
         notifyWireNeighborsOfNeighborChange(world, i + 1, j, k);
         notifyWireNeighborsOfNeighborChange(world, i, j, k - 1);
         notifyWireNeighborsOfNeighborChange(world, i, j, k + 1);
-        if(world.func_28100_h(i - 1, j, k))
+        if(world.isBlockNormalCube(i - 1, j, k))
         {
             notifyWireNeighborsOfNeighborChange(world, i - 1, j + 1, k);
         } else
         {
             notifyWireNeighborsOfNeighborChange(world, i - 1, j - 1, k);
         }
-        if(world.func_28100_h(i + 1, j, k))
+        if(world.isBlockNormalCube(i + 1, j, k))
         {
             notifyWireNeighborsOfNeighborChange(world, i + 1, j + 1, k);
         } else
         {
             notifyWireNeighborsOfNeighborChange(world, i + 1, j - 1, k);
         }
-        if(world.func_28100_h(i, j, k - 1))
+        if(world.isBlockNormalCube(i, j, k - 1))
         {
             notifyWireNeighborsOfNeighborChange(world, i, j + 1, k - 1);
         } else
         {
             notifyWireNeighborsOfNeighborChange(world, i, j - 1, k - 1);
         }
-        if(world.func_28100_h(i, j, k + 1))
+        if(world.isBlockNormalCube(i, j, k + 1))
         {
             notifyWireNeighborsOfNeighborChange(world, i, j + 1, k + 1);
         } else
@@ -365,25 +365,25 @@ public class BlockRedstoneWire extends Block
         {
             return true;
         }
-        boolean flag = isPowerProviderOrWire(iblockaccess, i - 1, j, k) || !iblockaccess.func_28100_h(i - 1, j, k) && isPowerProviderOrWire(iblockaccess, i - 1, j - 1, k);
-        boolean flag1 = isPowerProviderOrWire(iblockaccess, i + 1, j, k) || !iblockaccess.func_28100_h(i + 1, j, k) && isPowerProviderOrWire(iblockaccess, i + 1, j - 1, k);
-        boolean flag2 = isPowerProviderOrWire(iblockaccess, i, j, k - 1) || !iblockaccess.func_28100_h(i, j, k - 1) && isPowerProviderOrWire(iblockaccess, i, j - 1, k - 1);
-        boolean flag3 = isPowerProviderOrWire(iblockaccess, i, j, k + 1) || !iblockaccess.func_28100_h(i, j, k + 1) && isPowerProviderOrWire(iblockaccess, i, j - 1, k + 1);
-        if(!iblockaccess.func_28100_h(i, j + 1, k))
+        boolean flag = isPowerProviderOrWire(iblockaccess, i - 1, j, k, 1) || !iblockaccess.isBlockNormalCube(i - 1, j, k) && isPowerProviderOrWire(iblockaccess, i - 1, j - 1, k, -1);
+        boolean flag1 = isPowerProviderOrWire(iblockaccess, i + 1, j, k, 3) || !iblockaccess.isBlockNormalCube(i + 1, j, k) && isPowerProviderOrWire(iblockaccess, i + 1, j - 1, k, -1);
+        boolean flag2 = isPowerProviderOrWire(iblockaccess, i, j, k - 1, 2) || !iblockaccess.isBlockNormalCube(i, j, k - 1) && isPowerProviderOrWire(iblockaccess, i, j - 1, k - 1, -1);
+        boolean flag3 = isPowerProviderOrWire(iblockaccess, i, j, k + 1, 0) || !iblockaccess.isBlockNormalCube(i, j, k + 1) && isPowerProviderOrWire(iblockaccess, i, j - 1, k + 1, -1);
+        if(!iblockaccess.isBlockNormalCube(i, j + 1, k))
         {
-            if(iblockaccess.func_28100_h(i - 1, j, k) && isPowerProviderOrWire(iblockaccess, i - 1, j + 1, k))
+            if(iblockaccess.isBlockNormalCube(i - 1, j, k) && isPowerProviderOrWire(iblockaccess, i - 1, j + 1, k, -1))
             {
                 flag = true;
             }
-            if(iblockaccess.func_28100_h(i + 1, j, k) && isPowerProviderOrWire(iblockaccess, i + 1, j + 1, k))
+            if(iblockaccess.isBlockNormalCube(i + 1, j, k) && isPowerProviderOrWire(iblockaccess, i + 1, j + 1, k, -1))
             {
                 flag1 = true;
             }
-            if(iblockaccess.func_28100_h(i, j, k - 1) && isPowerProviderOrWire(iblockaccess, i, j + 1, k - 1))
+            if(iblockaccess.isBlockNormalCube(i, j, k - 1) && isPowerProviderOrWire(iblockaccess, i, j + 1, k - 1, -1))
             {
                 flag2 = true;
             }
-            if(iblockaccess.func_28100_h(i, j, k + 1) && isPowerProviderOrWire(iblockaccess, i, j + 1, k + 1))
+            if(iblockaccess.isBlockNormalCube(i, j, k + 1) && isPowerProviderOrWire(iblockaccess, i, j + 1, k + 1, -1))
             {
                 flag3 = true;
             }
@@ -440,18 +440,29 @@ public class BlockRedstoneWire extends Block
         }
     }
 
-    public static boolean isPowerProviderOrWire(IBlockAccess iblockaccess, int i, int j, int k)
+    public static boolean isPowerProviderOrWire(IBlockAccess iblockaccess, int i, int j, int k, int l)
     {
-        int l = iblockaccess.getBlockId(i, j, k);
-        if(l == Block.redstoneWire.blockID)
+        int i1 = iblockaccess.getBlockId(i, j, k);
+        if(i1 == Block.redstoneWire.blockID)
         {
             return true;
         }
-        if(l == 0)
+        if(i1 == 0)
         {
             return false;
         }
-        return Block.blocksList[l].canProvidePower();
+        if(Block.blocksList[i1].canProvidePower())
+        {
+            return true;
+        }
+        if(i1 == Block.redstoneRepeaterIdle.blockID || i1 == Block.redstoneRepeaterActive.blockID)
+        {
+            int j1 = iblockaccess.getBlockMetadata(i, j, k);
+            return l == ModelBed.field_22279_b[j1 & 3];
+        } else
+        {
+            return false;
+        }
     }
 
     private boolean wiresProvidePower;

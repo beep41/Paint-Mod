@@ -4,17 +4,18 @@
 
 package net.minecraft.src;
 
+import java.util.Random;
 
 // Referenced classes of package net.minecraft.src:
-//            Block, Material, Entity, World, 
-//            AxisAlignedBB
+//            Block, Material, Entity, Item, 
+//            World, AxisAlignedBB
 
 public class BlockWeb extends Block
 {
 
     public BlockWeb(int i, int j)
     {
-        super(i, j, Material.cloth);
+        super(i, j, Material.field_31068_A);
     }
 
     public void onEntityCollidedWithBlock(World world, int i, int j, int k, Entity entity)
@@ -35,5 +36,15 @@ public class BlockWeb extends Block
     public int getRenderType()
     {
         return 1;
+    }
+
+    public boolean renderAsNormalBlock()
+    {
+        return false;
+    }
+
+    public int idDropped(int i, Random random)
+    {
+        return Item.silk.shiftedIndex;
     }
 }

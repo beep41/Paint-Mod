@@ -182,3 +182,12 @@ Caused by: org.eclipse.core.internal.resources.ResourceException: A resource exi
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1384)
 !SUBENTRY 1 org.eclipse.core.resources 4 275 2011-07-05 11:52:40.671
 !MESSAGE A resource exists with a different case: '/Client/src/net/minecraft'.
+!SESSION 2011-07-06 21:35:36.266 -----------------------------------------------
+eclipse.buildId=I20110613-1736
+java.version=1.6.0_26
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY org.eclipse.mylyn.tasks.ui 2 0 2011-07-06 21:35:39.889
+!MESSAGE No search provider was registed. Tasks search is not available.

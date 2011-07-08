@@ -14,8 +14,8 @@ final class J_JsonFieldNodeSelector extends J_LeafFunctor
 
     J_JsonFieldNodeSelector(J_JsonStringNode j_jsonstringnode)
     {
-        field_27066_a = j_jsonstringnode;
 //        super();
+        field_27066_a = j_jsonstringnode;
     }
 
     public boolean func_27065_a(Map map)

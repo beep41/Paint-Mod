@@ -305,7 +305,7 @@ public class EntityWolf extends EntityAnimal
             {
                 for(int i1 = 0; i1 <= 4; i1++)
                 {
-                    if((l < 1 || i1 < 1 || l > 3 || i1 > 3) && worldObj.func_28100_h(i + l, k - 1, j + i1) && !worldObj.func_28100_h(i + l, k, j + i1) && !worldObj.func_28100_h(i + l, k + 1, j + i1))
+                    if((l < 1 || i1 < 1 || l > 3 || i1 > 3) && worldObj.isBlockNormalCube(i + l, k - 1, j + i1) && !worldObj.isBlockNormalCube(i + l, k, j + i1) && !worldObj.isBlockNormalCube(i + l, k + 1, j + i1))
                     {
                         setLocationAndAngles((float)(i + l) + 0.5F, k, (float)(j + i1) + 0.5F, rotationYaw, rotationPitch);
                         return;

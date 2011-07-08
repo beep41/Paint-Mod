@@ -14,7 +14,8 @@ public class MaterialLiquid extends Material
     public MaterialLiquid(MapColor mapcolor)
     {
         super(mapcolor);
-        func_27284_f();
+        setIsGroundCover();
+        setNoPushMobility();
     }
 
     public boolean getIsLiquid()

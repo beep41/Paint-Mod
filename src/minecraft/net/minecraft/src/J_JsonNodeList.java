@@ -15,8 +15,8 @@ final class J_JsonNodeList extends ArrayList
 
     J_JsonNodeList(Iterable iterable)
     {
-        field_27405_a = iterable;
 //        super();
+        field_27405_a = iterable;
         J_JsonNode j_jsonnode;
         for(Iterator iterator = field_27405_a.iterator(); iterator.hasNext(); add(j_jsonnode))
         {

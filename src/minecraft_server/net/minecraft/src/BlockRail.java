@@ -80,7 +80,7 @@ public class BlockRail extends Block
         return blockIndexInTexture;
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return false;
     }
@@ -92,7 +92,7 @@ public class BlockRail extends Block
 
     public boolean canPlaceBlockAt(World world, int i, int j, int k)
     {
-        return world.isBlockOpaqueCube(i, j - 1, k);
+        return world.isBlockNormalCube(i, j - 1, k);
     }
 
     public void onBlockAdded(World world, int i, int j, int k)
@@ -116,23 +116,23 @@ public class BlockRail extends Block
             j1 &= 7;
         }
         boolean flag = false;
-        if(!world.isBlockOpaqueCube(i, j - 1, k))
+        if(!world.isBlockNormalCube(i, j - 1, k))
         {
             flag = true;
         }
-        if(j1 == 2 && !world.isBlockOpaqueCube(i + 1, j, k))
+        if(j1 == 2 && !world.isBlockNormalCube(i + 1, j, k))
         {
             flag = true;
         }
-        if(j1 == 3 && !world.isBlockOpaqueCube(i - 1, j, k))
+        if(j1 == 3 && !world.isBlockNormalCube(i - 1, j, k))
         {
             flag = true;
         }
-        if(j1 == 4 && !world.isBlockOpaqueCube(i, j, k - 1))
+        if(j1 == 4 && !world.isBlockNormalCube(i, j, k - 1))
         {
             flag = true;
         }
-        if(j1 == 5 && !world.isBlockOpaqueCube(i, j, k + 1))
+        if(j1 == 5 && !world.isBlockNormalCube(i, j, k + 1))
         {
             flag = true;
         }
@@ -299,6 +299,11 @@ public class BlockRail extends Block
             }
         }
         return false;
+    }
+
+    public int getMobilityFlag()
+    {
+        return 0;
     }
 
     static boolean func_27033_a(BlockRail blockrail)

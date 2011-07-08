@@ -190,11 +190,6 @@ public class BlockStairs extends Block
         modelBlock.dropBlockAsItemWithChance(world, i, j, k, l, f);
     }
 
-    public void dropBlockAsItem(World world, int i, int j, int k, int l)
-    {
-        modelBlock.dropBlockAsItem(world, i, j, k, l);
-    }
-
     public void onEntityWalking(World world, int i, int j, int k, Entity entity)
     {
         modelBlock.onEntityWalking(world, i, j, k, entity);

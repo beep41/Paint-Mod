@@ -296,7 +296,7 @@ public abstract class EntityLiving extends Entity
         attackedAtYaw = 0.0F;
         if(flag)
         {
-            worldObj.func_9206_a(this, (byte)2);
+            worldObj.sendTrackedEntityStatusUpdatePacket(this, (byte)2);
             setBeenAttacked();
             if(entity != null)
             {
@@ -385,7 +385,7 @@ public abstract class EntityLiving extends Entity
         {
             dropFewItems();
         }
-        worldObj.func_9206_a(this, (byte)3);
+        worldObj.sendTrackedEntityStatusUpdatePacket(this, (byte)3);
     }
 
     protected void dropFewItems()
@@ -825,7 +825,7 @@ public abstract class EntityLiving extends Entity
         return 4;
     }
 
-    public boolean func_30001_K()
+    public boolean func_22057_E()
     {
         return false;
     }

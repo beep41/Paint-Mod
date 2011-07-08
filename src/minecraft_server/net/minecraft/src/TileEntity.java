@@ -11,7 +11,7 @@ import java.util.Map;
 // Referenced classes of package net.minecraft.src:
 //            NBTTagCompound, World, TileEntityFurnace, TileEntityChest, 
 //            TileEntityRecordPlayer, TileEntityDispenser, TileEntitySign, TileEntityMobSpawner, 
-//            TileEntityNote, Packet
+//            TileEntityNote, TileEntityPiston, Packet
 
 public class TileEntity
 {
@@ -85,17 +85,37 @@ public class TileEntity
         return tileentity;
     }
 
+    public int func_31005_e()
+    {
+        return worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+    }
+
     public void onInventoryChanged()
     {
         if(worldObj != null)
         {
-            worldObj.func_515_b(xCoord, yCoord, zCoord, this);
+            worldObj.updateTileEntityChunkAndDoNothing(xCoord, yCoord, zCoord, this);
         }
     }
 
     public Packet getDescriptionPacket()
     {
         return null;
+    }
+
+    public boolean isInvalid()
+    {
+        return tileEntityInvalid;
+    }
+
+    public void invalidate()
+    {
+        tileEntityInvalid = true;
+    }
+
+    public void validate()
+    {
+        tileEntityInvalid = false;
     }
 
     static Class _mthclass$(String s)
@@ -116,6 +136,7 @@ public class TileEntity
     public int xCoord;
     public int yCoord;
     public int zCoord;
+    protected boolean tileEntityInvalid;
 
     static 
     {
@@ -126,5 +147,6 @@ public class TileEntity
         addMapping(net.minecraft.src.TileEntitySign.class, "Sign");
         addMapping(net.minecraft.src.TileEntityMobSpawner.class, "MobSpawner");
         addMapping(net.minecraft.src.TileEntityNote.class, "Music");
+        addMapping(net.minecraft.src.TileEntityPiston.class, "Piston");
     }
 }

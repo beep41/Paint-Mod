@@ -16,9 +16,9 @@ class SorterStatsItem
 
     SorterStatsItem(GuiSlotStatsItem guislotstatsitem, GuiStats guistats)
     {
+//        super();
         field_27372_b = guislotstatsitem;
         field_27373_a = guistats;
-//        super();
     }
 
     public int func_27371_a(StatCrafting statcrafting, StatCrafting statcrafting1)
@@ -52,8 +52,8 @@ class SorterStatsItem
             {
                 return -1;
             }
-            int k = GuiStats.func_27142_c(field_27372_b.field_27275_a).func_27184_a(statbase);
-            int l = GuiStats.func_27142_c(field_27372_b.field_27275_a).func_27184_a(statbase1);
+            int k = GuiStats.func_27142_c(field_27372_b.field_27275_a).writeStat(statbase);
+            int l = GuiStats.func_27142_c(field_27372_b.field_27275_a).writeStat(statbase1);
             if(k != l)
             {
                 return (k - l) * field_27372_b.field_27270_f;

@@ -166,6 +166,7 @@ public class EntitySquid extends EntityWaterMob
             field_21051_as = -0.1F + rand.nextFloat() * 0.2F;
             field_21050_at = MathHelper.sin(f) * 0.2F;
         }
+        func_27013_Q();
     }
 
     public float field_21063_a;

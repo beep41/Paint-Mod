@@ -229,7 +229,7 @@ public class ConsoleCommandHandler
                     for(int k1 = 0; k1 < minecraftServer.worldMngr.length; k1++)
                     {
                         WorldServer worldserver3 = minecraftServer.worldMngr[k1];
-                        worldserver3.setWorldTime(worldserver3.getWorldTime() + (long)i1);
+                        worldserver3.func_32005_b(worldserver3.getWorldTime() + (long)i1);
                     }
 
                     sendNoticeToOps(s1, (new StringBuilder()).append("Added ").append(i1).append(" to time").toString());
@@ -239,7 +239,7 @@ public class ConsoleCommandHandler
                     for(int l1 = 0; l1 < minecraftServer.worldMngr.length; l1++)
                     {
                         WorldServer worldserver4 = minecraftServer.worldMngr[l1];
-                        worldserver4.setWorldTime(i1);
+                        worldserver4.func_32005_b(i1);
                     }
 
                     sendNoticeToOps(s1, (new StringBuilder()).append("Set time to ").append(i1).toString());

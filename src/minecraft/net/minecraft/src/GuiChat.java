@@ -61,7 +61,7 @@ public class GuiChat extends GuiScreen
         }
         if(field_20082_i.indexOf(c) >= 0 && message.length() < 100)
         {
-        	message += c;
+            message += c;
         }
     }
 
@@ -85,7 +85,7 @@ public class GuiChat extends GuiScreen
         }
         if(message.length() > 0 && !message.endsWith(" "))
         {
-        	message += " ";
+            message += " ";
         }
         message += mc.ingameGUI.field_933_a;
         byte byte0 = 100;

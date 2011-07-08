@@ -13,8 +13,8 @@ class ThreadMonitorConnection extends Thread
 
     ThreadMonitorConnection(NetworkManager networkmanager)
     {
-        netManager = networkmanager;
 //        super();
+        netManager = networkmanager;
     }
 
     public void run()

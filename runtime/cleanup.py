@@ -7,10 +7,11 @@ Created on Sat Apr  9 13:51:48 2011
 """
 
 import sys, shutil, os, glob, logging, time, stat
+from optparse import OptionParser
 from commands import Commands
 if sys.version_info[0] == 3:
     raw_input=input
-def main(conffile, force=False):
+def main(conffile=None, force=False):
 
     if sys.version_info[0] == 3:
         print ('ERROR : Python3 is not supported yet.')
@@ -61,13 +62,18 @@ def main(conffile, force=False):
 def reallyrmtree(dir):
     i = 0
     try:
-        while (os.stat(dir) and i < 20):
+        while os.stat(dir) and i < 20:
             shutil.rmtree(dir, onerror=onerror)
-            i = i + 1
-    except:
+            i += 1
+    except OSError:
         pass
 
-    return (i != 20)
+    try:
+        os.stat(dir)
+    except OSError:
+        return True
+    else:
+        return False
 
 def onerror(func, path, exc_info):
     if not os.access(path, os.W_OK):
@@ -77,15 +83,13 @@ def onerror(func, path, exc_info):
 
     try:
         func(path)
-    except:
+    except OSError:
         pass
 
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        print("Syntax: python cleanup.py <configfile>")
-        sys.exit(0)
-    if len(sys.argv) == 3 and sys.argv[2] == '-f':
-        main(sys.argv[1], True)
-    else:
-        main(sys.argv[1])
+    parser = OptionParser(version='MCP %s' % Commands.MCPVersion)
+    parser.add_option('-f', '--force', action='store_true', dest='force', help='force cleanup', default=False)
+    parser.add_option('-c', '--config', dest='config', help='additional configuration file')
+    (options, args) = parser.parse_args()
+    main(options.config, options.force)

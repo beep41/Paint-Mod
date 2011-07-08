@@ -7,38 +7,40 @@ package net.minecraft.src;
 
 public enum EnumMobType
 {
-    everything,
-    mobs,
-    players;
+    everything("everything", 0),
+    mobs("mobs", 1),
+    players("players", 2);
 /*
     public static EnumMobType[] values()
     {
-        return (EnumMobType[])d.clone();
+        return (EnumMobType[])field_1340_d.clone();
     }
 
     public static EnumMobType valueOf(String s)
     {
         return (EnumMobType)Enum.valueOf(net.minecraft.src.EnumMobType.class, s);
     }
-
+*/
     private EnumMobType(String s, int i)
     {
-        super(s, i);
+//        super(s, i);
     }
-
+/*
     public static final EnumMobType everything;
     public static final EnumMobType mobs;
     public static final EnumMobType players;
-    private static final EnumMobType d[]; /* synthetic field */
-/*
+*/
+    private static final EnumMobType field_1340_d[]; /* synthetic field */
+
     static 
     {
+/*
         everything = new EnumMobType("everything", 0);
         mobs = new EnumMobType("mobs", 1);
         players = new EnumMobType("players", 2);
-        d = (new EnumMobType[] {
+*/
+        field_1340_d = (new EnumMobType[] {
             everything, mobs, players
         });
     }
-*/
 }

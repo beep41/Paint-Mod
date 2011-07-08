@@ -32,7 +32,7 @@ public class BlockFarmland extends Block
         return false;
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return false;
     }
@@ -56,7 +56,7 @@ public class BlockFarmland extends Block
     {
         if(random.nextInt(5) == 0)
         {
-            if(isWaterNearby(world, i, j, k) || world.func_27072_q(i, j + 1, k))
+            if(isWaterNearby(world, i, j, k) || world.canLightningStrikeAt(i, j + 1, k))
             {
                 world.setBlockMetadataWithNotify(i, j, k, 7);
             } else

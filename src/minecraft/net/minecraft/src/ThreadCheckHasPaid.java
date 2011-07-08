@@ -16,8 +16,8 @@ public class ThreadCheckHasPaid extends Thread
 
     public ThreadCheckHasPaid(Minecraft minecraft)
     {
-        field_28146_a = minecraft;
 //        super();
+        field_28146_a = minecraft;
     }
 
     public void run()

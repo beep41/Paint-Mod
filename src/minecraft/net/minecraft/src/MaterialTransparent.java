@@ -14,7 +14,7 @@ public class MaterialTransparent extends Material
     public MaterialTransparent(MapColor mapcolor)
     {
         super(mapcolor);
-        func_27284_f();
+        setIsGroundCover();
     }
 
     public boolean isSolid()

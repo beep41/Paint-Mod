@@ -39,14 +39,14 @@ public class BlockPressurePlate extends Block
         return false;
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return false;
     }
 
     public boolean canPlaceBlockAt(World world, int i, int j, int k)
     {
-        return world.isBlockOpaqueCube(i, j - 1, k);
+        return world.isBlockNormalCube(i, j - 1, k);
     }
 
     public void onBlockAdded(World world, int i, int j, int k)
@@ -56,7 +56,7 @@ public class BlockPressurePlate extends Block
     public void onNeighborBlockChange(World world, int i, int j, int k, int l)
     {
         boolean flag = false;
-        if(!world.isBlockOpaqueCube(i, j - 1, k))
+        if(!world.isBlockNormalCube(i, j - 1, k))
         {
             flag = true;
         }
@@ -186,6 +186,11 @@ public class BlockPressurePlate extends Block
     public boolean canProvidePower()
     {
         return true;
+    }
+
+    public int getMobilityFlag()
+    {
+        return 1;
     }
 
     private EnumMobType triggerMobType;

@@ -1,7 +1,7 @@
 import java.io.File;
 import java.lang.reflect.Field;
 
-import net.minecraft.client.Minecraft; 
+import net.minecraft.client.Minecraft;
 
 public class Start
 {
@@ -14,14 +14,14 @@ public class Start
 			// this makes it a portable version
 			Field f = Minecraft.class.getDeclaredField("minecraftDir");
 			Field.setAccessible(new Field[] { f }, true);
-			f.set(null, new File("jars"));
+			f.set(null, new File("."));
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 			return;
 		}
-		
+
 		// start minecraft game application
 		Minecraft.main(args);
 
@@ -38,7 +38,7 @@ public class Start
 			e.printStackTrace();
 			return;
 		}
-		
+
 		// make sure no nagging message will come up during testing
 		Thread noNagging = new Thread("nonagging") {
 
@@ -49,7 +49,7 @@ public class Start
 				{
 					if(mc.hasPaidCheckTime > 0)
 						mc.hasPaidCheckTime = 0;
-					
+
 					try
 					{
 						Thread.sleep(10);
@@ -59,11 +59,11 @@ public class Start
 					}
 				}
 			}
-			
+
 		};
-		
+
 		// start our no-nagging thread
 		noNagging.start();
 	}
-	
+
 }

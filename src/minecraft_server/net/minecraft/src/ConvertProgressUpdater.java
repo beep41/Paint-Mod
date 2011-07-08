@@ -16,8 +16,8 @@ public class ConvertProgressUpdater
 
     public ConvertProgressUpdater(MinecraftServer minecraftserver)
     {
-        mcServer = minecraftserver;
 //        super();
+        mcServer = minecraftserver;
         lastTimeMillis = System.currentTimeMillis();
     }
 

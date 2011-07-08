@@ -28,11 +28,11 @@ public class BlockStationary extends BlockFluid
         super.onNeighborBlockChange(world, i, j, k, l);
         if(world.getBlockId(i, j, k) == blockID)
         {
-            func_30006_i(world, i, j, k);
+            func_30005_i(world, i, j, k);
         }
     }
 
-    private void func_30006_i(World world, int i, int j, int k)
+    private void func_30005_i(World world, int i, int j, int k)
     {
         int l = world.getBlockMetadata(i, j, k);
         world.editingBlocks = true;

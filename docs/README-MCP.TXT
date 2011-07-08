@@ -1,4 +1,4 @@
-Minecraft mod creator pack 4.1 for Minecraft 1.6.6
+Minecraft mod creator pack 4.3 for Minecraft 1.7.3
 ==================================================
 
 Prerequisites:
@@ -165,6 +165,8 @@ and of course:
 
 History:
 ========
+4.3  - Updated to support Minecraft 1.7.3 and MinecraftServer 1.7.3
+4.2  - Updated to support Minecraft 1.7.2 and MinecraftServer 1.7.2
 4.1  - Added an Eclipse workspace and included a reobfuscation bugfix
 4.0  - Added improved decompile scripts with new Exceptor tool
 3.4  - Updated to support Minecraft 1.6.6 and MinecraftServer 1.6.6
@@ -197,7 +199,7 @@ History:
 
 Roadmap:
 ========
-4.2+ - New awesome features, improvements and updates :)
+4.4+ - New awesome features, improvements and updates :)
 
 _________________________________________________________________________________________________________________
 _________________________________________________________________________________________________________________

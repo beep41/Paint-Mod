@@ -147,7 +147,7 @@ public final class ItemStack
         return Item.itemsList[itemID].getMaxDamage();
     }
 
-    public void func_25125_a(int i, Entity entity)
+    public void damageItem(int i, Entity entity)
     {
         if(!isItemStackDamageable())
         {

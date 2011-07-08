@@ -6,9 +6,10 @@ Created on Fri Apr  8 16:54:36 2011
 @version: v1.0
 """
 import sys, time
+from optparse import OptionParser
 from commands import Commands
 
-def main(conffile):
+def main(conffile=None):
     commands = Commands(conffile)
 
     commands.logger.info ('> Recompiling client...')
@@ -26,7 +27,7 @@ def main(conffile):
         commands.logger.info ('> Done in %.2f seconds'%(time.time()-servertime))
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        print("Syntax: python recompile.py <configfile>")
-        sys.exit(0)
-    main(sys.argv[1])
+    parser = OptionParser(version='MCP %s' % Commands.MCPVersion)
+    parser.add_option('-c', '--config', dest='config', help='additional configuration file')
+    (options, args) = parser.parse_args()
+    main(options.config)

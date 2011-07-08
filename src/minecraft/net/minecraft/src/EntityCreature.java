@@ -7,8 +7,8 @@ package net.minecraft.src;
 import java.util.Random;
 
 // Referenced classes of package net.minecraft.src:
-//            EntityLiving, World, Entity, MathHelper, 
-//            AxisAlignedBB, PathEntity, Vec3D
+//            EntityLiving, World, Entity, AxisAlignedBB, 
+//            MathHelper, PathEntity, Vec3D
 
 public class EntityCreature extends EntityLiving
 {
@@ -56,35 +56,11 @@ public class EntityCreature extends EntityLiving
         } else
         if(!hasAttacked && (pathToEntity == null && rand.nextInt(80) == 0 || rand.nextInt(80) == 0))
         {
-            boolean flag = false;
-            int j = -1;
-            int k = -1;
-            int l = -1;
-            float f2 = -99999F;
-            for(int i1 = 0; i1 < 10; i1++)
-            {
-                int j1 = MathHelper.floor_double((posX + (double)rand.nextInt(13)) - 6D);
-                int k1 = MathHelper.floor_double((posY + (double)rand.nextInt(7)) - 3D);
-                int l1 = MathHelper.floor_double((posZ + (double)rand.nextInt(13)) - 6D);
-                float f3 = getBlockPathWeight(j1, k1, l1);
-                if(f3 > f2)
-                {
-                    f2 = f3;
-                    j = j1;
-                    k = k1;
-                    l = l1;
-                    flag = true;
-                }
-            }
-
-            if(flag)
-            {
-                pathToEntity = worldObj.getEntityPathToXYZ(this, j, k, l, 10F);
-            }
+            func_31026_E();
         }
         int i = MathHelper.floor_double(boundingBox.minY + 0.5D);
-        boolean flag1 = isInWater();
-        boolean flag2 = handleLavaMovement();
+        boolean flag = isInWater();
+        boolean flag1 = handleLavaMovement();
         rotationPitch = 0.0F;
         if(pathToEntity == null || rand.nextInt(100) == 0)
         {
@@ -112,29 +88,29 @@ public class EntityCreature extends EntityLiving
             double d1 = vec3d.xCoord - posX;
             double d2 = vec3d.zCoord - posZ;
             double d3 = vec3d.yCoord - (double)i;
-            float f4 = (float)((Math.atan2(d2, d1) * 180D) / 3.1415927410125732D) - 90F;
-            float f5 = f4 - rotationYaw;
+            float f2 = (float)((Math.atan2(d2, d1) * 180D) / 3.1415927410125732D) - 90F;
+            float f3 = f2 - rotationYaw;
             moveForward = moveSpeed;
-            for(; f5 < -180F; f5 += 360F) { }
-            for(; f5 >= 180F; f5 -= 360F) { }
-            if(f5 > 30F)
+            for(; f3 < -180F; f3 += 360F) { }
+            for(; f3 >= 180F; f3 -= 360F) { }
+            if(f3 > 30F)
             {
-                f5 = 30F;
+                f3 = 30F;
             }
-            if(f5 < -30F)
+            if(f3 < -30F)
             {
-                f5 = -30F;
+                f3 = -30F;
             }
-            rotationYaw += f5;
+            rotationYaw += f3;
             if(hasAttacked && playerToAttack != null)
             {
                 double d4 = playerToAttack.posX - posX;
                 double d5 = playerToAttack.posZ - posZ;
-                float f7 = rotationYaw;
+                float f5 = rotationYaw;
                 rotationYaw = (float)((Math.atan2(d5, d4) * 180D) / 3.1415927410125732D) - 90F;
-                float f6 = (((f7 - rotationYaw) + 90F) * 3.141593F) / 180F;
-                moveStrafing = -MathHelper.sin(f6) * moveForward * 1.0F;
-                moveForward = MathHelper.cos(f6) * moveForward * 1.0F;
+                float f4 = (((f5 - rotationYaw) + 90F) * 3.141593F) / 180F;
+                moveStrafing = -MathHelper.sin(f4) * moveForward * 1.0F;
+                moveForward = MathHelper.cos(f4) * moveForward * 1.0F;
             }
             if(d3 > 0.0D)
             {
@@ -149,9 +125,38 @@ public class EntityCreature extends EntityLiving
         {
             isJumping = true;
         }
-        if(rand.nextFloat() < 0.8F && (flag1 || flag2))
+        if(rand.nextFloat() < 0.8F && (flag || flag1))
         {
             isJumping = true;
+        }
+    }
+
+    protected void func_31026_E()
+    {
+        boolean flag = false;
+        int i = -1;
+        int j = -1;
+        int k = -1;
+        float f = -99999F;
+        for(int l = 0; l < 10; l++)
+        {
+            int i1 = MathHelper.floor_double((posX + (double)rand.nextInt(13)) - 6D);
+            int j1 = MathHelper.floor_double((posY + (double)rand.nextInt(7)) - 3D);
+            int k1 = MathHelper.floor_double((posZ + (double)rand.nextInt(13)) - 6D);
+            float f1 = getBlockPathWeight(i1, j1, k1);
+            if(f1 > f)
+            {
+                f = f1;
+                i = i1;
+                j = j1;
+                k = k1;
+                flag = true;
+            }
+        }
+
+        if(flag)
+        {
+            pathToEntity = worldObj.getEntityPathToXYZ(this, i, j, k, 10F);
         }
     }
 

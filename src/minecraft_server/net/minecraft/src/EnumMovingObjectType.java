@@ -7,35 +7,37 @@ package net.minecraft.src;
 
 public enum EnumMovingObjectType
 {
-    TILE,
-    ENTITY;
+    TILE("TILE", 0),
+    ENTITY("ENTITY", 1);
 /*
     public static EnumMovingObjectType[] values()
     {
-        return (EnumMovingObjectType[])c.clone();
+        return (EnumMovingObjectType[])field_21124_c.clone();
     }
 
     public static EnumMovingObjectType valueOf(String s)
     {
         return (EnumMovingObjectType)Enum.valueOf(net.minecraft.src.EnumMovingObjectType.class, s);
     }
-
+*/
     private EnumMovingObjectType(String s, int i)
     {
-        super(s, i);
+//        super(s, i);
     }
-
+/*
     public static final EnumMovingObjectType TILE;
     public static final EnumMovingObjectType ENTITY;
-    private static final EnumMovingObjectType c[]; /* synthetic field */
-/*
+*/
+    private static final EnumMovingObjectType field_21124_c[]; /* synthetic field */
+
     static 
     {
+/*
         TILE = new EnumMovingObjectType("TILE", 0);
         ENTITY = new EnumMovingObjectType("ENTITY", 1);
-        c = (new EnumMovingObjectType[] {
+*/
+        field_21124_c = (new EnumMovingObjectType[] {
             TILE, ENTITY
         });
     }
-*/
 }

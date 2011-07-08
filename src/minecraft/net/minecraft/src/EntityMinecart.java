@@ -437,22 +437,22 @@ label0:
                 } else
                 if(i1 == 1)
                 {
-                    if(worldObj.func_28100_h(i - 1, j, k))
+                    if(worldObj.isBlockNormalCube(i - 1, j, k))
                     {
                         motionX = 0.02D;
                     } else
-                    if(worldObj.func_28100_h(i + 1, j, k))
+                    if(worldObj.isBlockNormalCube(i + 1, j, k))
                     {
                         motionX = -0.02D;
                     }
                 } else
                 if(i1 == 0)
                 {
-                    if(worldObj.func_28100_h(i, j, k - 1))
+                    if(worldObj.isBlockNormalCube(i, j, k - 1))
                     {
                         motionZ = 0.02D;
                     } else
-                    if(worldObj.func_28100_h(i, j, k + 1))
+                    if(worldObj.isBlockNormalCube(i, j, k + 1))
                     {
                         motionZ = -0.02D;
                     }

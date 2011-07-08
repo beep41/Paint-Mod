@@ -77,11 +77,11 @@ public class MapGenCavesHell extends MapGenBase
             {
                 continue;
             }
-            double d8 = d - d4;
-            double d9 = d2 - d5;
-            double d10 = l - k;
+            double d8a = d - d4;
+            double d9a = d2 - d5;
+            double d10a = l - k;
             double d11 = f + 2.0F + 16F;
-            if((d8 * d8 + d9 * d9) - d10 * d10 > d11 * d11)
+            if((d8a * d8a + d9a * d9a) - d10a * d10a > d11 * d11)
             {
                 return;
             }
@@ -89,11 +89,11 @@ public class MapGenCavesHell extends MapGenBase
             {
                 continue;
             }
-            d8 = MathHelper.floor_double(d - d6) - i * 16 - 1;
+            int d8 = MathHelper.floor_double(d - d6) - i * 16 - 1;
             int k1 = (MathHelper.floor_double(d + d6) - i * 16) + 1;
-            d9 = MathHelper.floor_double(d1 - d7) - 1;
+            int d9 = MathHelper.floor_double(d1 - d7) - 1;
             int l1 = MathHelper.floor_double(d1 + d7) + 1;
-            d10 = MathHelper.floor_double(d2 - d6) - j * 16 - 1;
+            int d10 = MathHelper.floor_double(d2 - d6) - j * 16 - 1;
             int i2 = (MathHelper.floor_double(d2 + d6) - j * 16) + 1;
             if(d8 < 0)
             {
@@ -120,9 +120,9 @@ public class MapGenCavesHell extends MapGenBase
                 i2 = 16;
             }
             boolean flag2 = false;
-            for(int j2 = (int) d8; !flag2 && j2 < k1; j2++)
+            for(int j2 = d8; !flag2 && j2 < k1; j2++)
             {
-                for(int l2 = (int) d10; !flag2 && l2 < i2; l2++)
+                for(int l2 = d10; !flag2 && l2 < i2; l2++)
                 {
                     for(int i3 = l1 + 1; !flag2 && i3 >= d9 - 1; i3--)
                     {
@@ -137,7 +137,7 @@ public class MapGenCavesHell extends MapGenBase
                         }
                         if(i3 != d9 - 1 && j2 != d8 && j2 != k1 - 1 && l2 != d10 && l2 != i2 - 1)
                         {
-                            i3 = (int) d9;
+                            i3 = d9;
                         }
                     }
 
@@ -149,10 +149,10 @@ public class MapGenCavesHell extends MapGenBase
             {
                 continue;
             }
-            for(int k2 = (int) d8; k2 < k1; k2++)
+            for(int k2 = d8; k2 < k1; k2++)
             {
                 double d12 = (((double)(k2 + i * 16) + 0.5D) - d) / d6;
-                for(int k3 = (int) d10; k3 < i2; k3++)
+                for(int k3 = d10; k3 < i2; k3++)
                 {
                     double d13 = (((double)(k3 + j * 16) + 0.5D) - d2) / d6;
                     int l3 = (k2 * 16 + k3) * 128 + l1;

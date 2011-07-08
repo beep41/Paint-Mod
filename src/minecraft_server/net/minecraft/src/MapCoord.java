@@ -13,8 +13,8 @@ public class MapCoord
 
     public MapCoord(MapData mapdata, byte byte0, byte byte1, byte byte2, byte byte3)
     {
-        field_28203_e = mapdata;
 //        super();
+        field_28203_e = mapdata;
         field_28202_a = byte0;
         field_28201_b = byte1;
         field_28205_c = byte2;

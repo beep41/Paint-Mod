@@ -15,9 +15,9 @@ class J_ArrayNodeContainer
 
     J_ArrayNodeContainer(J_JsonListenerToJdomAdapter j_jsonlistenertojdomadapter, J_JsonArrayNodeBuilder j_jsonarraynodebuilder)
     {
+//        super();
         field_27293_b = j_jsonlistenertojdomadapter;
         field_27294_a = j_jsonarraynodebuilder;
-//        super();
     }
 
     public void func_27290_a(J_JsonNodeBuilder j_jsonnodebuilder)

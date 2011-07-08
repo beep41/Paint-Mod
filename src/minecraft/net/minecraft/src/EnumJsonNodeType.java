@@ -7,29 +7,29 @@ package net.minecraft.src;
 
 public enum EnumJsonNodeType
 {
-    OBJECT,
-    ARRAY,
-    STRING,
-    NUMBER,
-    TRUE,
-    FALSE,
-    NULL;
+    OBJECT("OBJECT", 0),
+    ARRAY("ARRAY", 1),
+    STRING("STRING", 2),
+    NUMBER("NUMBER", 3),
+    TRUE("TRUE", 4),
+    FALSE("FALSE", 5),
+    NULL("NULL", 6);
 /*
     public static EnumJsonNodeType[] values()
     {
-        return (EnumJsonNodeType[])h.clone();
+        return (EnumJsonNodeType[])field_27442_h.clone();
     }
 
     public static EnumJsonNodeType valueOf(String s)
     {
         return (EnumJsonNodeType)Enum.valueOf(net.minecraft.src.EnumJsonNodeType.class, s);
     }
-
+*/
     private EnumJsonNodeType(String s, int i)
     {
-        super(s, i);
+//        super(s, i);
     }
-
+/*
     public static final EnumJsonNodeType OBJECT;
     public static final EnumJsonNodeType ARRAY;
     public static final EnumJsonNodeType STRING;
@@ -37,10 +37,12 @@ public enum EnumJsonNodeType
     public static final EnumJsonNodeType TRUE;
     public static final EnumJsonNodeType FALSE;
     public static final EnumJsonNodeType NULL;
-    private static final EnumJsonNodeType h[]; /* synthetic field */
-/*
+*/
+    private static final EnumJsonNodeType field_27442_h[]; /* synthetic field */
+
     static 
     {
+/*
         OBJECT = new EnumJsonNodeType("OBJECT", 0);
         ARRAY = new EnumJsonNodeType("ARRAY", 1);
         STRING = new EnumJsonNodeType("STRING", 2);
@@ -48,9 +50,9 @@ public enum EnumJsonNodeType
         TRUE = new EnumJsonNodeType("TRUE", 4);
         FALSE = new EnumJsonNodeType("FALSE", 5);
         NULL = new EnumJsonNodeType("NULL", 6);
-        h = (new EnumJsonNodeType[] {
+*/
+        field_27442_h = (new EnumJsonNodeType[] {
             OBJECT, ARRAY, STRING, NUMBER, TRUE, FALSE, NULL
         });
     }
-*/
 }

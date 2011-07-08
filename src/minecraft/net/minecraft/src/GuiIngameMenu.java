@@ -45,7 +45,7 @@ public class GuiIngameMenu extends GuiScreen
         }
         if(guibutton.id == 1)
         {
-            mc.statFileWriter.func_25100_a(StatList.leaveGameStat, 1);
+            mc.statFileWriter.readStat(StatList.leaveGameStat, 1);
             if(mc.isMultiplayerWorld())
             {
                 mc.theWorld.sendQuittingDisconnectingPacket();

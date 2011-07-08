@@ -48,7 +48,7 @@ class GuiSlotStatsGeneral extends GuiSlot
     {
         StatBase statbase = (StatBase)StatList.field_25187_b.get(i);
         field_27276_a.drawString(GuiStats.func_27145_b(field_27276_a), statbase.statName, j + 2, k + 1, i % 2 != 0 ? 0x909090 : 0xffffff);
-        String s = statbase.func_27084_a(GuiStats.func_27142_c(field_27276_a).func_27184_a(statbase));
+        String s = statbase.func_27084_a(GuiStats.func_27142_c(field_27276_a).writeStat(statbase));
         field_27276_a.drawString(GuiStats.func_27140_d(field_27276_a), s, (j + 2 + 213) - GuiStats.func_27146_e(field_27276_a).getStringWidth(s), k + 1, i % 2 != 0 ? 0x909090 : 0xffffff);
     }
 

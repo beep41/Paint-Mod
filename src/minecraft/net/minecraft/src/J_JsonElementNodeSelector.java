@@ -14,8 +14,8 @@ final class J_JsonElementNodeSelector extends J_LeafFunctor
 
     J_JsonElementNodeSelector(int i)
     {
-        field_27069_a = i;
 //        super();
+        field_27069_a = i;
     }
 
     public boolean func_27067_a(List list)

@@ -43,6 +43,9 @@ public class RecipesTools
 
         }
 
+        craftingmanager.addRecipe(new ItemStack(Item.field_31022_bc), new Object[] {
+            " #", "# ", Character.valueOf('#'), Item.ingotIron
+        });
     }
 
     private String recipePatterns[][] = {

@@ -51,7 +51,7 @@ public class BlockMushroom extends BlockFlower
             return false;
         } else
         {
-            return world.func_28098_j(i, j, k) < 13 && canThisPlantGrowOnThisBlockID(world.getBlockId(i, j - 1, k));
+            return world.getBlockLightValueNoChecks(i, j, k) < 13 && canThisPlantGrowOnThisBlockID(world.getBlockId(i, j - 1, k));
         }
     }
 }

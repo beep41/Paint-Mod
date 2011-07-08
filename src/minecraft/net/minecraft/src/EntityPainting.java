@@ -271,6 +271,24 @@ public class EntityPainting extends Entity
         func_412_b(direction);
     }
 
+    public void moveEntity(double d, double d1, double d2)
+    {
+        if(!worldObj.multiplayerWorld && d * d + d1 * d1 + d2 * d2 > 0.0D)
+        {
+            setEntityDead();
+            worldObj.entityJoinedWorld(new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Item.painting)));
+        }
+    }
+
+    public void addVelocity(double d, double d1, double d2)
+    {
+        if(!worldObj.multiplayerWorld && d * d + d1 * d1 + d2 * d2 > 0.0D)
+        {
+            setEntityDead();
+            worldObj.entityJoinedWorld(new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Item.painting)));
+        }
+    }
+
     private int field_695_c;
     public int direction;
     public int xPosition;

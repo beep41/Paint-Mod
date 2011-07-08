@@ -35,6 +35,11 @@ public class ColorizerFoliage
         return 0x80a755;
     }
 
+    public static int func_31073_c()
+    {
+        return 0x48b518;
+    }
+
     private static int foliageBuffer[] = new int[0x10000];
 
 }

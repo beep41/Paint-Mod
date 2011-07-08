@@ -15,7 +15,7 @@ public enum EnumOptions
     VIEW_BOBBING("VIEW_BOBBING", 5, "options.viewBobbing", false, true),
     ANAGLYPH("ANAGLYPH", 6, "options.anaglyph", false, true),
     ADVANCED_OPENGL("ADVANCED_OPENGL", 7, "options.advancedOpengl", false, true),
-    LIMIT_FRAMERATE("FRAMERATE_LIMIT", 8, "options.framerateLimit", false, false),
+    FRAMERATE_LIMIT("FRAMERATE_LIMIT", 8, "options.framerateLimit", false, false),
     DIFFICULTY("DIFFICULTY", 9, "options.difficulty", false, false),
     GRAPHICS("GRAPHICS", 10, "options.graphics", false, false),
     AMBIENT_OCCLUSION("AMBIENT_OCCLUSION", 11, "options.ao", false, true),
@@ -23,7 +23,7 @@ public enum EnumOptions
 /*
     public static EnumOptions[] values()
     {
-        return (EnumOptions[])q.clone();
+        return (EnumOptions[])field_20141_n.clone();
     }
 
     public static EnumOptions valueOf(String s)
@@ -83,7 +83,7 @@ public enum EnumOptions
     public static final EnumOptions VIEW_BOBBING;
     public static final EnumOptions ANAGLYPH;
     public static final EnumOptions ADVANCED_OPENGL;
-    public static final EnumOptions LIMIT_FRAMERATE;
+    public static final EnumOptions FRAMERATE_LIMIT;
     public static final EnumOptions DIFFICULTY;
     public static final EnumOptions GRAPHICS;
     public static final EnumOptions AMBIENT_OCCLUSION;
@@ -92,10 +92,11 @@ public enum EnumOptions
     private final boolean enumFloat;
     private final boolean enumBoolean;
     private final String enumString;
-//    private static final EnumOptions q[]; /* synthetic field */
-/*
+    private static final EnumOptions field_20141_n[]; /* synthetic field */
+
     static 
     {
+/*
         MUSIC = new EnumOptions("MUSIC", 0, "options.music", true, false);
         SOUND = new EnumOptions("SOUND", 1, "options.sound", true, false);
         INVERT_MOUSE = new EnumOptions("INVERT_MOUSE", 2, "options.invertMouse", false, true);
@@ -104,15 +105,15 @@ public enum EnumOptions
         VIEW_BOBBING = new EnumOptions("VIEW_BOBBING", 5, "options.viewBobbing", false, true);
         ANAGLYPH = new EnumOptions("ANAGLYPH", 6, "options.anaglyph", false, true);
         ADVANCED_OPENGL = new EnumOptions("ADVANCED_OPENGL", 7, "options.advancedOpengl", false, true);
-        LIMIT_FRAMERATE = new EnumOptions("FRAMERATE_LIMIT", 8, "options.framerateLimit", false, false);
+        FRAMERATE_LIMIT = new EnumOptions("FRAMERATE_LIMIT", 8, "options.framerateLimit", false, false);
         DIFFICULTY = new EnumOptions("DIFFICULTY", 9, "options.difficulty", false, false);
         GRAPHICS = new EnumOptions("GRAPHICS", 10, "options.graphics", false, false);
         AMBIENT_OCCLUSION = new EnumOptions("AMBIENT_OCCLUSION", 11, "options.ao", false, true);
         GUI_SCALE = new EnumOptions("GUI_SCALE", 12, "options.guiScale", false, false);
-        q = (new EnumOptions[] {
-            MUSIC, SOUND, INVERT_MOUSE, SENSITIVITY, RENDER_DISTANCE, VIEW_BOBBING, ANAGLYPH, ADVANCED_OPENGL, LIMIT_FRAMERATE, DIFFICULTY, 
+*/
+        field_20141_n = (new EnumOptions[] {
+            MUSIC, SOUND, INVERT_MOUSE, SENSITIVITY, RENDER_DISTANCE, VIEW_BOBBING, ANAGLYPH, ADVANCED_OPENGL, FRAMERATE_LIMIT, DIFFICULTY, 
             GRAPHICS, AMBIENT_OCCLUSION, GUI_SCALE
         });
     }
-*/
 }

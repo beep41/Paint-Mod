@@ -16,8 +16,8 @@ import java.util.Random;
 //            ItemBucket, ItemMinecart, ItemSaddle, ItemRedstone, 
 //            ItemSnowball, ItemBoat, ItemReed, ItemEgg, 
 //            ItemFishingRod, ItemDye, ItemBed, ItemCookie, 
-//            ItemMap, ItemRecord, StatList, EntityPlayer, 
-//            World, EntityLiving, Entity
+//            ItemMap, ItemShears, ItemRecord, StatList, 
+//            EntityPlayer, World, EntityLiving, Entity
 
 public class Item
 {
@@ -318,6 +318,7 @@ public class Item
     public static Item redstoneRepeater;
     public static Item cookie = (new ItemCookie(101, 1, false, 8)).setIconCoord(12, 5).setItemName("cookie");
     public static ItemMap mapItem = (ItemMap)(new ItemMap(102)).setIconCoord(12, 3).setItemName("map");
+    public static ItemShears shears = (ItemShears)(new ItemShears(103)).setIconCoord(13, 5).setItemName("shears");
     public static Item record13 = (new ItemRecord(2000, "13")).setIconCoord(0, 15).setItemName("record");
     public static Item recordCat = (new ItemRecord(2001, "cat")).setIconCoord(1, 15).setItemName("record");
     public final int shiftedIndex;

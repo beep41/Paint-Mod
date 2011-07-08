@@ -39,13 +39,13 @@ public class ItemTool extends Item
 
     public boolean hitEntity(ItemStack itemstack, EntityLiving entityliving, EntityLiving entityliving1)
     {
-        itemstack.func_25125_a(2, entityliving1);
+        itemstack.damageItem(2, entityliving1);
         return true;
     }
 
     public boolean func_25007_a(ItemStack itemstack, int i, int j, int k, int l, EntityLiving entityliving)
     {
-        itemstack.func_25125_a(1, entityliving);
+        itemstack.damageItem(1, entityliving);
         return true;
     }
 

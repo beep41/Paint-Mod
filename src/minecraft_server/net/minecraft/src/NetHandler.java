@@ -221,7 +221,7 @@ public abstract class NetHandler
         registerPacket(packet104windowitems);
     }
 
-    public void func_20005_a(Packet130UpdateSign packet130updatesign)
+    public void handleUpdateSign(Packet130UpdateSign packet130updatesign)
     {
         registerPacket(packet130updatesign);
     }

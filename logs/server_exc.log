@@ -7,6 +7,9 @@ FINE: Class: net/minecraft/src/Packet7UseEntity Extends: net/minecraft/src/Packe
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet7UseEntity.func_70_a(Ljava/io/DataInputStream;)V
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet7UseEntity.func_68_a(Ljava/io/DataOutputStream;)V
 INFO: Processed 979 -> 1000
+INFO: Processing net/minecraft/src/StepSoundStone.class
+FINE: Class: net/minecraft/src/StepSoundStone Extends: net/minecraft/src/StepSound
+INFO: Processed 252 -> 211
 INFO: Processing net/minecraft/src/NoiseGeneratorPerlin.class
 FINE: Class: net/minecraft/src/NoiseGeneratorPerlin Extends: net/minecraft/src/NoiseGenerator
 INFO: Processed 3302 -> 3281
@@ -46,7 +49,7 @@ FINE: Class: net/minecraft/src/ItemBucket Extends: net/minecraft/src/Item
 INFO: Processed 3537 -> 3528
 INFO: Processing net/minecraft/src/WorldGenFlowers.class
 FINE: Class: net/minecraft/src/WorldGenFlowers Extends: net/minecraft/src/WorldGenerator
-INFO: Processed 837 -> 825
+INFO: Processed 834 -> 825
 INFO: Processing net/minecraft/src/IChunkLoader.class
 FINE: Class: net/minecraft/src/IChunkLoader Extends: java/lang/Object
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/IChunkLoader.func_659_a(Lnet/minecraft/src/World;II)Lnet/minecraft/src/Chunk;
@@ -64,7 +67,10 @@ FINE: Class: net/minecraft/src/SpawnListEntry Extends: java/lang/Object
 INFO: Processed 366 -> 315
 INFO: Processing net/minecraft/src/BlockLeaves.class
 FINE: Class: net/minecraft/src/BlockLeaves Extends: net/minecraft/src/BlockLeavesBase
-INFO: Processed 3133 -> 3110
+INFO: Processed 3924 -> 3898
+INFO: Processing net/minecraft/src/ItemShears.class
+FINE: Class: net/minecraft/src/ItemShears Extends: net/minecraft/src/Item
+INFO: Processed 1119 -> 1093
 INFO: Processing net/minecraft/src/StatTypeDistance.class
 FINE: Class: net/minecraft/src/StatTypeDistance Extends: java/lang/Object
 INFO: Processed 258 -> 214
@@ -74,30 +80,30 @@ INFO: Processed 2647 -> 2629
 INFO: Processing net/minecraft/src/StatTypeTime.class
 FINE: Class: net/minecraft/src/StatTypeTime Extends: java/lang/Object
 INFO: Processed 254 -> 210
-INFO: Processing net/minecraft/src/ChunkCoordinates.class
-FINE: Class: net/minecraft/src/ChunkCoordinates Extends: java/lang/Object
-INFO: Processed 1174 -> 1153
-INFO: Processing net/minecraft/src/StatTypeSimple.class
-FINE: Class: net/minecraft/src/StatTypeSimple Extends: java/lang/Object
-INFO: Processed 256 -> 212
 INFO: Processing net/minecraft/src/EntityGhast.class
 FINE: Class: net/minecraft/src/EntityGhast Extends: net/minecraft/src/EntityFlying
 INFO: Processed 5038 -> 4986
+INFO: Processing net/minecraft/src/StatTypeSimple.class
+FINE: Class: net/minecraft/src/StatTypeSimple Extends: java/lang/Object
+INFO: Processed 256 -> 212
+INFO: Processing net/minecraft/src/ChunkCoordinates.class
+FINE: Class: net/minecraft/src/ChunkCoordinates Extends: java/lang/Object
+INFO: Processed 1174 -> 1153
 INFO: Processing net/minecraft/src/BlockRedstoneOre.class
 FINE: Class: net/minecraft/src/BlockRedstoneOre Extends: net/minecraft/src/Block
 INFO: Processed 2378 -> 2340
+INFO: Processing net/minecraft/src/AchievementMap.class
+FINE: Class: net/minecraft/src/AchievementMap Extends: java/lang/Object
+INFO: Processed 1369 -> 1354
 INFO: Processing net/minecraft/src/Vec3D.class
 FINE: Class: net/minecraft/src/Vec3D Extends: java/lang/Object
 INFO: Processed 2777 -> 2750
 INFO: Processing net/minecraft/src/EnumToolMaterial.class
 FINE: Class: net/minecraft/src/EnumToolMaterial Extends: java/lang/Enum
-INFO: Processed 1539 -> 1469
-INFO: Processing net/minecraft/src/AchievementMap.class
-FINE: Class: net/minecraft/src/AchievementMap Extends: java/lang/Object
-INFO: Processed 1369 -> 1354
+INFO: Processed 1554 -> 1481
 INFO: Processing net/minecraft/src/BlockPressurePlate.class
 FINE: Class: net/minecraft/src/BlockPressurePlate Extends: net/minecraft/src/Block
-INFO: Processed 3637 -> 3617
+INFO: Processed 3695 -> 3672
 INFO: Processing net/minecraft/src/EntityCow.class
 FINE: Class: net/minecraft/src/EntityCow Extends: net/minecraft/src/EntityAnimal
 INFO: Processed 1578 -> 1566
@@ -120,7 +126,7 @@ FINE: Class: net/minecraft/src/NoiseGenerator2 Extends: java/lang/Object
 INFO: Processed 2150 -> 2120
 INFO: Processing net/minecraft/src/EntityFireball.class
 FINE: Class: net/minecraft/src/EntityFireball Extends: net/minecraft/src/Entity
-INFO: Processed 5731 -> 5691
+INFO: Processed 5728 -> 5691
 INFO: Processing net/minecraft/src/ItemBlock.class
 FINE: Class: net/minecraft/src/ItemBlock Extends: net/minecraft/src/Item
 INFO: Processed 1851 -> 1842
@@ -159,25 +165,25 @@ FINE: Class: net/minecraft/src/ItemFishingRod Extends: net/minecraft/src/Item
 INFO: Processed 1254 -> 1245
 INFO: Processing net/minecraft/src/EnumStatus.class
 FINE: Class: net/minecraft/src/EnumStatus Extends: java/lang/Enum
-INFO: Processed 1008 -> 942
+INFO: Processed 1023 -> 954
 INFO: Processing net/minecraft/src/TileEntityMobSpawner.class
 FINE: Class: net/minecraft/src/TileEntityMobSpawner Extends: net/minecraft/src/TileEntity
-INFO: Processed 3256 -> 3235
+INFO: Processed 3298 -> 3277
 INFO: Processing net/minecraft/src/BlockRedstoneTorch.class
 FINE: Class: net/minecraft/src/BlockRedstoneTorch Extends: net/minecraft/src/BlockTorch
 INFO: Processed 3688 -> 3649
 INFO: Processing net/minecraft/src/BlockMobSpawner.class
 FINE: Class: net/minecraft/src/BlockMobSpawner Extends: net/minecraft/src/BlockContainer
 INFO: Processed 706 -> 697
+INFO: Processing net/minecraft/src/EntityLightningBolt.class
+FINE: Class: net/minecraft/src/EntityLightningBolt Extends: net/minecraft/src/EntityWeatherEffect
+INFO: Processed 2744 -> 2732
 INFO: Processing net/minecraft/src/NoiseGenerator.class
 FINE: Class: net/minecraft/src/NoiseGenerator Extends: java/lang/Object
 INFO: Processed 189 -> 177
 INFO: Processing net/minecraft/src/PathEntity.class
 FINE: Class: net/minecraft/src/PathEntity Extends: java/lang/Object
 INFO: Processed 1092 -> 1083
-INFO: Processing net/minecraft/src/EntityLightningBolt.class
-FINE: Class: net/minecraft/src/EntityLightningBolt Extends: net/minecraft/src/EntityWeatherEffect
-INFO: Processed 2744 -> 2732
 INFO: Processing net/minecraft/src/Packet22Collect.class
 FINE: Class: net/minecraft/src/Packet22Collect Extends: net/minecraft/src/Packet
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet22Collect.func_70_a(Ljava/io/DataInputStream;)V
@@ -188,7 +194,7 @@ FINE: Class: net/minecraft/src/WorldGenLakes Extends: net/minecraft/src/WorldGen
 INFO: Processed 2767 -> 2753
 INFO: Processing net/minecraft/src/EntitySheep.class
 FINE: Class: net/minecraft/src/EntitySheep Extends: net/minecraft/src/EntityAnimal
-INFO: Processed 3463 -> 3451
+INFO: Processed 4128 -> 4119
 INFO: Processing net/minecraft/src/ItemSnowball.class
 FINE: Class: net/minecraft/src/ItemSnowball Extends: net/minecraft/src/Item
 INFO: Processed 958 -> 949
@@ -218,7 +224,7 @@ FINE: Class: net/minecraft/src/ChunkFile Extends: java/lang/Object
 INFO: Processed 1375 -> 1312
 INFO: Processing net/minecraft/src/EnumSkyBlock.class
 FINE: Class: net/minecraft/src/EnumSkyBlock Extends: java/lang/Enum
-INFO: Processed 879 -> 854
+INFO: Processed 892 -> 864
 INFO: Processing net/minecraft/src/ICrafting.class
 FINE: Class: net/minecraft/src/ICrafting Extends: java/lang/Object
 INFO: Processed 310 -> 301
@@ -255,6 +261,9 @@ INFO: Processed 3102 -> 3051
 INFO: Processing net/minecraft/src/AxisAlignedBB.class
 FINE: Class: net/minecraft/src/AxisAlignedBB Extends: java/lang/Object
 INFO: Processed 5085 -> 5055
+INFO: Processing net/minecraft/src/PathPoint.class
+FINE: Class: net/minecraft/src/PathPoint Extends: java/lang/Object
+INFO: Processed 1491 -> 1470
 INFO: Processing net/minecraft/src/WorldGenDungeons.class
 FINE: Class: net/minecraft/src/WorldGenDungeons Extends: net/minecraft/src/WorldGenerator
 INFO: Processed 3270 -> 3261
@@ -263,9 +272,6 @@ FINE: Class: net/minecraft/src/Packet8UpdateHealth Extends: net/minecraft/src/Pa
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet8UpdateHealth.func_70_a(Ljava/io/DataInputStream;)V
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet8UpdateHealth.func_68_a(Ljava/io/DataOutputStream;)V
 INFO: Processed 884 -> 908
-INFO: Processing net/minecraft/src/PathPoint.class
-FINE: Class: net/minecraft/src/PathPoint Extends: java/lang/Object
-INFO: Processed 1491 -> 1470
 INFO: Processing net/minecraft/src/Packet13PlayerLookMove.class
 FINE: Class: net/minecraft/src/Packet13PlayerLookMove Extends: net/minecraft/src/Packet10Flying
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet13PlayerLookMove.func_70_a(Ljava/io/DataInputStream;)V
@@ -273,7 +279,7 @@ FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet13Player
 INFO: Processed 1208 -> 1229
 INFO: Processing net/minecraft/src/ChunkCache.class
 FINE: Class: net/minecraft/src/ChunkCache Extends: java/lang/Object
-INFO: Processed 1599 -> 1587
+INFO: Processed 1765 -> 1750
 INFO: Processing net/minecraft/src/FurnaceRecipes.class
 FINE: Class: net/minecraft/src/FurnaceRecipes Extends: java/lang/Object
 INFO: Processed 2112 -> 2094
@@ -293,13 +299,13 @@ FINE: Class: net/minecraft/src/BlockPumpkin Extends: net/minecraft/src/Block
 INFO: Processed 1567 -> 1552
 INFO: Processing net/minecraft/src/World.class
 FINE: Class: net/minecraft/src/World Extends: java/lang/Object
-INFO: Processed 37277 -> 37311
+INFO: Processed 38234 -> 38268
 INFO: Processing net/minecraft/src/IMob.class
 FINE: Class: net/minecraft/src/IMob Extends: java/lang/Object
 INFO: Processed 120 -> 108
 INFO: Processing net/minecraft/src/EntityPlayerMP.class
 FINE: Class: net/minecraft/src/EntityPlayerMP Extends: net/minecraft/src/EntityPlayer
-INFO: Processed 12588 -> 12527
+INFO: Processed 12621 -> 12560
 INFO: Processing net/minecraft/src/WorldManager.class
 FINE: Class: net/minecraft/src/WorldManager Extends: java/lang/Object
 INFO: Processed 2050 -> 2038
@@ -344,21 +350,21 @@ INFO: Processed 847 -> 829
 INFO: Processing net/minecraft/src/Pathfinder.class
 FINE: Class: net/minecraft/src/Pathfinder Extends: java/lang/Object
 INFO: Processed 5284 -> 5275
-INFO: Processing net/minecraft/src/WorldGenCactus.class
-FINE: Class: net/minecraft/src/WorldGenCactus Extends: net/minecraft/src/WorldGenerator
-INFO: Processed 817 -> 805
-INFO: Processing net/minecraft/src/EntityBoat.class
-FINE: Class: net/minecraft/src/EntityBoat Extends: net/minecraft/src/Entity
-INFO: Processed 6812 -> 6752
 INFO: Processing net/minecraft/src/BlockChest.class
 FINE: Class: net/minecraft/src/BlockChest Extends: net/minecraft/src/BlockContainer
 INFO: Processed 3197 -> 3179
+INFO: Processing net/minecraft/src/WorldGenCactus.class
+FINE: Class: net/minecraft/src/WorldGenCactus Extends: net/minecraft/src/WorldGenerator
+INFO: Processed 814 -> 805
+INFO: Processing net/minecraft/src/EntityBoat.class
+FINE: Class: net/minecraft/src/EntityBoat Extends: net/minecraft/src/Entity
+INFO: Processed 6809 -> 6752
 INFO: Processing net/minecraft/src/EntityCreeper.class
 FINE: Class: net/minecraft/src/EntityCreeper Extends: net/minecraft/src/EntityMob
 INFO: Processed 3425 -> 3398
 INFO: Processing net/minecraft/src/WorldGenGlowStone1.class
 FINE: Class: net/minecraft/src/WorldGenGlowStone1 Extends: net/minecraft/src/WorldGenerator
-INFO: Processed 1019 -> 1010
+INFO: Processed 1022 -> 1010
 INFO: Processing net/minecraft/src/NetLoginHandler.class
 FINE: Class: net/minecraft/src/NetLoginHandler Extends: net/minecraft/src/NetHandler
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/NetLoginHandler.<init>(Lnet/minecraft/server/MinecraftServer;Ljava/net/Socket;Ljava/lang/String;)V
@@ -379,7 +385,7 @@ FINE: Class: net/minecraft/src/BlockSand Extends: net/minecraft/src/Block
 INFO: Processed 1860 -> 1831
 INFO: Processing net/minecraft/src/Item.class
 FINE: Class: net/minecraft/src/Item Extends: java/lang/Object
-INFO: Processed 14845 -> 14454
+INFO: Processed 15007 -> 14609
 INFO: Processing net/minecraft/src/ItemLog.class
 FINE: Class: net/minecraft/src/ItemLog Extends: net/minecraft/src/ItemBlock
 INFO: Processed 388 -> 379
@@ -388,7 +394,7 @@ FINE: Class: net/minecraft/src/Slot Extends: java/lang/Object
 INFO: Processed 1501 -> 1477
 INFO: Processing net/minecraft/src/EntityPlayer.class
 FINE: Class: net/minecraft/src/EntityPlayer Extends: net/minecraft/src/EntityLiving
-INFO: Processed 17996 -> 18027
+INFO: Processed 18002 -> 18027
 INFO: Processing net/minecraft/src/Empty1.class
 FINE: Class: net/minecraft/src/Empty1 Extends: java/lang/Object
 INFO: Processed 118 -> 76
@@ -399,10 +405,10 @@ FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet15Place.
 INFO: Processed 1439 -> 1454
 INFO: Processing net/minecraft/src/EntityMob.class
 FINE: Class: net/minecraft/src/EntityMob Extends: net/minecraft/src/EntityCreature
-INFO: Processed 2666 -> 2626
+INFO: Processed 2669 -> 2626
 INFO: Processing net/minecraft/src/RecipesTools.class
 FINE: Class: net/minecraft/src/RecipesTools Extends: java/lang/Object
-INFO: Processed 1990 -> 1975
+INFO: Processed 2104 -> 2089
 INFO: Processing net/minecraft/src/BlockBookshelf.class
 FINE: Class: net/minecraft/src/BlockBookshelf Extends: net/minecraft/src/Block
 INFO: Processed 507 -> 498
@@ -428,10 +434,13 @@ FINE: Class: net/minecraft/src/SaveConverterMcRegion Extends: net/minecraft/src/
 INFO: Processed 4313 -> 4269
 INFO: Processing net/minecraft/src/CraftingManager.class
 FINE: Class: net/minecraft/src/CraftingManager Extends: java/lang/Object
-INFO: Processed 9600 -> 9607
+INFO: Processed 9860 -> 9871
 INFO: Processing net/minecraft/src/EntityItem.class
 FINE: Class: net/minecraft/src/EntityItem Extends: net/minecraft/src/Entity
 INFO: Processed 4970 -> 4957
+INFO: Processing net/minecraft/src/BiomeGenTaiga.class
+FINE: Class: net/minecraft/src/BiomeGenTaiga Extends: net/minecraft/src/BiomeGenBase
+INFO: Processed 718 -> 706
 INFO: Processing net/minecraft/src/MapDataBase.class
 FINE: Class: net/minecraft/src/MapDataBase Extends: java/lang/Object
 INFO: Processed 612 -> 597
@@ -440,9 +449,6 @@ FINE: Class: net/minecraft/src/NBTTagByteArray Extends: net/minecraft/src/NBTBas
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/NBTTagByteArray.func_381_a(Ljava/io/DataOutput;)V
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/NBTTagByteArray.func_382_a(Ljava/io/DataInput;)V
 INFO: Processed 1023 -> 1044
-INFO: Processing net/minecraft/src/BiomeGenTaiga.class
-FINE: Class: net/minecraft/src/BiomeGenTaiga Extends: net/minecraft/src/BiomeGenBase
-INFO: Processed 718 -> 706
 INFO: Processing net/minecraft/src/ServerConfigurationManager.class
 FINE: Class: net/minecraft/src/ServerConfigurationManager Extends: java/lang/Object
 INFO: Processed 14018 -> 14031
@@ -458,7 +464,7 @@ FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet103SetSl
 INFO: Processed 1444 -> 1465
 INFO: Processing net/minecraft/src/EntityTrackerEntry.class
 FINE: Class: net/minecraft/src/EntityTrackerEntry Extends: java/lang/Object
-INFO: Processed 8338 -> 8233
+INFO: Processed 8341 -> 8233
 INFO: Processing net/minecraft/src/ItemDoor.class
 FINE: Class: net/minecraft/src/ItemDoor Extends: net/minecraft/src/Item
 INFO: Processed 1718 -> 1709
@@ -492,26 +498,26 @@ FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/NBTBase.func_3
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/NBTBase.func_383_b(Ljava/io/DataInput;)Lnet/minecraft/src/NBTBase;
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/NBTBase.func_380_a(Lnet/minecraft/src/NBTBase;Ljava/io/DataOutput;)V
 INFO: Processed 2259 -> 2294
+INFO: Processing font.txt
+INFO: Processed 252 -> 252
 INFO: Processing net/minecraft/src/EntityCreature.class
 FINE: Class: net/minecraft/src/EntityCreature Extends: net/minecraft/src/EntityLiving
-INFO: Processed 4187 -> 4150
+INFO: Processed 4259 -> 4219
 INFO: Processing net/minecraft/src/MathHelper.class
 FINE: Class: net/minecraft/src/MathHelper Extends: java/lang/Object
 INFO: Processed 1020 -> 1008
-INFO: Processing font.txt
-INFO: Processed 252 -> 252
 INFO: Processing net/minecraft/src/EnumArt.class
 FINE: Class: net/minecraft/src/EnumArt Extends: java/lang/Enum
-INFO: Processed 2805 -> 2659
+INFO: Processed 2818 -> 2669
 INFO: Processing net/minecraft/src/WorldGenReed.class
 FINE: Class: net/minecraft/src/WorldGenReed Extends: net/minecraft/src/WorldGenerator
-INFO: Processed 1029 -> 1017
+INFO: Processed 1026 -> 1017
 INFO: Processing net/minecraft/src/ShapedRecipes.class
 FINE: Class: net/minecraft/src/ShapedRecipes Extends: java/lang/Object
 INFO: Processed 1711 -> 1687
 INFO: Processing net/minecraft/src/ContainerWorkbench.class
 FINE: Class: net/minecraft/src/ContainerWorkbench Extends: net/minecraft/src/Container
-INFO: Processed 3278 -> 3260
+INFO: Processed 3321 -> 3303
 INFO: Processing net/minecraft/src/MapData.class
 FINE: Class: net/minecraft/src/MapData Extends: net/minecraft/src/MapDataBase
 INFO: Processed 3837 -> 3828
@@ -522,22 +528,22 @@ FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet100OpenW
 INFO: Processed 1280 -> 1295
 INFO: Processing net/minecraft/src/InventoryPlayer.class
 FINE: Class: net/minecraft/src/InventoryPlayer Extends: java/lang/Object
-INFO: Processed 6531 -> 6522
+INFO: Processed 6430 -> 6421
 INFO: Processing net/minecraft/src/ItemStack.class
 FINE: Class: net/minecraft/src/ItemStack Extends: java/lang/Object
 INFO: Processed 6475 -> 6442
 INFO: Processing net/minecraft/src/BlockDeadBush.class
 FINE: Class: net/minecraft/src/BlockDeadBush Extends: net/minecraft/src/BlockFlower
 INFO: Processed 643 -> 634
+INFO: Processing net/minecraft/src/BlockPistonExtension.class
+FINE: Class: net/minecraft/src/BlockPistonExtension Extends: net/minecraft/src/Block
+INFO: Processed 3355 -> 3293
 INFO: Processing net/minecraft/src/EntityList.class
 FINE: Class: net/minecraft/src/EntityList Extends: java/lang/Object
 INFO: Processed 3940 -> 3919
 INFO: Processing net/minecraft/src/ChunkProviderSky.class
 FINE: Class: net/minecraft/src/ChunkProviderSky Extends: java/lang/Object
 INFO: Processed 11222 -> 11163
-INFO: Processing net/minecraft/src/WorldGenForest.class
-FINE: Class: net/minecraft/src/WorldGenForest Extends: net/minecraft/src/WorldGenerator
-INFO: Processed 1539 -> 1517
 INFO: Processing net/minecraft/src/Packet38EntityStatus.class
 FINE: Class: net/minecraft/src/Packet38EntityStatus Extends: net/minecraft/src/Packet
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet38EntityStatus.func_70_a(Ljava/io/DataInputStream;)V
@@ -545,7 +551,7 @@ FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet38Entity
 INFO: Processed 1006 -> 1027
 INFO: Processing net/minecraft/src/EnumMovingObjectType.class
 FINE: Class: net/minecraft/src/EnumMovingObjectType Extends: java/lang/Enum
-INFO: Processed 879 -> 813
+INFO: Processed 894 -> 825
 INFO: Processing net/minecraft/src/ModelBed.class
 FINE: Class: net/minecraft/src/ModelBed Extends: java/lang/Object
 INFO: Processed 538 -> 520
@@ -560,9 +566,12 @@ INFO: Processed 7375 -> 7317
 INFO: Processing net/minecraft/src/BlockBreakable.class
 FINE: Class: net/minecraft/src/BlockBreakable Extends: net/minecraft/src/Block
 INFO: Processed 376 -> 364
+INFO: Processing net/minecraft/src/BlockPistonBase.class
+FINE: Class: net/minecraft/src/BlockPistonBase Extends: net/minecraft/src/Block
+INFO: Processed 7296 -> 7222
 INFO: Processing net/minecraft/src/BlockSnow.class
 FINE: Class: net/minecraft/src/BlockSnow Extends: net/minecraft/src/Block
-INFO: Processed 3312 -> 3283
+INFO: Processed 3306 -> 3283
 INFO: Processing net/minecraft/src/TileEntityChest.class
 FINE: Class: net/minecraft/src/TileEntityChest Extends: net/minecraft/src/TileEntity
 INFO: Processed 2550 -> 2538
@@ -595,7 +604,7 @@ FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet104Windo
 INFO: Processed 1603 -> 1621
 INFO: Processing net/minecraft/src/BiomeGenBase.class
 FINE: Class: net/minecraft/src/BiomeGenBase Extends: java/lang/Object
-INFO: Processed 5239 -> 5133
+INFO: Processed 5236 -> 5133
 INFO: Processing net/minecraft/src/Packet.class
 FINE: Class: net/minecraft/src/Packet Extends: java/lang/Object
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet.func_65_b(Ljava/io/DataInputStream;Z)Lnet/minecraft/src/Packet;
@@ -604,10 +613,10 @@ FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet.func_27
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet.func_27037_a(Ljava/io/DataInputStream;I)Ljava/lang/String;
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet.func_70_a(Ljava/io/DataInputStream;)V
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet.func_68_a(Ljava/io/DataOutputStream;)V
-INFO: Processed 7317 -> 7377
+INFO: Processed 7320 -> 7377
 INFO: Processing net/minecraft/src/ItemDye.class
 FINE: Class: net/minecraft/src/ItemDye Extends: net/minecraft/src/Item
-INFO: Processed 2847 -> 2823
+INFO: Processed 3063 -> 3039
 INFO: Processing net/minecraft/src/BlockLockedChest.class
 FINE: Class: net/minecraft/src/BlockLockedChest Extends: net/minecraft/src/Block
 INFO: Processed 742 -> 733
@@ -623,9 +632,12 @@ INFO: Processed 2224 -> 2209
 INFO: Processing net/minecraft/src/ItemHoe.class
 FINE: Class: net/minecraft/src/ItemHoe Extends: net/minecraft/src/Item
 INFO: Processed 1442 -> 1428
+INFO: Processing net/minecraft/src/WorldGenForest.class
+FINE: Class: net/minecraft/src/WorldGenForest Extends: net/minecraft/src/WorldGenerator
+INFO: Processed 1539 -> 1517
 INFO: Processing net/minecraft/src/NetServerHandler.class
 FINE: Class: net/minecraft/src/NetServerHandler Extends: net/minecraft/src/NetHandler
-INFO: Processed 18218 -> 18254
+INFO: Processed 18253 -> 18289
 INFO: Processing net/minecraft/src/McRegionChunkLoader.class
 FINE: Class: net/minecraft/src/McRegionChunkLoader Extends: java/lang/Object
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/McRegionChunkLoader.func_659_a(Lnet/minecraft/src/World;II)Lnet/minecraft/src/Chunk;
@@ -634,10 +646,7 @@ FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/McRegionChunkL
 INFO: Processed 3202 -> 3236
 INFO: Processing net/minecraft/src/BlockDoor.class
 FINE: Class: net/minecraft/src/BlockDoor Extends: net/minecraft/src/Block
-INFO: Processed 3723 -> 3676
-INFO: Processing net/minecraft/src/PlayerListBox.class
-FINE: Class: net/minecraft/src/PlayerListBox Extends: javax/swing/JList
-INFO: Processed 1140 -> 1128
+INFO: Processed 3787 -> 3737
 INFO: Processing net/minecraft/src/Path.class
 FINE: Class: net/minecraft/src/Path Extends: java/lang/Object
 INFO: Processed 1763 -> 1745
@@ -654,19 +663,19 @@ FINE: Class: net/minecraft/src/EmptyChunk Extends: net/minecraft/src/Chunk
 INFO: Processed 2941 -> 2926
 INFO: Processing net/minecraft/src/EnumCreatureType.class
 FINE: Class: net/minecraft/src/EnumCreatureType Extends: java/lang/Enum
-INFO: Processed 1717 -> 1681
+INFO: Processed 1731 -> 1692
 INFO: Processing net/minecraft/src/Chunk.class
 FINE: Class: net/minecraft/src/Chunk Extends: java/lang/Object
-INFO: Processed 10843 -> 10821
+INFO: Processed 11080 -> 11064
 INFO: Processing net/minecraft/src/Material.class
 FINE: Class: net/minecraft/src/Material Extends: java/lang/Object
-INFO: Processed 3164 -> 3033
+INFO: Processed 3800 -> 3637
 INFO: Processing net/minecraft/src/ItemBed.class
 FINE: Class: net/minecraft/src/ItemBed Extends: net/minecraft/src/Item
 INFO: Processed 1080 -> 1071
 INFO: Processing net/minecraft/src/EntityLiving.class
 FINE: Class: net/minecraft/src/EntityLiving Extends: net/minecraft/src/Entity
-INFO: Processed 15660 -> 15619
+INFO: Processed 15663 -> 15619
 INFO: Processing net/minecraft/src/GuiStatsListener.class
 FINE: Class: net/minecraft/src/GuiStatsListener Extends: java/lang/Object
 INFO: Processed 517 -> 502
@@ -719,6 +728,9 @@ INFO: Processed 1003 -> 1027
 INFO: Processing net/minecraft/src/InventoryCrafting.class
 FINE: Class: net/minecraft/src/InventoryCrafting Extends: java/lang/Object
 INFO: Processed 1575 -> 1551
+INFO: Processing net/minecraft/src/PlayerListBox.class
+FINE: Class: net/minecraft/src/PlayerListBox Extends: javax/swing/JList
+INFO: Processed 1140 -> 1128
 INFO: Processing net/minecraft/src/ItemSapling.class
 FINE: Class: net/minecraft/src/ItemSapling Extends: net/minecraft/src/ItemBlock
 INFO: Processed 392 -> 383
@@ -728,9 +740,6 @@ INFO: Processed 1716 -> 1707
 INFO: Processing net/minecraft/src/BlockOre.class
 FINE: Class: net/minecraft/src/BlockOre Extends: net/minecraft/src/Block
 INFO: Processed 1001 -> 981
-INFO: Processing net/minecraft/src/BlockOreStorage.class
-FINE: Class: net/minecraft/src/BlockOreStorage Extends: net/minecraft/src/Block
-INFO: Processed 430 -> 418
 INFO: Processing net/minecraft/src/Packet105UpdateProgressbar.class
 FINE: Class: net/minecraft/src/Packet105UpdateProgressbar Extends: net/minecraft/src/Packet
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet105UpdateProgressbar.func_70_a(Ljava/io/DataInputStream;)V
@@ -758,7 +767,7 @@ FINE: Class: net/minecraft/src/BlockCrops Extends: net/minecraft/src/BlockFlower
 INFO: Processed 2722 -> 2693
 INFO: Processing net/minecraft/src/BlockIce.class
 FINE: Class: net/minecraft/src/BlockIce Extends: net/minecraft/src/BlockBreakable
-INFO: Processed 1421 -> 1407
+INFO: Processed 1549 -> 1532
 INFO: Processing net/minecraft/src/ISaveFormat.class
 FINE: Class: net/minecraft/src/ISaveFormat Extends: java/lang/Object
 INFO: Processed 219 -> 210
@@ -792,14 +801,14 @@ INFO: Processed 1903 -> 1863
 INFO: Processing net/minecraft/src/Achievement.class
 FINE: Class: net/minecraft/src/Achievement Extends: net/minecraft/src/StatBase
 INFO: Processed 2199 -> 2160
+INFO: Processing net/minecraft/src/BlockSoulSand.class
+FINE: Class: net/minecraft/src/BlockSoulSand Extends: net/minecraft/src/Block
+INFO: Processed 828 -> 816
 INFO: Processing net/minecraft/src/Packet1Login.class
 FINE: Class: net/minecraft/src/Packet1Login Extends: net/minecraft/src/Packet
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet1Login.func_70_a(Ljava/io/DataInputStream;)V
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet1Login.func_68_a(Ljava/io/DataOutputStream;)V
 INFO: Processed 1426 -> 1447
-INFO: Processing net/minecraft/src/BlockSoulSand.class
-FINE: Class: net/minecraft/src/BlockSoulSand Extends: net/minecraft/src/Block
-INFO: Processed 828 -> 816
 INFO: Processing net/minecraft/src/RecipesFood.class
 FINE: Class: net/minecraft/src/RecipesFood Extends: java/lang/Object
 INFO: Processed 1187 -> 1175
@@ -813,7 +822,10 @@ FINE: Class: net/minecraft/src/InventoryLargeChest Extends: java/lang/Object
 INFO: Processed 1436 -> 1391
 INFO: Processing net/minecraft/src/BlockButton.class
 FINE: Class: net/minecraft/src/BlockButton Extends: net/minecraft/src/Block
-INFO: Processed 4384 -> 4343
+INFO: Processed 4381 -> 4343
+INFO: Processing net/minecraft/src/BlockOreStorage.class
+FINE: Class: net/minecraft/src/BlockOreStorage Extends: net/minecraft/src/Block
+INFO: Processed 430 -> 418
 INFO: Processing net/minecraft/src/Packet106Transaction.class
 FINE: Class: net/minecraft/src/Packet106Transaction Extends: net/minecraft/src/Packet
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet106Transaction.func_70_a(Ljava/io/DataInputStream;)V
@@ -824,12 +836,7 @@ FINE: Class: net/minecraft/src/ChunkProvider Extends: java/lang/Object
 INFO: Processed 4252 -> 4218
 INFO: Processing net/minecraft/src/BlockFlowing.class
 FINE: Class: net/minecraft/src/BlockFlowing Extends: net/minecraft/src/BlockFluid
-INFO: Processed 4373 -> 4312
-INFO: Processing net/minecraft/src/NBTTagFloat.class
-FINE: Class: net/minecraft/src/NBTTagFloat Extends: net/minecraft/src/NBTBase
-FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/NBTTagFloat.func_381_a(Ljava/io/DataOutput;)V
-FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/NBTTagFloat.func_382_a(Ljava/io/DataInput;)V
-INFO: Processed 916 -> 937
+INFO: Processed 4367 -> 4312
 INFO: Processing net/minecraft/src/BlockTrapDoor.class
 FINE: Class: net/minecraft/src/BlockTrapDoor Extends: net/minecraft/src/Block
 INFO: Processed 2889 -> 2845
@@ -844,7 +851,7 @@ FINE: Class: net/minecraft/src/MaterialPortal Extends: net/minecraft/src/Materia
 INFO: Processed 397 -> 385
 INFO: Processing net/minecraft/src/TileEntity.class
 FINE: Class: net/minecraft/src/TileEntity Extends: java/lang/Object
-INFO: Processed 3278 -> 3221
+INFO: Processed 3683 -> 3623
 INFO: Processing net/minecraft/src/Packet9Respawn.class
 FINE: Class: net/minecraft/src/Packet9Respawn Extends: net/minecraft/src/Packet
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet9Respawn.func_70_a(Ljava/io/DataInputStream;)V
@@ -852,7 +859,7 @@ FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet9Respawn
 INFO: Processed 880 -> 904
 INFO: Processing net/minecraft/src/BlockRail.class
 FINE: Class: net/minecraft/src/BlockRail Extends: net/minecraft/src/Block
-INFO: Processed 4207 -> 4170
+INFO: Processed 4268 -> 4231
 INFO: Processing net/minecraft/src/Packet3Chat.class
 FINE: Class: net/minecraft/src/Packet3Chat Extends: net/minecraft/src/Packet
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet3Chat.func_70_a(Ljava/io/DataInputStream;)V
@@ -867,7 +874,7 @@ FINE: Class: net/minecraft/src/WorldGenerator Extends: java/lang/Object
 INFO: Processed 320 -> 311
 INFO: Processing net/minecraft/src/BlockDetectorRail.class
 FINE: Class: net/minecraft/src/BlockDetectorRail Extends: net/minecraft/src/BlockRail
-INFO: Processed 1970 -> 1943
+INFO: Processed 1967 -> 1943
 INFO: Processing net/minecraft/src/MapGenCavesHell.class
 FINE: Class: net/minecraft/src/MapGenCavesHell Extends: net/minecraft/src/MapGenBase
 INFO: Processed 2969 -> 2952
@@ -898,7 +905,7 @@ FINE: Class: net/minecraft/src/WorldGenHellLava Extends: net/minecraft/src/World
 INFO: Processed 1149 -> 1140
 INFO: Processing net/minecraft/src/ItemSword.class
 FINE: Class: net/minecraft/src/ItemSword Extends: net/minecraft/src/Item
-INFO: Processed 1085 -> 1076
+INFO: Processed 1321 -> 1312
 INFO: Processing net/minecraft/src/RegionFile.class
 FINE: Class: net/minecraft/src/RegionFile Extends: java/lang/Object
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/RegionFile.func_22130_a(I[BI)V
@@ -914,6 +921,11 @@ FINE: Class: net/minecraft/src/Packet27Position Extends: net/minecraft/src/Packe
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet27Position.func_70_a(Ljava/io/DataInputStream;)V
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet27Position.func_68_a(Ljava/io/DataOutputStream;)V
 INFO: Processed 1544 -> 1553
+INFO: Processing net/minecraft/src/NBTTagFloat.class
+FINE: Class: net/minecraft/src/NBTTagFloat Extends: net/minecraft/src/NBTBase
+FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/NBTTagFloat.func_381_a(Ljava/io/DataOutput;)V
+FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/NBTTagFloat.func_382_a(Ljava/io/DataInput;)V
+INFO: Processed 916 -> 937
 INFO: Processing net/minecraft/src/ChunkProviderHell.class
 FINE: Class: net/minecraft/src/ChunkProviderHell Extends: java/lang/Object
 INFO: Processed 6977 -> 6883
@@ -922,14 +934,12 @@ FINE: Class: net/minecraft/src/NBTTagByte Extends: net/minecraft/src/NBTBase
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/NBTTagByte.func_381_a(Ljava/io/DataOutput;)V
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/NBTTagByte.func_382_a(Ljava/io/DataInput;)V
 INFO: Processed 914 -> 935
+INFO: Processing net/minecraft/src/ItemPiston.class
+FINE: Class: net/minecraft/src/ItemPiston Extends: net/minecraft/src/ItemBlock
+INFO: Processed 265 -> 253
 INFO: Processing net/minecraft/src/PlayerHashEntry.class
 FINE: Class: net/minecraft/src/PlayerHashEntry Extends: java/lang/Object
 INFO: Processed 1371 -> 1350
-INFO: Processing net/minecraft/src/Packet5PlayerInventory.class
-FINE: Class: net/minecraft/src/Packet5PlayerInventory Extends: net/minecraft/src/Packet
-FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet5PlayerInventory.func_70_a(Ljava/io/DataInputStream;)V
-FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet5PlayerInventory.func_68_a(Ljava/io/DataOutputStream;)V
-INFO: Processed 1291 -> 1306
 INFO: Processing net/minecraft/src/Packet102WindowClick.class
 FINE: Class: net/minecraft/src/Packet102WindowClick Extends: net/minecraft/src/Packet
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet102WindowClick.func_70_a(Ljava/io/DataInputStream;)V
@@ -937,7 +947,7 @@ FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet102Windo
 INFO: Processed 1532 -> 1538
 INFO: Processing net/minecraft/src/EntityPainting.class
 FINE: Class: net/minecraft/src/EntityPainting Extends: net/minecraft/src/Entity
-INFO: Processed 4827 -> 4801
+INFO: Processed 5096 -> 5073
 INFO: Processing net/minecraft/src/EntityTNTPrimed.class
 FINE: Class: net/minecraft/src/EntityTNTPrimed Extends: net/minecraft/src/Entity
 INFO: Processed 2401 -> 2381
@@ -968,7 +978,7 @@ FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet34Entity
 INFO: Processed 1726 -> 1738
 INFO: Processing net/minecraft/src/BlockReed.class
 FINE: Class: net/minecraft/src/BlockReed Extends: net/minecraft/src/Block
-INFO: Processed 2233 -> 2199
+INFO: Processed 2230 -> 2199
 INFO: Processing net/minecraft/src/WorldProviderSurface.class
 FINE: Class: net/minecraft/src/WorldProviderSurface Extends: net/minecraft/src/WorldProvider
 INFO: Processed 210 -> 198
@@ -988,22 +998,27 @@ FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet60Explos
 INFO: Processed 2072 -> 2093
 INFO: Processing net/minecraft/src/BlockWeb.class
 FINE: Class: net/minecraft/src/BlockWeb Extends: net/minecraft/src/Block
-INFO: Processed 683 -> 674
+INFO: Processed 930 -> 921
 INFO: Processing net/minecraft/src/BlockFluid.class
 FINE: Class: net/minecraft/src/BlockFluid Extends: net/minecraft/src/Block
-INFO: Processed 4519 -> 4457
+INFO: Processed 4522 -> 4457
 INFO: Processing net/minecraft/src/ChunkFilePattern.class
 FINE: Class: net/minecraft/src/ChunkFilePattern Extends: java/lang/Object
 INFO: Processed 866 -> 779
 INFO: Processing net/minecraft/src/EnumMobType.class
 FINE: Class: net/minecraft/src/EnumMobType Extends: java/lang/Enum
-INFO: Processed 888 -> 822
+INFO: Processed 901 -> 832
 INFO: Processing net/minecraft/src/PropertyManager.class
 FINE: Class: net/minecraft/src/PropertyManager Extends: java/lang/Object
 INFO: Processed 2792 -> 2774
 INFO: Processing net/minecraft/src/BlockTallGrass.class
 FINE: Class: net/minecraft/src/BlockTallGrass Extends: net/minecraft/src/BlockFlower
 INFO: Processed 690 -> 681
+INFO: Processing net/minecraft/src/Packet5PlayerInventory.class
+FINE: Class: net/minecraft/src/Packet5PlayerInventory Extends: net/minecraft/src/Packet
+FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet5PlayerInventory.func_70_a(Ljava/io/DataInputStream;)V
+FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet5PlayerInventory.func_68_a(Ljava/io/DataOutputStream;)V
+INFO: Processed 1291 -> 1306
 INFO: Processing net/minecraft/src/Packet29DestroyEntity.class
 FINE: Class: net/minecraft/src/Packet29DestroyEntity Extends: net/minecraft/src/Packet
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet29DestroyEntity.func_70_a(Ljava/io/DataInputStream;)V
@@ -1018,9 +1033,6 @@ INFO: Processed 325 -> 313
 INFO: Processing net/minecraft/src/NetworkAcceptThread.class
 FINE: Class: net/minecraft/src/NetworkAcceptThread Extends: java/lang/Thread
 INFO: Processed 2124 -> 2115
-INFO: Processing net/minecraft/src/BiomeGenHell.class
-FINE: Class: net/minecraft/src/BiomeGenHell Extends: net/minecraft/src/BiomeGenBase
-INFO: Processed 615 -> 603
 INFO: Processing net/minecraft/src/BiomeGenSky.class
 FINE: Class: net/minecraft/src/BiomeGenSky Extends: net/minecraft/src/BiomeGenBase
 INFO: Processed 552 -> 540
@@ -1042,10 +1054,10 @@ FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet50PreChu
 INFO: Processed 1107 -> 1125
 INFO: Processing net/minecraft/src/WorldGenGlowStone2.class
 FINE: Class: net/minecraft/src/WorldGenGlowStone2 Extends: net/minecraft/src/WorldGenerator
-INFO: Processed 1019 -> 1010
+INFO: Processed 1022 -> 1010
 INFO: Processing net/minecraft/src/MaterialLiquid.class
 FINE: Class: net/minecraft/src/MaterialLiquid Extends: net/minecraft/src/Material
-INFO: Processed 464 -> 452
+INFO: Processed 498 -> 486
 INFO: Processing net/minecraft/src/ContainerDispenser.class
 FINE: Class: net/minecraft/src/ContainerDispenser Extends: net/minecraft/src/Container
 INFO: Processed 888 -> 873
@@ -1057,13 +1069,13 @@ FINE: Class: net/minecraft/src/TileEntityFurnace Extends: net/minecraft/src/Tile
 INFO: Processed 4850 -> 4826
 INFO: Processing net/minecraft/src/BlockRedstoneWire.class
 FINE: Class: net/minecraft/src/BlockRedstoneWire Extends: net/minecraft/src/Block
-INFO: Processed 5676 -> 5608
+INFO: Processed 5828 -> 5760
 INFO: Processing net/minecraft/src/EntityArrow.class
 FINE: Class: net/minecraft/src/EntityArrow Extends: net/minecraft/src/Entity
 INFO: Processed 8013 -> 8006
 INFO: Processing net/minecraft/src/Entity.class
 FINE: Class: net/minecraft/src/Entity Extends: java/lang/Object
-INFO: Processed 19904 -> 19865
+INFO: Processed 20121 -> 20076
 INFO: Processing net/minecraft/src/NBTTagList.class
 FINE: Class: net/minecraft/src/NBTTagList Extends: net/minecraft/src/NBTBase
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/NBTTagList.func_381_a(Ljava/io/DataOutput;)V
@@ -1079,7 +1091,7 @@ FINE: Class: net/minecraft/src/MapGenCaves Extends: net/minecraft/src/MapGenBase
 INFO: Processed 3102 -> 3085
 INFO: Processing net/minecraft/src/BlockStairs.class
 FINE: Class: net/minecraft/src/BlockStairs Extends: net/minecraft/src/Block
-INFO: Processed 4367 -> 4265
+INFO: Processed 4283 -> 4184
 INFO: Processing net/minecraft/src/MetadataChunkBlock.class
 FINE: Class: net/minecraft/src/MetadataChunkBlock Extends: java/lang/Object
 INFO: Processed 2887 -> 2875
@@ -1098,7 +1110,10 @@ FINE: Class: net/minecraft/src/ItemAxe Extends: net/minecraft/src/ItemTool
 INFO: Processed 685 -> 602
 INFO: Processing net/minecraft/src/BlockFurnace.class
 FINE: Class: net/minecraft/src/BlockFurnace Extends: net/minecraft/src/BlockContainer
-INFO: Processed 3645 -> 3624
+INFO: Processed 3713 -> 3692
+INFO: Processing net/minecraft/src/BiomeGenHell.class
+FINE: Class: net/minecraft/src/BiomeGenHell Extends: net/minecraft/src/BiomeGenBase
+INFO: Processed 615 -> 603
 INFO: Processing net/minecraft/src/BiomeGenSwamp.class
 FINE: Class: net/minecraft/src/BiomeGenSwamp Extends: net/minecraft/src/BiomeGenBase
 INFO: Processed 202 -> 190
@@ -1111,9 +1126,6 @@ INFO: Processed 10369 -> 10425
 INFO: Processing net/minecraft/src/BlockMushroom.class
 FINE: Class: net/minecraft/src/BlockMushroom Extends: net/minecraft/src/BlockFlower
 INFO: Processed 1163 -> 1145
-INFO: Processing net/minecraft/src/RecipesArmor.class
-FINE: Class: net/minecraft/src/RecipesArmor Extends: java/lang/Object
-INFO: Processed 1923 -> 1908
 INFO: Processing net/minecraft/src/NetHandler.class
 FINE: Class: net/minecraft/src/NetHandler Extends: java/lang/Object
 INFO: Processed 5691 -> 5676
@@ -1176,7 +1188,10 @@ FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet130Updat
 INFO: Processed 1520 -> 1541
 INFO: Processing net/minecraft/src/BlockSign.class
 FINE: Class: net/minecraft/src/BlockSign Extends: net/minecraft/src/BlockContainer
-INFO: Processed 2204 -> 2184
+INFO: Processed 2207 -> 2184
+INFO: Processing net/minecraft/src/TileEntityPiston.class
+FINE: Class: net/minecraft/src/TileEntityPiston Extends: net/minecraft/src/TileEntity
+INFO: Processed 3554 -> 3542
 INFO: Processing net/minecraft/src/NBTTagShort.class
 FINE: Class: net/minecraft/src/NBTTagShort Extends: net/minecraft/src/NBTBase
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/NBTTagShort.func_381_a(Ljava/io/DataOutput;)V
@@ -1184,16 +1199,22 @@ FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/NBTTagShort.fu
 INFO: Processed 923 -> 944
 INFO: Processing net/minecraft/src/BlockCake.class
 FINE: Class: net/minecraft/src/BlockCake Extends: net/minecraft/src/Block
-INFO: Processed 2610 -> 2575
+INFO: Processed 2607 -> 2575
 INFO: Processing net/minecraft/src/Teleporter.class
 FINE: Class: net/minecraft/src/Teleporter Extends: java/lang/Object
 INFO: Processed 3783 -> 3760
 INFO: Processing net/minecraft/src/MinecraftException.class
 FINE: Class: net/minecraft/src/MinecraftException Extends: java/lang/RuntimeException
 INFO: Processed 226 -> 214
+INFO: Processing net/minecraft/src/BlockPistonMoving.class
+FINE: Class: net/minecraft/src/BlockPistonMoving Extends: net/minecraft/src/BlockContainer
+INFO: Processed 3827 -> 3756
+INFO: Processing net/minecraft/src/RecipesArmor.class
+FINE: Class: net/minecraft/src/RecipesArmor Extends: java/lang/Object
+INFO: Processed 1923 -> 1908
 INFO: Processing net/minecraft/src/Block.class
 FINE: Class: net/minecraft/src/Block Extends: java/lang/Object
-INFO: Processed 23667 -> 23094
+INFO: Processed 24594 -> 24002
 INFO: Processing net/minecraft/src/EntitySlime.class
 FINE: Class: net/minecraft/src/EntitySlime Extends: net/minecraft/src/EntityLiving
 INFO: Processed 4637 -> 4614
@@ -1202,6 +1223,9 @@ FINE: Class: net/minecraft/src/Packet40EntityMetadata Extends: net/minecraft/src
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet40EntityMetadata.func_70_a(Ljava/io/DataInputStream;)V
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet40EntityMetadata.func_68_a(Ljava/io/DataOutputStream;)V
 INFO: Processed 1278 -> 1263
+INFO: Processing net/minecraft/src/ItemLeaves.class
+FINE: Class: net/minecraft/src/ItemLeaves Extends: net/minecraft/src/ItemBlock
+INFO: Processed 394 -> 385
 INFO: Processing net/minecraft/src/EntityZombie.class
 FINE: Class: net/minecraft/src/EntityZombie Extends: net/minecraft/src/EntityMob
 INFO: Processed 1426 -> 1411
@@ -1211,9 +1235,6 @@ INFO: Processed 3465 -> 3447
 INFO: Processing net/minecraft/src/ItemSign.class
 FINE: Class: net/minecraft/src/ItemSign Extends: net/minecraft/src/Item
 INFO: Processed 1373 -> 1364
-INFO: Processing net/minecraft/src/ContainerPlayer.class
-FINE: Class: net/minecraft/src/ContainerPlayer Extends: net/minecraft/src/Container
-INFO: Processed 3125 -> 3102
 INFO: Processing net/minecraft/src/MovingObjectPosition.class
 FINE: Class: net/minecraft/src/MovingObjectPosition Extends: java/lang/Object
 INFO: Processed 1128 -> 1092
@@ -1222,13 +1243,13 @@ FINE: Class: net/minecraft/src/ItemBoat Extends: net/minecraft/src/Item
 INFO: Processed 2142 -> 2133
 INFO: Processing net/minecraft/src/BlockBed.class
 FINE: Class: net/minecraft/src/BlockBed Extends: net/minecraft/src/Block
-INFO: Processed 4413 -> 4381
+INFO: Processed 4601 -> 4569
 INFO: Processing net/minecraft/src/BlockLog.class
 FINE: Class: net/minecraft/src/BlockLog Extends: net/minecraft/src/Block
 INFO: Processed 1494 -> 1474
 INFO: Processing net/minecraft/src/EntityTracker.class
 FINE: Class: net/minecraft/src/EntityTracker Extends: java/lang/Object
-INFO: Processed 4074 -> 4059
+INFO: Processed 4077 -> 4059
 INFO: Processing net/minecraft/src/Packet12PlayerLook.class
 FINE: Class: net/minecraft/src/Packet12PlayerLook Extends: net/minecraft/src/Packet10Flying
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet12PlayerLook.func_70_a(Ljava/io/DataInputStream;)V
@@ -1239,13 +1260,13 @@ FINE: Class: net/minecraft/src/ChunkBlockMap Extends: java/lang/Object
 INFO: Processed 620 -> 608
 INFO: Processing net/minecraft/src/BlockFarmland.class
 FINE: Class: net/minecraft/src/BlockFarmland Extends: net/minecraft/src/Block
-INFO: Processed 2508 -> 2490
+INFO: Processed 2511 -> 2490
 INFO: Processing net/minecraft/src/BlockTorch.class
 FINE: Class: net/minecraft/src/BlockTorch Extends: net/minecraft/src/Block
-INFO: Processed 2577 -> 2550
+INFO: Processed 2784 -> 2757
 INFO: Processing net/minecraft/src/RailLogic.class
 FINE: Class: net/minecraft/src/RailLogic Extends: java/lang/Object
-INFO: Processed 5389 -> 5356
+INFO: Processed 5400 -> 5367
 INFO: Processing net/minecraft/src/SlotFurnace.class
 FINE: Class: net/minecraft/src/SlotFurnace Extends: net/minecraft/src/Slot
 INFO: Processed 1219 -> 1198
@@ -1260,34 +1281,40 @@ INFO: Processed 1758 -> 1773
 INFO: Processing net/minecraft/src/EntityEgg.class
 FINE: Class: net/minecraft/src/EntityEgg Extends: net/minecraft/src/Entity
 INFO: Processed 6946 -> 6916
+INFO: Processing null
+INFO: Processed 0 -> 0
 INFO: Processing net/minecraft/src/Packet54PlayNoteBlock.class
 FINE: Class: net/minecraft/src/Packet54PlayNoteBlock Extends: net/minecraft/src/Packet
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet54PlayNoteBlock.func_70_a(Ljava/io/DataInputStream;)V
 FINE: Adding Exceptions: java/io/IOException to net/minecraft/src/Packet54PlayNoteBlock.func_68_a(Ljava/io/DataOutputStream;)V
 INFO: Processed 1260 -> 1272
+INFO: Processing net/minecraft/src/BlockFlower.class
+FINE: Class: net/minecraft/src/BlockFlower Extends: net/minecraft/src/Block
+INFO: Processed 1890 -> 1861
 INFO: Processing net/minecraft/src/ItemArmor.class
 FINE: Class: net/minecraft/src/ItemArmor Extends: net/minecraft/src/Item
 INFO: Processed 687 -> 660
-INFO: Processing net/minecraft/src/BlockFlower.class
-FINE: Class: net/minecraft/src/BlockFlower Extends: net/minecraft/src/Block
-INFO: Processed 1893 -> 1861
 INFO: Processing net/minecraft/src/ItemSpade.class
 FINE: Class: net/minecraft/src/ItemSpade Extends: net/minecraft/src/ItemTool
 INFO: Processed 959 -> 873
 INFO: Processing net/minecraft/src/WorldProviderHell.class
 FINE: Class: net/minecraft/src/WorldProviderHell Extends: net/minecraft/src/WorldProvider
 INFO: Processed 1560 -> 1551
+INFO: Processing net/minecraft/src/ContainerPlayer.class
+FINE: Class: net/minecraft/src/ContainerPlayer Extends: net/minecraft/src/Container
+INFO: Processed 3125 -> 3102
 INFO: Processing net/minecraft/src/ChunkPosition.class
 FINE: Class: net/minecraft/src/ChunkPosition Extends: java/lang/Object
 INFO: Processed 556 -> 538
 INFO: Processing net/minecraft/src/NibbleArray.class
 FINE: Class: net/minecraft/src/NibbleArray Extends: java/lang/Object
 INFO: Processed 685 -> 673
-INFO: Processing null
-INFO: Processed 0 -> 0
 INFO: Processing net/minecraft/src/EntityPig.class
 FINE: Class: net/minecraft/src/EntityPig Extends: net/minecraft/src/EntityAnimal
 INFO: Processed 2863 -> 2840
+INFO: Processing net/minecraft/src/PistonBlockTextures.class
+FINE: Class: net/minecraft/src/PistonBlockTextures Extends: java/lang/Object
+INFO: Processed 530 -> 509
 INFO: Processing net/minecraft/src/IStatType.class
 FINE: Class: net/minecraft/src/IStatType Extends: java/lang/Object
 INFO: Processed 91 -> 79
@@ -1300,18 +1327,15 @@ INFO: Processed 1349 -> 1325
 INFO: Processing net/minecraft/src/ConsoleLogFormatter.class
 FINE: Class: net/minecraft/src/ConsoleLogFormatter Extends: java/util/logging/Formatter
 INFO: Processed 1781 -> 1728
-INFO: Processing net/minecraft/src/BlockSnowBlock.class
-FINE: Class: net/minecraft/src/BlockSnowBlock Extends: net/minecraft/src/Block
-INFO: Processed 1125 -> 1116
 INFO: Processing net/minecraft/src/BlockRedstoneRepeater.class
 FINE: Class: net/minecraft/src/BlockRedstoneRepeater Extends: net/minecraft/src/Block
-INFO: Processed 3688 -> 3640
+INFO: Processed 3893 -> 3848
 INFO: Processing net/minecraft/src/BlockGrass.class
 FINE: Class: net/minecraft/src/BlockGrass Extends: net/minecraft/src/Block
 INFO: Processed 1230 -> 1216
 INFO: Processing net/minecraft/src/EntityFlying.class
 FINE: Class: net/minecraft/src/EntityFlying Extends: net/minecraft/src/EntityLiving
-INFO: Processed 1882 -> 1870
+INFO: Processed 1879 -> 1870
 INFO: Processing net/minecraft/src/ItemMap.class
 FINE: Class: net/minecraft/src/ItemMap Extends: net/minecraft/src/ItemMapBase
 INFO: Processed 5454 -> 5426
@@ -1361,12 +1385,15 @@ INFO: Processed 959 -> 947
 INFO: Processing net/minecraft/src/NetworkWriterThread.class
 FINE: Class: net/minecraft/src/NetworkWriterThread Extends: java/lang/Thread
 INFO: Processed 1302 -> 1290
+INFO: Processing net/minecraft/src/BlockSnowBlock.class
+FINE: Class: net/minecraft/src/BlockSnowBlock Extends: net/minecraft/src/Block
+INFO: Processed 1125 -> 1116
 INFO: Processing net/minecraft/src/BlockDispenser.class
 FINE: Class: net/minecraft/src/BlockDispenser Extends: net/minecraft/src/BlockContainer
 INFO: Processed 5129 -> 5092
 INFO: Processing net/minecraft/src/IBlockAccess.class
 FINE: Class: net/minecraft/src/IBlockAccess Extends: java/lang/Object
-INFO: Processed 232 -> 220
+INFO: Processed 291 -> 279
 INFO: Processing net/minecraft/src/WorldGenLiquids.class
 FINE: Class: net/minecraft/src/WorldGenLiquids Extends: net/minecraft/src/WorldGenerator
 INFO: Processed 1124 -> 1115
@@ -1375,19 +1402,16 @@ FINE: Class: net/minecraft/src/BlockLever Extends: net/minecraft/src/Block
 INFO: Processed 3882 -> 3850
 INFO: Processing net/minecraft/src/WorldGenFire.class
 FINE: Class: net/minecraft/src/WorldGenFire Extends: net/minecraft/src/WorldGenerator
-INFO: Processed 850 -> 836
+INFO: Processed 853 -> 836
 INFO: Processing net/minecraft/src/EntitySquid.class
 FINE: Class: net/minecraft/src/EntitySquid Extends: net/minecraft/src/EntityWaterMob
-INFO: Processed 4026 -> 3987
+INFO: Processed 4059 -> 4020
 INFO: Processing net/minecraft/src/RedstoneUpdateInfo.class
 FINE: Class: net/minecraft/src/RedstoneUpdateInfo Extends: java/lang/Object
 INFO: Processed 431 -> 368
 INFO: Processing net/minecraft/src/WorldChunkManager.class
 FINE: Class: net/minecraft/src/WorldChunkManager Extends: java/lang/Object
 INFO: Processed 2544 -> 2511
-INFO: Processing net/minecraft/src/ServerWindowAdapter.class
-FINE: Class: net/minecraft/src/ServerWindowAdapter Extends: java/awt/event/WindowAdapter
-INFO: Processed 786 -> 744
 INFO: Processing net/minecraft/src/EntityPigZombie.class
 FINE: Class: net/minecraft/src/EntityPigZombie Extends: net/minecraft/src/EntityZombie
 INFO: Processed 3364 -> 3322
@@ -1403,27 +1427,27 @@ INFO: Processed 1143 -> 1134
 INFO: Processing net/minecraft/src/StatBasic.class
 FINE: Class: net/minecraft/src/StatBasic Extends: net/minecraft/src/StatBase
 INFO: Processed 597 -> 579
-INFO: Processing net/minecraft/src/BlockNetherrack.class
-FINE: Class: net/minecraft/src/BlockNetherrack Extends: net/minecraft/src/Block
-INFO: Processed 331 -> 319
 INFO: Processing net/minecraft/src/WorldGenTrees.class
 FINE: Class: net/minecraft/src/WorldGenTrees Extends: net/minecraft/src/WorldGenerator
 INFO: Processed 1505 -> 1480
+INFO: Processing net/minecraft/src/BlockNetherrack.class
+FINE: Class: net/minecraft/src/BlockNetherrack Extends: net/minecraft/src/Block
+INFO: Processed 331 -> 319
 INFO: Processing net/minecraft/src/BiomeGenRainforest.class
 FINE: Class: net/minecraft/src/BiomeGenRainforest Extends: net/minecraft/src/BiomeGenBase
 INFO: Processed 488 -> 476
 INFO: Processing net/minecraft/src/TileEntitySign.class
 FINE: Class: net/minecraft/src/TileEntitySign Extends: net/minecraft/src/TileEntity
-INFO: Processed 1604 -> 1586
+INFO: Processed 1674 -> 1656
 INFO: Processing net/minecraft/src/EntityMinecart.class
 FINE: Class: net/minecraft/src/EntityMinecart Extends: net/minecraft/src/Entity
-INFO: Processed 14332 -> 14228
+INFO: Processed 14329 -> 14228
 INFO: Processing net/minecraft/src/ItemPainting.class
 FINE: Class: net/minecraft/src/ItemPainting Extends: net/minecraft/src/Item
 INFO: Processed 768 -> 759
 INFO: Processing net/minecraft/src/BlockFire.class
 FINE: Class: net/minecraft/src/BlockFire Extends: net/minecraft/src/Block
-INFO: Processed 4698 -> 4639
+INFO: Processed 4701 -> 4639
 INFO: Processing net/minecraft/src/ItemInWorldManager.class
 FINE: Class: net/minecraft/src/ItemInWorldManager Extends: java/lang/Object
 INFO: Processed 4183 -> 4163
@@ -1444,6 +1468,9 @@ INFO: Processed 2375 -> 2363
 INFO: Processing net/minecraft/src/EntityWeatherEffect.class
 FINE: Class: net/minecraft/src/EntityWeatherEffect Extends: net/minecraft/src/Entity
 INFO: Processed 232 -> 220
+INFO: Processing net/minecraft/src/ServerWindowAdapter.class
+FINE: Class: net/minecraft/src/ServerWindowAdapter Extends: java/awt/event/WindowAdapter
+INFO: Processed 786 -> 744
 INFO: Processing net/minecraft/src/ChunkCoordIntPair.class
 FINE: Class: net/minecraft/src/ChunkCoordIntPair Extends: java/lang/Object
 INFO: Processed 586 -> 571
@@ -1455,7 +1482,7 @@ FINE: Class: net/minecraft/src/ServerGuiFocusAdapter Extends: java/awt/event/Foc
 INFO: Processed 433 -> 385
 INFO: Processing net/minecraft/src/BlockTNT.class
 FINE: Class: net/minecraft/src/BlockTNT Extends: net/minecraft/src/Block
-INFO: Processed 1523 -> 1508
+INFO: Processed 2483 -> 2456
 INFO: Processing net/minecraft/src/IAnimals.class
 FINE: Class: net/minecraft/src/IAnimals Extends: java/lang/Object
 INFO: Processed 90 -> 78
@@ -1474,22 +1501,19 @@ FINE: Class: net/minecraft/src/StepSoundSand Extends: net/minecraft/src/StepSoun
 INFO: Processed 251 -> 210
 INFO: Processing net/minecraft/src/PlayerInstance.class
 FINE: Class: net/minecraft/src/PlayerInstance Extends: java/lang/Object
-INFO: Processed 4899 -> 4869
-INFO: Processing net/minecraft/src/StepSoundStone.class
-FINE: Class: net/minecraft/src/StepSoundStone Extends: net/minecraft/src/StepSound
-INFO: Processed 252 -> 211
+INFO: Processed 4896 -> 4869
 INFO: Processing net/minecraft/src/BlockPortal.class
 FINE: Class: net/minecraft/src/BlockPortal Extends: net/minecraft/src/BlockBreakable
 INFO: Processed 2750 -> 2723
 INFO: Processing achievement/map.txt
 INFO: Processed 19041 -> 19041
 INFO: Processing lang/en_US.lang
-INFO: Processed 15688 -> 15688
+INFO: Processed 15969 -> 15969
 INFO: Processing lang/stats_US.lang
 INFO: Processed 2767 -> 2767
 INFO: Processing net/minecraft/server/MinecraftServer.class
 FINE: Class: net/minecraft/server/MinecraftServer Extends: java/lang/Object
 FINE: Adding Exceptions: java/net/UnknownHostException to net/minecraft/server/MinecraftServer.func_6008_d()Z
-INFO: Processed 12915 -> 12978
+INFO: Processed 12909 -> 12978
 INFO: Processing META-INF/MANIFEST.MF
 INFO: Processed 94 -> 94

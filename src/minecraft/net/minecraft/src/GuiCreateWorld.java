@@ -44,7 +44,7 @@ public class GuiCreateWorld extends GuiScreen
     private void func_22129_j()
     {
         folderName = textboxWorldName.getText().trim();
-        char ac[] = ChatAllowedCharacters.field_22286_b;
+        char ac[] = ChatAllowedCharacters.allowedCharactersArray;
         int i = ac.length;
         for(int j = 0; j < i; j++)
         {
@@ -56,10 +56,10 @@ public class GuiCreateWorld extends GuiScreen
         {
             folderName = "World";
         }
-        folderName = func_25097_a(mc.getSaveLoader(), folderName);
+        folderName = generateUnusedFolderName(mc.getSaveLoader(), folderName);
     }
 
-    public static String func_25097_a(ISaveFormat isaveformat, String s)
+    public static String generateUnusedFolderName(ISaveFormat isaveformat, String s)
     {
         for(; isaveformat.func_22173_b(s) != null; s = (new StringBuilder()).append(s).append("-").toString()) { }
         return s;

@@ -21,7 +21,7 @@ public class BlockFire extends Block
         setTickOnLoad(true);
     }
 
-    public void func_28028_f()
+    public void setFireBurnRates()
     {
         setBurnRate(Block.planks.blockID, 5, 20);
         setBurnRate(Block.fence.blockID, 5, 20);
@@ -30,7 +30,7 @@ public class BlockFire extends Block
         setBurnRate(Block.leaves.blockID, 30, 60);
         setBurnRate(Block.bookShelf.blockID, 30, 20);
         setBurnRate(Block.tnt.blockID, 15, 100);
-        setBurnRate(Block.field_9031_X.blockID, 60, 100);
+        setBurnRate(Block.tallGrass.blockID, 60, 100);
         setBurnRate(Block.cloth.blockID, 30, 60);
     }
 
@@ -50,7 +50,7 @@ public class BlockFire extends Block
         return false;
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return false;
     }
@@ -72,7 +72,7 @@ public class BlockFire extends Block
         {
             world.setBlockWithNotify(i, j, k, 0);
         }
-        if(!flag && world.func_27068_v() && (world.func_27072_q(i, j, k) || world.func_27072_q(i - 1, j, k) || world.func_27072_q(i + 1, j, k) || world.func_27072_q(i, j, k - 1) || world.func_27072_q(i, j, k + 1)))
+        if(!flag && world.func_27068_v() && (world.canLightningStrikeAt(i, j, k) || world.canLightningStrikeAt(i - 1, j, k) || world.canLightningStrikeAt(i + 1, j, k) || world.canLightningStrikeAt(i, j, k - 1) || world.canLightningStrikeAt(i, j, k + 1)))
         {
             world.setBlockWithNotify(i, j, k, 0);
             return;
@@ -85,7 +85,7 @@ public class BlockFire extends Block
         world.scheduleUpdateTick(i, j, k, blockID, tickRate());
         if(!flag && !func_268_g(world, i, j, k))
         {
-            if(!world.isBlockOpaqueCube(i, j - 1, k) || l > 3)
+            if(!world.isBlockNormalCube(i, j - 1, k) || l > 3)
             {
                 world.setBlockWithNotify(i, j, k, 0);
             }
@@ -123,7 +123,7 @@ public class BlockFire extends Block
                         continue;
                     }
                     int j2 = (i2 + 40) / (l + 30);
-                    if(j2 <= 0 || random.nextInt(l1) > j2 || world.func_27068_v() && world.func_27072_q(i1, k1, j1) || world.func_27072_q(i1 - 1, k1, k) || world.func_27072_q(i1 + 1, k1, j1) || world.func_27072_q(i1, k1, j1 - 1) || world.func_27072_q(i1, k1, j1 + 1))
+                    if(j2 <= 0 || random.nextInt(l1) > j2 || world.func_27068_v() && world.canLightningStrikeAt(i1, k1, j1) || world.canLightningStrikeAt(i1 - 1, k1, k) || world.canLightningStrikeAt(i1 + 1, k1, j1) || world.canLightningStrikeAt(i1, k1, j1 - 1) || world.canLightningStrikeAt(i1, k1, j1 + 1))
                     {
                         continue;
                     }
@@ -147,7 +147,7 @@ public class BlockFire extends Block
         if(random.nextInt(l) < j1)
         {
             boolean flag = world.getBlockId(i, j, k) == Block.tnt.blockID;
-            if(random.nextInt(i1 + 10) < 5 && !world.func_27072_q(i, j, k))
+            if(random.nextInt(i1 + 10) < 5 && !world.canLightningStrikeAt(i, j, k))
             {
                 int k1 = i1 + random.nextInt(5) / 4;
                 if(k1 > 15)
@@ -161,7 +161,7 @@ public class BlockFire extends Block
             }
             if(flag)
             {
-                Block.tnt.onBlockDestroyedByPlayer(world, i, j, k, 0);
+                Block.tnt.onBlockDestroyedByPlayer(world, i, j, k, 1);
             }
         }
     }
@@ -233,12 +233,12 @@ public class BlockFire extends Block
 
     public boolean canPlaceBlockAt(World world, int i, int j, int k)
     {
-        return world.isBlockOpaqueCube(i, j - 1, k) || func_268_g(world, i, j, k);
+        return world.isBlockNormalCube(i, j - 1, k) || func_268_g(world, i, j, k);
     }
 
     public void onNeighborBlockChange(World world, int i, int j, int k, int l)
     {
-        if(!world.isBlockOpaqueCube(i, j - 1, k) && !func_268_g(world, i, j, k))
+        if(!world.isBlockNormalCube(i, j - 1, k) && !func_268_g(world, i, j, k))
         {
             world.setBlockWithNotify(i, j, k, 0);
             return;
@@ -254,7 +254,7 @@ public class BlockFire extends Block
         {
             return;
         }
-        if(!world.isBlockOpaqueCube(i, j - 1, k) && !func_268_g(world, i, j, k))
+        if(!world.isBlockNormalCube(i, j - 1, k) && !func_268_g(world, i, j, k))
         {
             world.setBlockWithNotify(i, j, k, 0);
             return;

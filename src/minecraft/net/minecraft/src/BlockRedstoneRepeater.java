@@ -27,7 +27,7 @@ public class BlockRedstoneRepeater extends Block
 
     public boolean canPlaceBlockAt(World world, int i, int j, int k)
     {
-        if(!world.func_28100_h(i, j - 1, k))
+        if(!world.isBlockNormalCube(i, j - 1, k))
         {
             return false;
         } else
@@ -38,7 +38,7 @@ public class BlockRedstoneRepeater extends Block
 
     public boolean canBlockStay(World world, int i, int j, int k)
     {
-        if(!world.func_28100_h(i, j - 1, k))
+        if(!world.isBlockNormalCube(i, j - 1, k))
         {
             return false;
         } else
@@ -150,16 +150,16 @@ public class BlockRedstoneRepeater extends Block
         switch(i1)
         {
         case 0: // '\0'
-            return world.isBlockIndirectlyProvidingPowerTo(i, j, k + 1, 3);
+            return world.isBlockIndirectlyProvidingPowerTo(i, j, k + 1, 3) || world.getBlockId(i, j, k + 1) == Block.redstoneWire.blockID && world.getBlockMetadata(i, j, k + 1) > 0;
 
         case 2: // '\002'
-            return world.isBlockIndirectlyProvidingPowerTo(i, j, k - 1, 2);
+            return world.isBlockIndirectlyProvidingPowerTo(i, j, k - 1, 2) || world.getBlockId(i, j, k - 1) == Block.redstoneWire.blockID && world.getBlockMetadata(i, j, k - 1) > 0;
 
         case 3: // '\003'
-            return world.isBlockIndirectlyProvidingPowerTo(i + 1, j, k, 5);
+            return world.isBlockIndirectlyProvidingPowerTo(i + 1, j, k, 5) || world.getBlockId(i + 1, j, k) == Block.redstoneWire.blockID && world.getBlockMetadata(i + 1, j, k) > 0;
 
         case 1: // '\001'
-            return world.isBlockIndirectlyProvidingPowerTo(i - 1, j, k, 4);
+            return world.isBlockIndirectlyProvidingPowerTo(i - 1, j, k, 4) || world.getBlockId(i - 1, j, k) == Block.redstoneWire.blockID && world.getBlockMetadata(i - 1, j, k) > 0;
         }
         return false;
     }

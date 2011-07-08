@@ -68,7 +68,7 @@ public abstract class BlockFluid extends Block
         return l;
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return false;
     }

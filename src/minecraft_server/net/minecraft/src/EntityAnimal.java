@@ -44,7 +44,7 @@ public abstract class EntityAnimal extends EntityCreature
         int i = MathHelper.floor_double(posX);
         int j = MathHelper.floor_double(boundingBox.minY);
         int k = MathHelper.floor_double(posZ);
-        return worldObj.getBlockId(i, j - 1, k) == Block.grass.blockID && worldObj.func_28098_j(i, j, k) > 8 && super.getCanSpawnHere();
+        return worldObj.getBlockId(i, j - 1, k) == Block.grass.blockID && worldObj.getBlockLightValueNoChecks(i, j, k) > 8 && super.getCanSpawnHere();
     }
 
     public int getTalkInterval()

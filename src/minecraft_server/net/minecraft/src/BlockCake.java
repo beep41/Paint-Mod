@@ -71,7 +71,7 @@ public class BlockCake extends Block
         }
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return false;
     }

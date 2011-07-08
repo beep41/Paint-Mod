@@ -15,8 +15,8 @@ class ServerGuiFocusAdapter extends FocusAdapter
 
     ServerGuiFocusAdapter(ServerGUI servergui)
     {
-        mcServerGui = servergui;
 //        super();
+        mcServerGui = servergui;
     }
 
     public void focusGained(FocusEvent focusevent)

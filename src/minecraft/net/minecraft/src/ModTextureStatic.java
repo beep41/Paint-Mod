@@ -6,9 +6,11 @@ package net.minecraft.src;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import net.minecraft.client.Minecraft;
+import org.lwjgl.opengl.GL11;
 
 // Referenced classes of package net.minecraft.src:
-//            TextureFX
+//            TextureFX, ModLoader
 
 public class ModTextureStatic extends TextureFX
 {
@@ -24,20 +26,23 @@ public class ModTextureStatic extends TextureFX
         pixels = null;
         tileSize = j;
         tileImage = k;
-        int l = bufferedimage.getWidth();
-        int i1 = bufferedimage.getHeight();
-        int j1 = (int)Math.sqrt(imageData.length / 4);
-        pixels = new int[j1 * j1];
-        if(l != i1 || l != j1)
+        bindImage(ModLoader.getMinecraftInstance().renderEngine);
+        int l = GL11.glGetTexLevelParameteri(3553 /*GL_TEXTURE_2D*/, 0, 4096 /*GL_TEXTURE_WIDTH*/) / 16;
+        int i1 = GL11.glGetTexLevelParameteri(3553 /*GL_TEXTURE_2D*/, 0, 4097 /*GL_TEXTURE_HEIGHT*/) / 16;
+        int j1 = bufferedimage.getWidth();
+        int k1 = bufferedimage.getHeight();
+        pixels = new int[l * i1];
+        imageData = new byte[l * i1 * 4];
+        if(j1 != k1 || j1 != l)
         {
-            BufferedImage bufferedimage1 = new BufferedImage(j1, j1, 6);
+            BufferedImage bufferedimage1 = new BufferedImage(l, i1, 6);
             Graphics2D graphics2d = bufferedimage1.createGraphics();
-            graphics2d.drawImage(bufferedimage, 0, 0, j1, j1, 0, 0, l, i1, null);
-            bufferedimage1.getRGB(0, 0, j1, j1, pixels, 0, j1);
+            graphics2d.drawImage(bufferedimage, 0, 0, l, i1, 0, 0, j1, k1, null);
+            bufferedimage1.getRGB(0, 0, l, i1, pixels, 0, l);
             graphics2d.dispose();
         } else
         {
-            bufferedimage.getRGB(0, 0, l, i1, pixels, 0, l);
+            bufferedimage.getRGB(0, 0, j1, k1, pixels, 0, j1);
         }
         update();
     }

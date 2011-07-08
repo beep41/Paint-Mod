@@ -16,7 +16,7 @@ public enum EnumCreatureType
 /*
     public static EnumCreatureType[] values()
     {
-        return (EnumCreatureType[])h.clone();
+        return (EnumCreatureType[])field_6518_e.clone();
     }
 
     public static EnumCreatureType valueOf(String s)
@@ -61,16 +61,17 @@ public enum EnumCreatureType
     private final int maxNumberOfCreature;
     private final Material creatureMaterial;
     private final boolean isPeacefulCreature;
-//    private static final EnumCreatureType h[]; /* synthetic field */
-/*
+    private static final EnumCreatureType field_6518_e[]; /* synthetic field */
+
     static 
     {
+/*
         monster = new EnumCreatureType("monster", 0, net.minecraft.src.IMob.class, 70, Material.air, false);
         creature = new EnumCreatureType("creature", 1, net.minecraft.src.EntityAnimal.class, 15, Material.air, true);
         waterCreature = new EnumCreatureType("waterCreature", 2, net.minecraft.src.EntityWaterMob.class, 5, Material.water, true);
-        h = (new EnumCreatureType[] {
+*/
+        field_6518_e = (new EnumCreatureType[] {
             monster, creature, waterCreature
         });
     }
-*/
 }

@@ -28,51 +28,51 @@ public class BlockLever extends Block
         return false;
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return false;
     }
 
-    public boolean func_28026_e(World world, int i, int j, int k, int l)
+    public boolean canPlaceBlockOnSide(World world, int i, int j, int k, int l)
     {
-        if(l == 1 && world.isBlockOpaqueCube(i, j - 1, k))
+        if(l == 1 && world.isBlockNormalCube(i, j - 1, k))
         {
             return true;
         }
-        if(l == 2 && world.isBlockOpaqueCube(i, j, k + 1))
+        if(l == 2 && world.isBlockNormalCube(i, j, k + 1))
         {
             return true;
         }
-        if(l == 3 && world.isBlockOpaqueCube(i, j, k - 1))
+        if(l == 3 && world.isBlockNormalCube(i, j, k - 1))
         {
             return true;
         }
-        if(l == 4 && world.isBlockOpaqueCube(i + 1, j, k))
+        if(l == 4 && world.isBlockNormalCube(i + 1, j, k))
         {
             return true;
         }
-        return l == 5 && world.isBlockOpaqueCube(i - 1, j, k);
+        return l == 5 && world.isBlockNormalCube(i - 1, j, k);
     }
 
     public boolean canPlaceBlockAt(World world, int i, int j, int k)
     {
-        if(world.isBlockOpaqueCube(i - 1, j, k))
+        if(world.isBlockNormalCube(i - 1, j, k))
         {
             return true;
         }
-        if(world.isBlockOpaqueCube(i + 1, j, k))
+        if(world.isBlockNormalCube(i + 1, j, k))
         {
             return true;
         }
-        if(world.isBlockOpaqueCube(i, j, k - 1))
+        if(world.isBlockNormalCube(i, j, k - 1))
         {
             return true;
         }
-        if(world.isBlockOpaqueCube(i, j, k + 1))
+        if(world.isBlockNormalCube(i, j, k + 1))
         {
             return true;
         }
-        return world.isBlockOpaqueCube(i, j - 1, k);
+        return world.isBlockNormalCube(i, j - 1, k);
     }
 
     public void onBlockPlaced(World world, int i, int j, int k, int l)
@@ -81,23 +81,23 @@ public class BlockLever extends Block
         int j1 = i1 & 8;
         i1 &= 7;
         i1 = -1;
-        if(l == 1 && world.isBlockOpaqueCube(i, j - 1, k))
+        if(l == 1 && world.isBlockNormalCube(i, j - 1, k))
         {
             i1 = 5 + world.rand.nextInt(2);
         }
-        if(l == 2 && world.isBlockOpaqueCube(i, j, k + 1))
+        if(l == 2 && world.isBlockNormalCube(i, j, k + 1))
         {
             i1 = 4;
         }
-        if(l == 3 && world.isBlockOpaqueCube(i, j, k - 1))
+        if(l == 3 && world.isBlockNormalCube(i, j, k - 1))
         {
             i1 = 3;
         }
-        if(l == 4 && world.isBlockOpaqueCube(i + 1, j, k))
+        if(l == 4 && world.isBlockNormalCube(i + 1, j, k))
         {
             i1 = 2;
         }
-        if(l == 5 && world.isBlockOpaqueCube(i - 1, j, k))
+        if(l == 5 && world.isBlockNormalCube(i - 1, j, k))
         {
             i1 = 1;
         }
@@ -119,27 +119,27 @@ public class BlockLever extends Block
         {
             int i1 = world.getBlockMetadata(i, j, k) & 7;
             boolean flag = false;
-            if(!world.isBlockOpaqueCube(i - 1, j, k) && i1 == 1)
+            if(!world.isBlockNormalCube(i - 1, j, k) && i1 == 1)
             {
                 flag = true;
             }
-            if(!world.isBlockOpaqueCube(i + 1, j, k) && i1 == 2)
+            if(!world.isBlockNormalCube(i + 1, j, k) && i1 == 2)
             {
                 flag = true;
             }
-            if(!world.isBlockOpaqueCube(i, j, k - 1) && i1 == 3)
+            if(!world.isBlockNormalCube(i, j, k - 1) && i1 == 3)
             {
                 flag = true;
             }
-            if(!world.isBlockOpaqueCube(i, j, k + 1) && i1 == 4)
+            if(!world.isBlockNormalCube(i, j, k + 1) && i1 == 4)
             {
                 flag = true;
             }
-            if(!world.isBlockOpaqueCube(i, j - 1, k) && i1 == 5)
+            if(!world.isBlockNormalCube(i, j - 1, k) && i1 == 5)
             {
                 flag = true;
             }
-            if(!world.isBlockOpaqueCube(i, j - 1, k) && i1 == 6)
+            if(!world.isBlockNormalCube(i, j - 1, k) && i1 == 6)
             {
                 flag = true;
             }

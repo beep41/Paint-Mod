@@ -50,14 +50,14 @@ public class ServerConfigurationManager
 
     public void setPlayerManager(WorldServer aworldserver[])
     {
-        playerNBTManagerObj = aworldserver[0].func_22075_m().func_22090_d();
+        playerNBTManagerObj = aworldserver[0].getWorldFile().func_22090_d();
     }
 
     public void func_28172_a(EntityPlayerMP entityplayermp)
     {
         playerManagerObj[0].removePlayer(entityplayermp);
         playerManagerObj[1].removePlayer(entityplayermp);
-        func_28167_a(entityplayermp.dimension).addPlayer(entityplayermp);
+        getPlayerManager(entityplayermp.dimension).addPlayer(entityplayermp);
         WorldServer worldserver = mcServer.getWorldManager(entityplayermp.dimension);
         worldserver.chunkProviderServer.loadChunk((int)entityplayermp.posX >> 4, (int)entityplayermp.posZ >> 4);
     }
@@ -67,12 +67,12 @@ public class ServerConfigurationManager
         return playerManagerObj[0].getMaxTrackingDistance();
     }
 
-    private PlayerManager func_28167_a(int i)
+    private PlayerManager getPlayerManager(int i)
     {
         return i != -1 ? playerManagerObj[0] : playerManagerObj[1];
     }
 
-    public void func_28166_b(EntityPlayerMP entityplayermp)
+    public void readPlayerDataFromFile(EntityPlayerMP entityplayermp)
     {
         playerNBTManagerObj.readPlayerData(entityplayermp);
     }
@@ -84,20 +84,20 @@ public class ServerConfigurationManager
         worldserver.chunkProviderServer.loadChunk((int)entityplayermp.posX >> 4, (int)entityplayermp.posZ >> 4);
         for(; worldserver.getCollidingBoundingBoxes(entityplayermp, entityplayermp.boundingBox).size() != 0; entityplayermp.setPosition(entityplayermp.posX, entityplayermp.posY + 1.0D, entityplayermp.posZ)) { }
         worldserver.entityJoinedWorld(entityplayermp);
-        func_28167_a(entityplayermp.dimension).addPlayer(entityplayermp);
+        getPlayerManager(entityplayermp.dimension).addPlayer(entityplayermp);
     }
 
     public void func_613_b(EntityPlayerMP entityplayermp)
     {
-        func_28167_a(entityplayermp.dimension).func_543_c(entityplayermp);
+        getPlayerManager(entityplayermp.dimension).func_543_c(entityplayermp);
     }
 
     public void playerLoggedOut(EntityPlayerMP entityplayermp)
     {
         playerNBTManagerObj.writePlayerData(entityplayermp);
-        mcServer.getWorldManager(entityplayermp.dimension).func_22085_d(entityplayermp);
+        mcServer.getWorldManager(entityplayermp.dimension).removePlayerForLogoff(entityplayermp);
         playerEntities.remove(entityplayermp);
-        func_28167_a(entityplayermp.dimension).removePlayer(entityplayermp);
+        getPlayerManager(entityplayermp.dimension).removePlayer(entityplayermp);
     }
 
     public EntityPlayerMP login(NetLoginHandler netloginhandler, String s)
@@ -141,7 +141,7 @@ public class ServerConfigurationManager
     {
         mcServer.getEntityTracker(entityplayermp.dimension).removeTrackedPlayerSymmetric(entityplayermp);
         mcServer.getEntityTracker(entityplayermp.dimension).untrackEntity(entityplayermp);
-        func_28167_a(entityplayermp.dimension).removePlayer(entityplayermp);
+        getPlayerManager(entityplayermp.dimension).removePlayer(entityplayermp);
         playerEntities.remove(entityplayermp);
         mcServer.getWorldManager(entityplayermp.dimension).removePlayer(entityplayermp);
         ChunkCoordinates chunkcoordinates = entityplayermp.getSpawnChunk();
@@ -167,7 +167,7 @@ public class ServerConfigurationManager
         entityplayermp1.playerNetServerHandler.sendPacket(new Packet9Respawn((byte)entityplayermp1.dimension));
         entityplayermp1.playerNetServerHandler.teleportTo(entityplayermp1.posX, entityplayermp1.posY, entityplayermp1.posZ, entityplayermp1.rotationYaw, entityplayermp1.rotationPitch);
         func_28170_a(entityplayermp1, worldserver);
-        func_28167_a(entityplayermp1.dimension).addPlayer(entityplayermp1);
+        getPlayerManager(entityplayermp1.dimension).addPlayer(entityplayermp1);
         worldserver.entityJoinedWorld(entityplayermp1);
         playerEntities.add(entityplayermp1);
         entityplayermp1.func_20057_k();
@@ -226,7 +226,7 @@ public class ServerConfigurationManager
         entityplayermp.playerNetServerHandler.teleportTo(entityplayermp.posX, entityplayermp.posY, entityplayermp.posZ, entityplayermp.rotationYaw, entityplayermp.rotationPitch);
         entityplayermp.setWorldHandler(worldserver1);
         func_28170_a(entityplayermp, worldserver1);
-        func_30009_g(entityplayermp);
+        func_30008_g(entityplayermp);
     }
 
     public void onTick()
@@ -240,7 +240,7 @@ public class ServerConfigurationManager
 
     public void markBlockNeedsUpdate(int i, int j, int k, int l)
     {
-        func_28167_a(l).markBlockNeedsUpdate(i, j, k);
+        getPlayerManager(l).markBlockNeedsUpdate(i, j, k);
     }
 
     public void sendPacketToAllPlayers(Packet packet)
@@ -600,10 +600,10 @@ public class ServerConfigurationManager
         }
     }
 
-    public void func_30009_g(EntityPlayerMP entityplayermp)
+    public void func_30008_g(EntityPlayerMP entityplayermp)
     {
         entityplayermp.func_28017_a(entityplayermp.personalCraftingInventory);
-        entityplayermp.func_30002_B();
+        entityplayermp.func_30001_B();
     }
 
     public static Logger logger = Logger.getLogger("Minecraft");

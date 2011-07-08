@@ -52,7 +52,7 @@ public class ItemFlintAndSteel extends Item
             world.playSoundEffect((double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
             world.setBlockWithNotify(i, j, k, Block.fire.blockID);
         }
-        itemstack.func_25125_a(1, entityplayer);
+        itemstack.damageItem(1, entityplayer);
         return true;
     }
 }

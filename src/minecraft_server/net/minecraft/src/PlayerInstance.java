@@ -18,8 +18,8 @@ class PlayerInstance
 
     public PlayerInstance(PlayerManager playermanager, int i, int j)
     {
-        playerManager = playermanager;
 //        super();
+        playerManager = playermanager;
         players = new ArrayList();
         blocksToUpdate = new short[10];
         numBlocksToUpdate = 0;

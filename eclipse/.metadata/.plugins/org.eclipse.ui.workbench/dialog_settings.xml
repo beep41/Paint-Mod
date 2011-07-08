@@ -1,3 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<list key="workingset_selection_history">
+		<item value="Paint Mod"/>
+	</list>
+	<section name="WorkbenchPreferenceDialogSettings">
+		<item value="-43" key="DIALOG_Y_ORIGIN"/>
+		<item value="77" key="DIALOG_X_ORIGIN"/>
+	</section>
+	<section name="ImportExportAction">
+	</section>
 </section>

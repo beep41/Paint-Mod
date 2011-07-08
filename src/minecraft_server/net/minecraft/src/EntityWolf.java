@@ -177,7 +177,7 @@ public class EntityWolf extends EntityAnimal
             field_25042_g = true;
             field_25041_h = 0.0F;
             field_25040_i = 0.0F;
-            worldObj.func_9206_a(this, (byte)8);
+            worldObj.sendTrackedEntityStatusUpdatePacket(this, (byte)8);
         }
     }
 
@@ -261,7 +261,7 @@ public class EntityWolf extends EntityAnimal
             {
                 for(int i1 = 0; i1 <= 4; i1++)
                 {
-                    if((l < 1 || i1 < 1 || l > 3 || i1 > 3) && worldObj.isBlockOpaqueCube(i + l, k - 1, j + i1) && !worldObj.isBlockOpaqueCube(i + l, k, j + i1) && !worldObj.isBlockOpaqueCube(i + l, k + 1, j + i1))
+                    if((l < 1 || i1 < 1 || l > 3 || i1 > 3) && worldObj.isBlockNormalCube(i + l, k - 1, j + i1) && !worldObj.isBlockNormalCube(i + l, k, j + i1) && !worldObj.isBlockNormalCube(i + l, k + 1, j + i1))
                     {
                         setLocationAndAngles((float)(i + l) + 0.5F, k, (float)(j + i1) + 0.5F, rotationYaw, rotationPitch);
                         return;
@@ -398,11 +398,11 @@ public class EntityWolf extends EntityAnimal
                         health = 20;
                         setOwner(entityplayer.username);
                         isNowTamed(true);
-                        worldObj.func_9206_a(this, (byte)7);
+                        worldObj.sendTrackedEntityStatusUpdatePacket(this, (byte)7);
                     } else
                     {
                         isNowTamed(false);
-                        worldObj.func_9206_a(this, (byte)6);
+                        worldObj.sendTrackedEntityStatusUpdatePacket(this, (byte)6);
                     }
                 }
                 return true;

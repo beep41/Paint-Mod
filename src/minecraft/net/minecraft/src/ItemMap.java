@@ -132,7 +132,7 @@ public class ItemMap extends ItemMapBase
                                     {
                                         flag1 = false;
                                     } else
-                                    if(j6 > 0 && l6 > 0 && Block.blocksList[l6].blockMaterial.materialMapColor == MapColor.Air_color)
+                                    if(j6 > 0 && l6 > 0 && Block.blocksList[l6].blockMaterial.materialMapColor == MapColor.airColor)
                                     {
                                         flag1 = false;
                                     }
@@ -189,7 +189,7 @@ public class ItemMap extends ItemMapBase
                 if(i6 > 0)
                 {
                     MapColor mapcolor = Block.blocksList[i6].blockMaterial.materialMapColor;
-                    if(mapcolor == MapColor.field_28200_n)
+                    if(mapcolor == MapColor.waterColor)
                     {
                         double d3 = (double)l4 * 0.10000000000000001D + (double)(k1 + j2 & 1) * 0.20000000000000001D;
                         byte0 = 1;

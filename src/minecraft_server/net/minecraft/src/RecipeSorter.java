@@ -15,8 +15,8 @@ class RecipeSorter
 
     RecipeSorter(CraftingManager craftingmanager)
     {
-        craftingManager = craftingmanager;
 //        super();
+        craftingManager = craftingmanager;
     }
 
     public int compareRecipes(IRecipe irecipe, IRecipe irecipe1)

@@ -166,6 +166,7 @@ public class EntitySquid extends EntityWaterMob
             randomMotionVecY = -0.1F + rand.nextFloat() * 0.2F;
             randomMotionVecZ = MathHelper.sin(f) * 0.2F;
         }
+        func_27021_X();
     }
 
     public float field_21089_a;

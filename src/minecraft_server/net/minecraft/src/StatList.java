@@ -86,7 +86,7 @@ public class StatList
             if(Block.blocksList[j] != null && Block.blocksList[j].getEnableStats())
             {
                 String s1 = StatCollector.translateToLocalFormatted(s, new Object[] {
-                    Block.blocksList[j].func_25012_e()
+                    Block.blocksList[j].getNameLocalizedForStats()
                 });
                 astatbase[j] = (new StatCrafting(i + j, s1, j)).func_27053_d();
                 field_25120_d.add((StatCrafting)astatbase[j]);

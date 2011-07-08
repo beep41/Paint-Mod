@@ -233,16 +233,16 @@ public class ChunkProviderLoadOrGenerate
         return true;
     }
 
-    public boolean func_532_a()
+    public boolean unload100OldestChunks()
     {
         if(chunkLoader != null)
         {
             chunkLoader.func_814_a();
         }
-        return chunkProvider.func_532_a();
+        return chunkProvider.unload100OldestChunks();
     }
 
-    public boolean func_536_b()
+    public boolean canSave()
     {
         return true;
     }

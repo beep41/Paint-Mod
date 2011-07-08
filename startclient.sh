@@ -1,2 +1,2 @@
 #!/bin/bash
-python runtime/startclient.py conf/mcp.cfg
+python runtime/startclient.py "$@"

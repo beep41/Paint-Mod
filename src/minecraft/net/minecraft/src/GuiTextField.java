@@ -51,22 +51,22 @@ public class GuiTextField extends Gui
         }
         if(c == '\026')
         {
-        String s;
-        int j;
-        s = GuiScreen.getClipboardString();
-        if(s == null)
-        {
-            s = "";
-        }
-        j = 32 - text.length();
-        if(j > s.length())
-        {
-            j = s.length();
-        }
-        if(j > 0)
-        {
-        	text += s.substring(0, j);
-        }
+            String s;
+            int j;
+            s = GuiScreen.getClipboardString();
+            if(s == null)
+            {
+                s = "";
+            }
+            j = 32 - text.length();
+            if(j > s.length())
+            {
+                j = s.length();
+            }
+            if(j > 0)
+            {
+                text += s.substring(0, j);
+            }
         }
         if(i == 14 && text.length() > 0)
         {
@@ -74,7 +74,7 @@ public class GuiTextField extends Gui
         }
         if(ChatAllowedCharacters.allowedCharacters.indexOf(c) >= 0 && (text.length() < maxStringLength || maxStringLength == 0))
         {
-        	text += c;
+            text += c;
         }
     }
 

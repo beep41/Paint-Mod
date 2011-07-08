@@ -6,19 +6,18 @@ Created on Fri Apr  8 16:54:36 2011
 @version: v1.0
 """
 import sys, time
+from optparse import OptionParser
 from commands import Commands
 
-def main(conffile, force=False):
+def main(conffile=None, force=False):
     commands = Commands(conffile)
 
     commands.logger.info ('== Updating MCP ==')
     commands.downloadupdates(force)
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        print("Syntax: python updatemcp.py <configfile>")
-        sys.exit(0)
-    if len(sys.argv) == 3 and sys.argv[2] == '-f':
-        main(sys.argv[1], True)
-    else:
-        main(sys.argv[1])
+    parser = OptionParser(version='MCP %s' % Commands.MCPVersion)
+    parser.add_option('-f', '--force', action='store_true', dest='force', help='force update', default=False)
+    parser.add_option('-c', '--config', dest='config', help='additional configuration file')
+    (options, args) = parser.parse_args()
+    main(options.config, options.force)

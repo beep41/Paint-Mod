@@ -83,7 +83,7 @@ public class BlockPumpkin extends Block
     public boolean canPlaceBlockAt(World world, int i, int j, int k)
     {
         int l = world.getBlockId(i, j, k);
-        return (l == 0 || Block.blocksList[l].blockMaterial.func_27090_g()) && world.isBlockOpaqueCube(i, j - 1, k);
+        return (l == 0 || Block.blocksList[l].blockMaterial.func_27090_g()) && world.isBlockNormalCube(i, j - 1, k);
     }
 
     public void onBlockPlacedBy(World world, int i, int j, int k, EntityLiving entityliving)

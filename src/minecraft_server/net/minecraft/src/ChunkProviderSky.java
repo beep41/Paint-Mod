@@ -526,7 +526,7 @@ public class ChunkProviderSky
             {
                 int j22 = i18 - (k + 8);
                 int j23 = l20 - (l + 8);
-                int k23 = field_28079_p.func_28100_e(i18, l20);
+                int k23 = field_28079_p.getTopSolidOrLiquidBlock(i18, l20);
                 double d1 = field_28072_w[j22 * 16 + j23] - ((double)(k23 - 64) / 64D) * 0.29999999999999999D;
                 if(d1 < 0.5D && k23 > 0 && k23 < 128 && field_28079_p.isAirBlock(i18, k23, l20) && field_28079_p.getBlockMaterial(i18, k23 - 1, l20).getIsSolid() && field_28079_p.getBlockMaterial(i18, k23 - 1, l20) != Material.ice)
                 {

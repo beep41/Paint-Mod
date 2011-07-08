@@ -21,7 +21,7 @@ public class BlockFlowing extends BlockFluid
         field_660_c = new int[4];
     }
 
-    private void func_30005_i(World world, int i, int j, int k)
+    private void func_30004_i(World world, int i, int j, int k)
     {
         int l = world.getBlockMetadata(i, j, k);
         world.setBlockAndMetadata(i, j, k, blockID + 1, l);
@@ -93,11 +93,11 @@ public class BlockFlowing extends BlockFluid
             } else
             if(flag)
             {
-                func_30005_i(world, i, j, k);
+                func_30004_i(world, i, j, k);
             }
         } else
         {
-            func_30005_i(world, i, j, k);
+            func_30004_i(world, i, j, k);
         }
         if(func_312_l(world, i, j - 1, k))
         {

@@ -6,7 +6,8 @@ package net.minecraft.src;
 
 
 // Referenced classes of package net.minecraft.src:
-//            TileEntityRenderer, RenderEngine, TileEntity, FontRenderer
+//            TileEntityRenderer, RenderEngine, TileEntity, World, 
+//            FontRenderer
 
 public abstract class TileEntitySpecialRenderer
 {
@@ -27,6 +28,10 @@ public abstract class TileEntitySpecialRenderer
     public void setTileEntityRenderer(TileEntityRenderer tileentityrenderer)
     {
         tileEntityRenderer = tileentityrenderer;
+    }
+
+    public void func_31069_a(World world)
+    {
     }
 
     public FontRenderer getFontRenderer()

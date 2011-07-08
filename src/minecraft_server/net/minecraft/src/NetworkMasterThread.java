@@ -13,8 +13,8 @@ class NetworkMasterThread extends Thread
 
     NetworkMasterThread(NetworkManager networkmanager)
     {
-        netManager = networkmanager;
 //        super();
+        netManager = networkmanager;
     }
 
     public void run()

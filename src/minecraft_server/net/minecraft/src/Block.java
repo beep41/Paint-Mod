@@ -9,35 +9,36 @@ import java.util.Random;
 
 // Referenced classes of package net.minecraft.src:
 //            Material, IBlockAccess, AxisAlignedBB, EntityPlayer, 
-//            World, EntityItem, ItemStack, Vec3D, 
+//            World, ItemStack, EntityItem, Vec3D, 
 //            MovingObjectPosition, StatList, StatCollector, StepSound, 
 //            StepSoundStone, StepSoundSand, BlockStone, BlockGrass, 
 //            BlockDirt, BlockSapling, BlockFlowing, BlockStationary, 
 //            BlockSand, BlockGravel, BlockOre, BlockLog, 
 //            BlockLeaves, BlockSponge, BlockGlass, BlockDispenser, 
 //            BlockSandStone, BlockNote, BlockBed, BlockRail, 
-//            BlockDetectorRail, BlockWeb, BlockTallGrass, BlockDeadBush, 
-//            BlockCloth, BlockFlower, BlockMushroom, BlockOreStorage, 
-//            BlockStep, BlockTNT, BlockBookshelf, BlockObsidian, 
-//            BlockTorch, BlockFire, BlockMobSpawner, BlockStairs, 
-//            BlockChest, BlockRedstoneWire, BlockWorkbench, BlockCrops, 
-//            BlockFarmland, BlockFurnace, BlockSign, TileEntitySign, 
-//            BlockDoor, BlockLadder, BlockLever, BlockPressurePlate, 
-//            EnumMobType, BlockRedstoneOre, BlockRedstoneTorch, BlockButton, 
-//            BlockSnow, BlockIce, BlockSnowBlock, BlockCactus, 
-//            BlockClay, BlockReed, BlockJukeBox, BlockFence, 
-//            BlockPumpkin, BlockNetherrack, BlockSoulSand, BlockGlowStone, 
-//            BlockPortal, BlockCake, BlockRedstoneRepeater, BlockLockedChest, 
-//            BlockTrapDoor, Item, ItemCloth, ItemLog, 
-//            ItemSlab, ItemSapling, ItemBlock, Entity, 
-//            EntityLiving
+//            BlockDetectorRail, BlockPistonBase, BlockWeb, BlockTallGrass, 
+//            BlockDeadBush, BlockPistonExtension, BlockCloth, BlockPistonMoving, 
+//            BlockFlower, BlockMushroom, BlockOreStorage, BlockStep, 
+//            BlockTNT, BlockBookshelf, BlockObsidian, BlockTorch, 
+//            BlockFire, BlockMobSpawner, BlockStairs, BlockChest, 
+//            BlockRedstoneWire, BlockWorkbench, BlockCrops, BlockFarmland, 
+//            BlockFurnace, BlockSign, TileEntitySign, BlockDoor, 
+//            BlockLadder, BlockLever, BlockPressurePlate, EnumMobType, 
+//            BlockRedstoneOre, BlockRedstoneTorch, BlockButton, BlockSnow, 
+//            BlockIce, BlockSnowBlock, BlockCactus, BlockClay, 
+//            BlockReed, BlockJukeBox, BlockFence, BlockPumpkin, 
+//            BlockNetherrack, BlockSoulSand, BlockGlowStone, BlockPortal, 
+//            BlockCake, BlockRedstoneRepeater, BlockLockedChest, BlockTrapDoor, 
+//            Item, ItemCloth, ItemLog, ItemSlab, 
+//            ItemSapling, ItemLeaves, ItemPiston, ItemBlock, 
+//            Entity, EntityLiving
 
 public class Block
 {
 
     protected Block(int i, Material material)
     {
-        field_27024_bo = true;
+        blockConstructorCalled = true;
         enableStats = true;
         stepSound = soundPowderFootstep;
         blockParticleGravity = 1.0F;
@@ -53,19 +54,19 @@ public class Block
             setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
             opaqueCubeLookup[i] = isOpaqueCube();
             lightOpacity[i] = isOpaqueCube() ? 255 : 0;
-            field_537_s[i] = !material.getCanBlockGrass();
+            canBlockGrass[i] = !material.getCanBlockGrass();
             isBlockContainer[i] = false;
             return;
         }
     }
 
-    private Block func_28027_k()
+    protected Block setRequiresSelfNotify()
     {
-        field_28029_t[blockID] = true;
+        requiresSelfNotify[blockID] = true;
         return this;
     }
 
-    protected void func_28028_f()
+    protected void setFireBurnRates()
     {
     }
 
@@ -99,7 +100,7 @@ public class Block
         return this;
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return true;
     }
@@ -112,6 +113,17 @@ public class Block
             blockResistance = f * 5F;
         }
         return this;
+    }
+
+    protected Block setBlockUnbreakable()
+    {
+        setHardness(-1F);
+        return this;
+    }
+
+    public float getHardness()
+    {
+        return blockHardness;
     }
 
     protected Block setTickOnLoad(boolean flag)
@@ -224,7 +236,7 @@ public class Block
         }
     }
 
-    public void dropBlockAsItem(World world, int i, int j, int k, int l)
+    public final void dropBlockAsItem(World world, int i, int j, int k, int l)
     {
         dropBlockAsItemWithChance(world, i, j, k, l, 1.0F);
     }
@@ -245,16 +257,28 @@ public class Block
             int k1 = idDropped(l, world.rand);
             if(k1 > 0)
             {
-                float f1 = 0.7F;
-                double d = (double)(world.rand.nextFloat() * f1) + (double)(1.0F - f1) * 0.5D;
-                double d1 = (double)(world.rand.nextFloat() * f1) + (double)(1.0F - f1) * 0.5D;
-                double d2 = (double)(world.rand.nextFloat() * f1) + (double)(1.0F - f1) * 0.5D;
-                EntityItem entityitem = new EntityItem(world, (double)i + d, (double)j + d1, (double)k + d2, new ItemStack(k1, 1, damageDropped(l)));
-                entityitem.delayBeforeCanPickup = 10;
-                world.entityJoinedWorld(entityitem);
+                dropBlockAsItem_do(world, i, j, k, new ItemStack(k1, 1, damageDropped(l)));
             }
         }
 
+    }
+
+    protected void dropBlockAsItem_do(World world, int i, int j, int k, ItemStack itemstack)
+    {
+        if(world.singleplayerWorld)
+        {
+            return;
+        } else
+        {
+            float f = 0.7F;
+            double d = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+            double d1 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+            double d2 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+            EntityItem entityitem = new EntityItem(world, (double)i + d, (double)j + d1, (double)k + d2, itemstack);
+            entityitem.delayBeforeCanPickup = 10;
+            world.entityJoinedWorld(entityitem);
+            return;
+        }
     }
 
     protected int damageDropped(int i)
@@ -396,7 +420,7 @@ public class Block
     {
     }
 
-    public boolean func_28026_e(World world, int i, int j, int k, int l)
+    public boolean canPlaceBlockOnSide(World world, int i, int j, int k, int l)
     {
         return canPlaceBlockAt(world, i, j, k);
     }
@@ -472,7 +496,7 @@ public class Block
         return this;
     }
 
-    public String func_25012_e()
+    public String getNameLocalizedForStats()
     {
         return StatCollector.translateToLocal((new StringBuilder()).append(getBlockName()).append(".name").toString());
     }
@@ -497,6 +521,11 @@ public class Block
         return this;
     }
 
+    public int getMobilityFlag()
+    {
+        return blockMaterial.getMaterialMobility();
+    }
+
     static Class _mthclass$(String s)
     {
         try
@@ -518,14 +547,14 @@ public class Block
     public static final StepSound soundGlassFootstep;
     public static final StepSound soundClothFootstep;
     public static final StepSound soundSandFootstep;
-    public static final Block blocksList[] = new Block[256];;
+    public static final Block blocksList[];
     public static final boolean tickOnLoad[] = new boolean[256];
     public static final boolean opaqueCubeLookup[] = new boolean[256];
     public static final boolean isBlockContainer[] = new boolean[256];
     public static final int lightOpacity[] = new int[256];
-    public static final boolean field_537_s[] = new boolean[256];
+    public static final boolean canBlockGrass[];
     public static final int lightValue[] = new int[256];
-    public static final boolean field_28029_t[] = new boolean[256];
+    public static final boolean requiresSelfNotify[] = new boolean[256];
     public static final Block stone;
     public static final BlockGrass grass;
     public static final Block dirt;
@@ -554,14 +583,14 @@ public class Block
     public static final Block bed;
     public static final Block railPowered;
     public static final Block railDetector;
-    public static final Block field_9033_V = null;
-    public static final Block web = (new BlockWeb(30, 11)).setBlockName("web");
-    public static final BlockTallGrass field_9031_X;
-    public static final BlockDeadBush field_9030_Y;
-    public static final Block field_9029_Z = null;
-    public static final Block field_9049_aa = null;
+    public static final Block pistonStickyBase;
+    public static final Block web;
+    public static final BlockTallGrass tallGrass;
+    public static final BlockDeadBush deadBush;
+    public static final Block pistonBase;
+    public static final BlockPistonExtension pistonExtension;
     public static final Block cloth;
-    public static final Block field_9048_ac = null;
+    public static final BlockPistonMoving pistonMoving;
     public static final BlockFlower plantYellow;
     public static final BlockFlower plantRed;
     public static final BlockFlower mushroomBrown;
@@ -614,19 +643,19 @@ public class Block
     public static final Block pumpkin;
     public static final Block bloodStone;
     public static final Block slowSand;
-    public static final Block lightStone;
+    public static final Block glowStone;
     public static final BlockPortal portal;
     public static final Block pumpkinLantern;
     public static final Block cake;
     public static final Block redstoneRepeaterIdle;
     public static final Block redstoneRepeaterActive;
     public static final Block lockedChest;
-    public static final Block field_28030_bl;
+    public static final Block trapdoor;
     public int blockIndexInTexture;
     public final int blockID;
     protected float blockHardness;
     protected float blockResistance;
-    protected boolean field_27024_bo;
+    protected boolean blockConstructorCalled;
     protected boolean enableStats;
     public double minX;
     public double minY;
@@ -642,8 +671,6 @@ public class Block
 
     static 
     {
-    	bed = (new BlockBed(26)).setHardness(0.2F).setBlockName("bed").disableStats().func_28027_k();
-    	musicBlock = (new BlockNote(25)).setHardness(0.8F).setBlockName("musicBlock").func_28027_k();
         soundPowderFootstep = new StepSound("stone", 1.0F, 1.0F);
         soundWoodFootstep = new StepSound("wood", 1.0F, 1.0F);
         soundGravelFootstep = new StepSound("gravel", 1.0F, 1.0F);
@@ -653,35 +680,44 @@ public class Block
         soundGlassFootstep = new StepSoundStone("stone", 1.0F, 1.0F);
         soundClothFootstep = new StepSound("cloth", 1.0F, 1.0F);
         soundSandFootstep = new StepSoundSand("sand", 1.0F, 1.0F);
+        blocksList = new Block[256];
+        canBlockGrass = new boolean[256];
         stone = (new BlockStone(1, 1)).setHardness(1.5F).setResistance(10F).setStepSound(soundStoneFootstep).setBlockName("stone");
         grass = (BlockGrass)(new BlockGrass(2)).setHardness(0.6F).setStepSound(soundGrassFootstep).setBlockName("grass");
         dirt = (new BlockDirt(3, 2)).setHardness(0.5F).setStepSound(soundGravelFootstep).setBlockName("dirt");
         cobblestone = (new Block(4, 16, Material.rock)).setHardness(2.0F).setResistance(10F).setStepSound(soundStoneFootstep).setBlockName("stonebrick");
-        planks = (new Block(5, 4, Material.wood)).setHardness(2.0F).setResistance(5F).setStepSound(soundWoodFootstep).setBlockName("wood").func_28027_k();
-        sapling = (new BlockSapling(6, 15)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("sapling").func_28027_k();
-        bedrock = (new Block(7, 17, Material.rock)).setHardness(-1F).setResistance(6000000F).setStepSound(soundStoneFootstep).setBlockName("bedrock").disableStats();
-        waterMoving = (new BlockFlowing(8, Material.water)).setHardness(100F).setLightOpacity(3).setBlockName("water").disableStats().func_28027_k();
-        waterStill = (new BlockStationary(9, Material.water)).setHardness(100F).setLightOpacity(3).setBlockName("water").disableStats().func_28027_k();
-        lavaMoving = (new BlockFlowing(10, Material.lava)).setHardness(0.0F).setLightValue(1.0F).setLightOpacity(255).setBlockName("lava").disableStats().func_28027_k();
-        lavaStill = (new BlockStationary(11, Material.lava)).setHardness(100F).setLightValue(1.0F).setLightOpacity(255).setBlockName("lava").disableStats().func_28027_k();
+        planks = (new Block(5, 4, Material.wood)).setHardness(2.0F).setResistance(5F).setStepSound(soundWoodFootstep).setBlockName("wood").setRequiresSelfNotify();
+        sapling = (new BlockSapling(6, 15)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("sapling").setRequiresSelfNotify();
+        bedrock = (new Block(7, 17, Material.rock)).setBlockUnbreakable().setResistance(6000000F).setStepSound(soundStoneFootstep).setBlockName("bedrock").disableStats();
+        waterMoving = (new BlockFlowing(8, Material.water)).setHardness(100F).setLightOpacity(3).setBlockName("water").disableStats().setRequiresSelfNotify();
+        waterStill = (new BlockStationary(9, Material.water)).setHardness(100F).setLightOpacity(3).setBlockName("water").disableStats().setRequiresSelfNotify();
+        lavaMoving = (new BlockFlowing(10, Material.lava)).setHardness(0.0F).setLightValue(1.0F).setLightOpacity(255).setBlockName("lava").disableStats().setRequiresSelfNotify();
+        lavaStill = (new BlockStationary(11, Material.lava)).setHardness(100F).setLightValue(1.0F).setLightOpacity(255).setBlockName("lava").disableStats().setRequiresSelfNotify();
         sand = (new BlockSand(12, 18)).setHardness(0.5F).setStepSound(soundSandFootstep).setBlockName("sand");
         gravel = (new BlockGravel(13, 19)).setHardness(0.6F).setStepSound(soundGravelFootstep).setBlockName("gravel");
         oreGold = (new BlockOre(14, 32)).setHardness(3F).setResistance(5F).setStepSound(soundStoneFootstep).setBlockName("oreGold");
         oreIron = (new BlockOre(15, 33)).setHardness(3F).setResistance(5F).setStepSound(soundStoneFootstep).setBlockName("oreIron");
         oreCoal = (new BlockOre(16, 34)).setHardness(3F).setResistance(5F).setStepSound(soundStoneFootstep).setBlockName("oreCoal");
-        wood = (new BlockLog(17)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("log").func_28027_k();
-        leaves = (BlockLeaves)(new BlockLeaves(18, 52)).setHardness(0.2F).setLightOpacity(1).setStepSound(soundGrassFootstep).setBlockName("leaves").disableStats().func_28027_k();
+        wood = (new BlockLog(17)).setHardness(2.0F).setStepSound(soundWoodFootstep).setBlockName("log").setRequiresSelfNotify();
+        leaves = (BlockLeaves)(new BlockLeaves(18, 52)).setHardness(0.2F).setLightOpacity(1).setStepSound(soundGrassFootstep).setBlockName("leaves").disableStats().setRequiresSelfNotify();
         sponge = (new BlockSponge(19)).setHardness(0.6F).setStepSound(soundGrassFootstep).setBlockName("sponge");
         glass = (new BlockGlass(20, 49, Material.glass, false)).setHardness(0.3F).setStepSound(soundGlassFootstep).setBlockName("glass");
         oreLapis = (new BlockOre(21, 160)).setHardness(3F).setResistance(5F).setStepSound(soundStoneFootstep).setBlockName("oreLapis");
         blockLapis = (new Block(22, 144, Material.rock)).setHardness(3F).setResistance(5F).setStepSound(soundStoneFootstep).setBlockName("blockLapis");
-        dispenser = (new BlockDispenser(23)).setHardness(3.5F).setStepSound(soundStoneFootstep).setBlockName("dispenser").func_28027_k();
+        dispenser = (new BlockDispenser(23)).setHardness(3.5F).setStepSound(soundStoneFootstep).setBlockName("dispenser").setRequiresSelfNotify();
         sandStone = (new BlockSandStone(24)).setStepSound(soundStoneFootstep).setHardness(0.8F).setBlockName("sandStone");
-        railPowered = (new BlockRail(27, 179, true)).setHardness(0.7F).setStepSound(soundMetalFootstep).setBlockName("goldenRail").func_28027_k();
-        railDetector = (new BlockDetectorRail(28, 195)).setHardness(0.7F).setStepSound(soundMetalFootstep).setBlockName("detectorRail").func_28027_k();
-        field_9031_X = (BlockTallGrass)(new BlockTallGrass(31, 39)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("tallgrass");
-        field_9030_Y = (BlockDeadBush)(new BlockDeadBush(32, 55)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("deadbush");
-        cloth = (new BlockCloth()).setHardness(0.8F).setStepSound(soundClothFootstep).setBlockName("cloth").func_28027_k();
+        musicBlock = (new BlockNote(25)).setHardness(0.8F).setBlockName("musicBlock").setRequiresSelfNotify();
+        bed = (new BlockBed(26)).setHardness(0.2F).setBlockName("bed").disableStats().setRequiresSelfNotify();
+        railPowered = (new BlockRail(27, 179, true)).setHardness(0.7F).setStepSound(soundMetalFootstep).setBlockName("goldenRail").setRequiresSelfNotify();
+        railDetector = (new BlockDetectorRail(28, 195)).setHardness(0.7F).setStepSound(soundMetalFootstep).setBlockName("detectorRail").setRequiresSelfNotify();
+        pistonStickyBase = (new BlockPistonBase(29, 106, true)).setBlockName("pistonStickyBase").setRequiresSelfNotify();
+        web = (new BlockWeb(30, 11)).setLightOpacity(1).setHardness(4F).setBlockName("web");
+        tallGrass = (BlockTallGrass)(new BlockTallGrass(31, 39)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("tallgrass");
+        deadBush = (BlockDeadBush)(new BlockDeadBush(32, 55)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("deadbush");
+        pistonBase = (new BlockPistonBase(33, 107, false)).setBlockName("pistonBase").setRequiresSelfNotify();
+        pistonExtension = (BlockPistonExtension)(new BlockPistonExtension(34, 107)).setRequiresSelfNotify();
+        cloth = (new BlockCloth()).setHardness(0.8F).setStepSound(soundClothFootstep).setBlockName("cloth").setRequiresSelfNotify();
+        pistonMoving = new BlockPistonMoving(36);
         plantYellow = (BlockFlower)(new BlockFlower(37, 13)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("flower");
         plantRed = (BlockFlower)(new BlockFlower(38, 12)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("rose");
         mushroomBrown = (BlockFlower)(new BlockMushroom(39, 29)).setHardness(0.0F).setStepSound(soundGrassFootstep).setLightValue(0.125F).setBlockName("mushroom");
@@ -695,67 +731,70 @@ public class Block
         bookShelf = (new BlockBookshelf(47, 35)).setHardness(1.5F).setStepSound(soundWoodFootstep).setBlockName("bookshelf");
         cobblestoneMossy = (new Block(48, 36, Material.rock)).setHardness(2.0F).setResistance(10F).setStepSound(soundStoneFootstep).setBlockName("stoneMoss");
         obsidian = (new BlockObsidian(49, 37)).setHardness(10F).setResistance(2000F).setStepSound(soundStoneFootstep).setBlockName("obsidian");
-        torchWood = (new BlockTorch(50, 80)).setHardness(0.0F).setLightValue(0.9375F).setStepSound(soundWoodFootstep).setBlockName("torch").func_28027_k();
-        fire = (BlockFire)(new BlockFire(51, 31)).setHardness(0.0F).setLightValue(1.0F).setStepSound(soundWoodFootstep).setBlockName("fire").disableStats().func_28027_k();
+        torchWood = (new BlockTorch(50, 80)).setHardness(0.0F).setLightValue(0.9375F).setStepSound(soundWoodFootstep).setBlockName("torch").setRequiresSelfNotify();
+        fire = (BlockFire)(new BlockFire(51, 31)).setHardness(0.0F).setLightValue(1.0F).setStepSound(soundWoodFootstep).setBlockName("fire").disableStats().setRequiresSelfNotify();
         mobSpawner = (new BlockMobSpawner(52, 65)).setHardness(5F).setStepSound(soundMetalFootstep).setBlockName("mobSpawner").disableStats();
-        stairCompactPlanks = (new BlockStairs(53, planks)).setBlockName("stairsWood").func_28027_k();
-        chest = (new BlockChest(54)).setHardness(2.5F).setStepSound(soundWoodFootstep).setBlockName("chest").func_28027_k();
-        redstoneWire = (new BlockRedstoneWire(55, 164)).setHardness(0.0F).setStepSound(soundPowderFootstep).setBlockName("redstoneDust").disableStats().func_28027_k();
+        stairCompactPlanks = (new BlockStairs(53, planks)).setBlockName("stairsWood").setRequiresSelfNotify();
+        chest = (new BlockChest(54)).setHardness(2.5F).setStepSound(soundWoodFootstep).setBlockName("chest").setRequiresSelfNotify();
+        redstoneWire = (new BlockRedstoneWire(55, 164)).setHardness(0.0F).setStepSound(soundPowderFootstep).setBlockName("redstoneDust").disableStats().setRequiresSelfNotify();
         oreDiamond = (new BlockOre(56, 50)).setHardness(3F).setResistance(5F).setStepSound(soundStoneFootstep).setBlockName("oreDiamond");
         blockDiamond = (new BlockOreStorage(57, 24)).setHardness(5F).setResistance(10F).setStepSound(soundMetalFootstep).setBlockName("blockDiamond");
         workbench = (new BlockWorkbench(58)).setHardness(2.5F).setStepSound(soundWoodFootstep).setBlockName("workbench");
-        crops = (new BlockCrops(59, 88)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("crops").disableStats().func_28027_k();
+        crops = (new BlockCrops(59, 88)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("crops").disableStats().setRequiresSelfNotify();
         tilledField = (new BlockFarmland(60)).setHardness(0.6F).setStepSound(soundGravelFootstep).setBlockName("farmland");
-        stoneOvenIdle = (new BlockFurnace(61, false)).setHardness(3.5F).setStepSound(soundStoneFootstep).setBlockName("furnace").func_28027_k();
-        stoneOvenActive = (new BlockFurnace(62, true)).setHardness(3.5F).setStepSound(soundStoneFootstep).setLightValue(0.875F).setBlockName("furnace").func_28027_k();
-        signPost = (new BlockSign(63, net.minecraft.src.TileEntitySign.class, true)).setHardness(1.0F).setStepSound(soundWoodFootstep).setBlockName("sign").disableStats().func_28027_k();
-        doorWood = (new BlockDoor(64, Material.wood)).setHardness(3F).setStepSound(soundWoodFootstep).setBlockName("doorWood").disableStats().func_28027_k();
-        ladder = (new BlockLadder(65, 83)).setHardness(0.4F).setStepSound(soundWoodFootstep).setBlockName("ladder").func_28027_k();
-        minecartTrack = (new BlockRail(66, 128, false)).setHardness(0.7F).setStepSound(soundMetalFootstep).setBlockName("rail").func_28027_k();
-        stairCompactCobblestone = (new BlockStairs(67, cobblestone)).setBlockName("stairsStone").func_28027_k();
-        signWall = (new BlockSign(68, net.minecraft.src.TileEntitySign.class, false)).setHardness(1.0F).setStepSound(soundWoodFootstep).setBlockName("sign").disableStats().func_28027_k();
-        lever = (new BlockLever(69, 96)).setHardness(0.5F).setStepSound(soundWoodFootstep).setBlockName("lever").func_28027_k();
-        pressurePlateStone = (new BlockPressurePlate(70, stone.blockIndexInTexture, EnumMobType.mobs, Material.rock)).setHardness(0.5F).setStepSound(soundStoneFootstep).setBlockName("pressurePlate").func_28027_k();
-        doorSteel = (new BlockDoor(71, Material.iron)).setHardness(5F).setStepSound(soundMetalFootstep).setBlockName("doorIron").disableStats().func_28027_k();
-        pressurePlatePlanks = (new BlockPressurePlate(72, planks.blockIndexInTexture, EnumMobType.everything, Material.wood)).setHardness(0.5F).setStepSound(soundWoodFootstep).setBlockName("pressurePlate").func_28027_k();
-        oreRedstone = (new BlockRedstoneOre(73, 51, false)).setHardness(3F).setResistance(5F).setStepSound(soundStoneFootstep).setBlockName("oreRedstone").func_28027_k();
-        oreRedstoneGlowing = (new BlockRedstoneOre(74, 51, true)).setLightValue(0.625F).setHardness(3F).setResistance(5F).setStepSound(soundStoneFootstep).setBlockName("oreRedstone").func_28027_k();
-        torchRedstoneIdle = (new BlockRedstoneTorch(75, 115, false)).setHardness(0.0F).setStepSound(soundWoodFootstep).setBlockName("notGate").func_28027_k();
-        torchRedstoneActive = (new BlockRedstoneTorch(76, 99, true)).setHardness(0.0F).setLightValue(0.5F).setStepSound(soundWoodFootstep).setBlockName("notGate").func_28027_k();
-        button = (new BlockButton(77, stone.blockIndexInTexture)).setHardness(0.5F).setStepSound(soundStoneFootstep).setBlockName("button").func_28027_k();
+        stoneOvenIdle = (new BlockFurnace(61, false)).setHardness(3.5F).setStepSound(soundStoneFootstep).setBlockName("furnace").setRequiresSelfNotify();
+        stoneOvenActive = (new BlockFurnace(62, true)).setHardness(3.5F).setStepSound(soundStoneFootstep).setLightValue(0.875F).setBlockName("furnace").setRequiresSelfNotify();
+        signPost = (new BlockSign(63, net.minecraft.src.TileEntitySign.class, true)).setHardness(1.0F).setStepSound(soundWoodFootstep).setBlockName("sign").disableStats().setRequiresSelfNotify();
+        doorWood = (new BlockDoor(64, Material.wood)).setHardness(3F).setStepSound(soundWoodFootstep).setBlockName("doorWood").disableStats().setRequiresSelfNotify();
+        ladder = (new BlockLadder(65, 83)).setHardness(0.4F).setStepSound(soundWoodFootstep).setBlockName("ladder").setRequiresSelfNotify();
+        minecartTrack = (new BlockRail(66, 128, false)).setHardness(0.7F).setStepSound(soundMetalFootstep).setBlockName("rail").setRequiresSelfNotify();
+        stairCompactCobblestone = (new BlockStairs(67, cobblestone)).setBlockName("stairsStone").setRequiresSelfNotify();
+        signWall = (new BlockSign(68, net.minecraft.src.TileEntitySign.class, false)).setHardness(1.0F).setStepSound(soundWoodFootstep).setBlockName("sign").disableStats().setRequiresSelfNotify();
+        lever = (new BlockLever(69, 96)).setHardness(0.5F).setStepSound(soundWoodFootstep).setBlockName("lever").setRequiresSelfNotify();
+        pressurePlateStone = (new BlockPressurePlate(70, stone.blockIndexInTexture, EnumMobType.mobs, Material.rock)).setHardness(0.5F).setStepSound(soundStoneFootstep).setBlockName("pressurePlate").setRequiresSelfNotify();
+        doorSteel = (new BlockDoor(71, Material.iron)).setHardness(5F).setStepSound(soundMetalFootstep).setBlockName("doorIron").disableStats().setRequiresSelfNotify();
+        pressurePlatePlanks = (new BlockPressurePlate(72, planks.blockIndexInTexture, EnumMobType.everything, Material.wood)).setHardness(0.5F).setStepSound(soundWoodFootstep).setBlockName("pressurePlate").setRequiresSelfNotify();
+        oreRedstone = (new BlockRedstoneOre(73, 51, false)).setHardness(3F).setResistance(5F).setStepSound(soundStoneFootstep).setBlockName("oreRedstone").setRequiresSelfNotify();
+        oreRedstoneGlowing = (new BlockRedstoneOre(74, 51, true)).setLightValue(0.625F).setHardness(3F).setResistance(5F).setStepSound(soundStoneFootstep).setBlockName("oreRedstone").setRequiresSelfNotify();
+        torchRedstoneIdle = (new BlockRedstoneTorch(75, 115, false)).setHardness(0.0F).setStepSound(soundWoodFootstep).setBlockName("notGate").setRequiresSelfNotify();
+        torchRedstoneActive = (new BlockRedstoneTorch(76, 99, true)).setHardness(0.0F).setLightValue(0.5F).setStepSound(soundWoodFootstep).setBlockName("notGate").setRequiresSelfNotify();
+        button = (new BlockButton(77, stone.blockIndexInTexture)).setHardness(0.5F).setStepSound(soundStoneFootstep).setBlockName("button").setRequiresSelfNotify();
         snow = (new BlockSnow(78, 66)).setHardness(0.1F).setStepSound(soundClothFootstep).setBlockName("snow");
         ice = (new BlockIce(79, 67)).setHardness(0.5F).setLightOpacity(3).setStepSound(soundGlassFootstep).setBlockName("ice");
         blockSnow = (new BlockSnowBlock(80, 66)).setHardness(0.2F).setStepSound(soundClothFootstep).setBlockName("snow");
         cactus = (new BlockCactus(81, 70)).setHardness(0.4F).setStepSound(soundClothFootstep).setBlockName("cactus");
         blockClay = (new BlockClay(82, 72)).setHardness(0.6F).setStepSound(soundGravelFootstep).setBlockName("clay");
         reed = (new BlockReed(83, 73)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("reeds").disableStats();
-        jukebox = (new BlockJukeBox(84, 74)).setHardness(2.0F).setResistance(10F).setStepSound(soundStoneFootstep).setBlockName("jukebox").func_28027_k();
-        fence = (new BlockFence(85, 4)).setHardness(2.0F).setResistance(5F).setStepSound(soundWoodFootstep).setBlockName("fence").func_28027_k();
-        pumpkin = (new BlockPumpkin(86, 102, false)).setHardness(1.0F).setStepSound(soundWoodFootstep).setBlockName("pumpkin").func_28027_k();
+        jukebox = (new BlockJukeBox(84, 74)).setHardness(2.0F).setResistance(10F).setStepSound(soundStoneFootstep).setBlockName("jukebox").setRequiresSelfNotify();
+        fence = (new BlockFence(85, 4)).setHardness(2.0F).setResistance(5F).setStepSound(soundWoodFootstep).setBlockName("fence").setRequiresSelfNotify();
+        pumpkin = (new BlockPumpkin(86, 102, false)).setHardness(1.0F).setStepSound(soundWoodFootstep).setBlockName("pumpkin").setRequiresSelfNotify();
         bloodStone = (new BlockNetherrack(87, 103)).setHardness(0.4F).setStepSound(soundStoneFootstep).setBlockName("hellrock");
         slowSand = (new BlockSoulSand(88, 104)).setHardness(0.5F).setStepSound(soundSandFootstep).setBlockName("hellsand");
-        lightStone = (new BlockGlowStone(89, 105, Material.rock)).setHardness(0.3F).setStepSound(soundGlassFootstep).setLightValue(1.0F).setBlockName("lightgem");
+        glowStone = (new BlockGlowStone(89, 105, Material.rock)).setHardness(0.3F).setStepSound(soundGlassFootstep).setLightValue(1.0F).setBlockName("lightgem");
         portal = (BlockPortal)(new BlockPortal(90, 14)).setHardness(-1F).setStepSound(soundGlassFootstep).setLightValue(0.75F).setBlockName("portal");
-        pumpkinLantern = (new BlockPumpkin(91, 102, true)).setHardness(1.0F).setStepSound(soundWoodFootstep).setLightValue(1.0F).setBlockName("litpumpkin").func_28027_k();
-        cake = (new BlockCake(92, 121)).setHardness(0.5F).setStepSound(soundClothFootstep).setBlockName("cake").disableStats().func_28027_k();
-        redstoneRepeaterIdle = (new BlockRedstoneRepeater(93, false)).setHardness(0.0F).setStepSound(soundWoodFootstep).setBlockName("diode").disableStats().func_28027_k();
-        redstoneRepeaterActive = (new BlockRedstoneRepeater(94, true)).setHardness(0.0F).setLightValue(0.625F).setStepSound(soundWoodFootstep).setBlockName("diode").disableStats().func_28027_k();
-        lockedChest = (new BlockLockedChest(95)).setHardness(0.0F).setLightValue(1.0F).setStepSound(soundWoodFootstep).setBlockName("lockedchest").setTickOnLoad(true).func_28027_k();
-        field_28030_bl = (new BlockTrapDoor(96, Material.wood)).setHardness(3F).setStepSound(soundWoodFootstep).setBlockName("trapdoor").disableStats().func_28027_k();
+        pumpkinLantern = (new BlockPumpkin(91, 102, true)).setHardness(1.0F).setStepSound(soundWoodFootstep).setLightValue(1.0F).setBlockName("litpumpkin").setRequiresSelfNotify();
+        cake = (new BlockCake(92, 121)).setHardness(0.5F).setStepSound(soundClothFootstep).setBlockName("cake").disableStats().setRequiresSelfNotify();
+        redstoneRepeaterIdle = (new BlockRedstoneRepeater(93, false)).setHardness(0.0F).setStepSound(soundWoodFootstep).setBlockName("diode").disableStats().setRequiresSelfNotify();
+        redstoneRepeaterActive = (new BlockRedstoneRepeater(94, true)).setHardness(0.0F).setLightValue(0.625F).setStepSound(soundWoodFootstep).setBlockName("diode").disableStats().setRequiresSelfNotify();
+        lockedChest = (new BlockLockedChest(95)).setHardness(0.0F).setLightValue(1.0F).setStepSound(soundWoodFootstep).setBlockName("lockedchest").setTickOnLoad(true).setRequiresSelfNotify();
+        trapdoor = (new BlockTrapDoor(96, Material.wood)).setHardness(3F).setStepSound(soundWoodFootstep).setBlockName("trapdoor").disableStats().setRequiresSelfNotify();
         Item.itemsList[cloth.blockID] = (new ItemCloth(cloth.blockID - 256)).setItemName("cloth");
         Item.itemsList[wood.blockID] = (new ItemLog(wood.blockID - 256)).setItemName("log");
         Item.itemsList[stairSingle.blockID] = (new ItemSlab(stairSingle.blockID - 256)).setItemName("stoneSlab");
         Item.itemsList[sapling.blockID] = (new ItemSapling(sapling.blockID - 256)).setItemName("sapling");
+        Item.itemsList[leaves.blockID] = (new ItemLeaves(leaves.blockID - 256)).setItemName("leaves");
+        Item.itemsList[pistonBase.blockID] = new ItemPiston(pistonBase.blockID - 256);
+        Item.itemsList[pistonStickyBase.blockID] = new ItemPiston(pistonStickyBase.blockID - 256);
         for(int i = 0; i < 256; i++)
         {
             if(blocksList[i] != null && Item.itemsList[i] == null)
             {
                 Item.itemsList[i] = new ItemBlock(i - 256);
-                blocksList[i].func_28028_f();
+                blocksList[i].setFireBurnRates();
             }
         }
 
-        field_537_s[0] = true;
+        canBlockGrass[0] = true;
         StatList.func_25088_a();
     }
 }

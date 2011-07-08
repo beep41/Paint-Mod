@@ -9,7 +9,7 @@ import java.util.List;
 // Referenced classes of package net.minecraft.src:
 //            Container, InventoryCrafting, InventoryCraftResult, SlotCrafting, 
 //            InventoryPlayer, Slot, CraftingManager, IInventory, 
-//            EntityPlayer, World, Block, ItemStack
+//            World, EntityPlayer, Block, ItemStack
 
 public class ContainerWorkbench extends Container
 {
@@ -57,6 +57,10 @@ public class ContainerWorkbench extends Container
     public void onCraftGuiClosed(EntityPlayer entityplayer)
     {
         super.onCraftGuiClosed(entityplayer);
+        if(field_20150_c.singleplayerWorld)
+        {
+            return;
+        }
         for(int i = 0; i < 9; i++)
         {
             ItemStack itemstack = craftMatrix.getStackInSlot(i);

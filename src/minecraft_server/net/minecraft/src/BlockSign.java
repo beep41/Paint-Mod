@@ -60,7 +60,7 @@ public class BlockSign extends BlockContainer
         }
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return false;
     }

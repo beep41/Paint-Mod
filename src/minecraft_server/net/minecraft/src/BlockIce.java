@@ -8,7 +8,7 @@ import java.util.Random;
 
 // Referenced classes of package net.minecraft.src:
 //            BlockBreakable, Material, World, Block, 
-//            EnumSkyBlock
+//            EnumSkyBlock, EntityPlayer
 
 public class BlockIce extends BlockBreakable
 {
@@ -20,8 +20,9 @@ public class BlockIce extends BlockBreakable
         setTickOnLoad(true);
     }
 
-    public void onBlockRemoval(World world, int i, int j, int k)
+    public void harvestBlock(World world, EntityPlayer entityplayer, int i, int j, int k, int l)
     {
+        super.harvestBlock(world, entityplayer, i, j, k, l);
         Material material = world.getBlockMaterial(i, j - 1, k);
         if(material.getIsSolid() || material.getIsLiquid())
         {
@@ -41,5 +42,10 @@ public class BlockIce extends BlockBreakable
             dropBlockAsItem(world, i, j, k, world.getBlockMetadata(i, j, k));
             world.setBlockWithNotify(i, j, k, Block.waterStill.blockID);
         }
+    }
+
+    public int getMobilityFlag()
+    {
+        return 0;
     }
 }

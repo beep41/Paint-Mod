@@ -35,7 +35,7 @@ public enum EnumArt
 /*
     public static EnumArt[] values()
     {
-        return (EnumArt[])F.clone();
+        return (EnumArt[])field_863_D.clone();
     }
 
     public static EnumArt valueOf(String s)
@@ -85,10 +85,11 @@ public enum EnumArt
     public final int sizeY;
     public final int offsetX;
     public final int offsetY;
-//    private static final EnumArt F[]; /* synthetic field */
-/*
+    private static final EnumArt field_863_D[]; /* synthetic field */
+
     static 
     {
+/*
         Kebab = new EnumArt("Kebab", 0, "Kebab", 16, 16, 0, 0);
         Aztec = new EnumArt("Aztec", 1, "Aztec", 16, 16, 16, 0);
         Alban = new EnumArt("Alban", 2, "Alban", 16, 16, 32, 0);
@@ -114,11 +115,11 @@ public enum EnumArt
         BurningSkull = new EnumArt("BurningSkull", 22, "BurningSkull", 64, 64, 128, 192);
         Skeleton = new EnumArt("Skeleton", 23, "Skeleton", 64, 48, 192, 64);
         DonkeyKong = new EnumArt("DonkeyKong", 24, "DonkeyKong", 64, 48, 192, 112);
-        F = (new EnumArt[] {
+*/
+        field_863_D = (new EnumArt[] {
             Kebab, Aztec, Alban, Aztec2, Bomb, Plant, Wasteland, Pool, Courbet, Sea, 
             Sunset, Creebet, Wanderer, Graham, Match, Bust, Stage, Void, SkullAndRoses, Fighters, 
             Pointer, Pigscene, BurningSkull, Skeleton, DonkeyKong
         });
     }
-*/
 }

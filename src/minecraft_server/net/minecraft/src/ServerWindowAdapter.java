@@ -13,8 +13,8 @@ final class ServerWindowAdapter extends WindowAdapter
 
     ServerWindowAdapter(MinecraftServer minecraftserver)
     {
-        mcServer = minecraftserver;
 //        super();
+        mcServer = minecraftserver;
     }
 
     public void windowClosing(WindowEvent windowevent)

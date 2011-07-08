@@ -1,6 +1,6 @@
 diff -r -U 3 minecraft_server\net\minecraft\src\ItemMap.java minecraft_server_patched\net\minecraft\src\ItemMap.java
---- minecraft_server\net\minecraft\src\ItemMap.java	Tue May 31 23:19:11 2011
-+++ minecraft_server_patched\net\minecraft\src\ItemMap.java	Tue May 31 23:21:47 2011
+--- minecraft_server\net\minecraft\src\ItemMap.java	Tue Jul 05 01:00:46 2011
++++ minecraft_server_patched\net\minecraft\src\ItemMap.java	Tue Jul 05 01:02:44 2011
 @@ -22,7 +22,7 @@
     }
  

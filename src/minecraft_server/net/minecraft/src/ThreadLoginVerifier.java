@@ -17,9 +17,9 @@ class ThreadLoginVerifier extends Thread
 
     ThreadLoginVerifier(NetLoginHandler netloginhandler, Packet1Login packet1login)
     {
+//        super();
         loginHandler = netloginhandler;
         loginPacket = packet1login;
-//        super();
     }
 
     public void run()

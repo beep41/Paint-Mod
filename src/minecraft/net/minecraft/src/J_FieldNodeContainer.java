@@ -14,9 +14,9 @@ class J_FieldNodeContainer
 
     J_FieldNodeContainer(J_JsonListenerToJdomAdapter j_jsonlistenertojdomadapter, J_JsonFieldBuilder j_jsonfieldbuilder)
     {
+//        super();
         field_27291_b = j_jsonlistenertojdomadapter;
         field_27292_a = j_jsonfieldbuilder;
-//        super();
     }
 
     public void func_27290_a(J_JsonNodeBuilder j_jsonnodebuilder)

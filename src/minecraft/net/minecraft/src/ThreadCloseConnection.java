@@ -13,8 +13,8 @@ class ThreadCloseConnection extends Thread
 
     ThreadCloseConnection(NetworkManager networkmanager)
     {
-        field_28109_a = networkmanager;
 //        super();
+        field_28109_a = networkmanager;
     }
 
     public void run()

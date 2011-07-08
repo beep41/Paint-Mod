@@ -15,7 +15,7 @@ public class RenderTNTPrimed extends Render
 
     public RenderTNTPrimed()
     {
-        field_196_d = new RenderBlocks();
+        blockRenderer = new RenderBlocks();
         shadowSize = 0.5F;
     }
 
@@ -42,7 +42,7 @@ public class RenderTNTPrimed extends Render
         }
         float f3 = (1.0F - (((float)entitytntprimed.fuse - f1) + 1.0F) / 100F) * 0.8F;
         loadTexture("/terrain.png");
-        field_196_d.renderBlockOnInventory(Block.tnt, 0);
+        blockRenderer.renderBlockOnInventory(Block.tnt, 0, entitytntprimed.getEntityBrightness(f1));
         if((entitytntprimed.fuse / 5) % 2 == 0)
         {
             GL11.glDisable(3553 /*GL_TEXTURE_2D*/);
@@ -50,7 +50,7 @@ public class RenderTNTPrimed extends Render
             GL11.glEnable(3042 /*GL_BLEND*/);
             GL11.glBlendFunc(770, 772);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, f3);
-            field_196_d.renderBlockOnInventory(Block.tnt, 0);
+            blockRenderer.renderBlockOnInventory(Block.tnt, 0, 1.0F);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             GL11.glDisable(3042 /*GL_BLEND*/);
             GL11.glEnable(2896 /*GL_LIGHTING*/);
@@ -65,5 +65,5 @@ public class RenderTNTPrimed extends Render
         func_153_a((EntityTNTPrimed)entity, d, d1, d2, f, f1);
     }
 
-    private RenderBlocks field_196_d;
+    private RenderBlocks blockRenderer;
 }

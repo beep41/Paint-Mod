@@ -40,7 +40,7 @@ public class ChatAllowedCharacters
     }
 
     public static final String allowedCharacters = getAllowedCharacters();
-    public static final char field_22286_b[] = {
+    public static final char allowedCharactersArray[] = {
         '/', '\n', '\r', '\t', '\0', '\f', '`', '?', '*', '\\', 
         '<', '>', '|', '"', ':'
     };

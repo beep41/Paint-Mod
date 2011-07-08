@@ -36,12 +36,12 @@ public class World
         scheduledTickTreeSet = new TreeSet();
         scheduledTickSet = new HashSet();
         loadedTileEntityList = new ArrayList();
+        field_20912_E = new ArrayList();
         playerEntities = new ArrayList();
-        field_27081_e = new ArrayList();
+        lightningEntities = new ArrayList();
         field_6159_E = 0xffffffL;
         skylightSubtracted = 0;
         distHashCounter = (new Random()).nextInt();
-        DIST_HASH_MAGIC = 0x3c6ef35f;
         field_27075_F = 0;
         field_27080_i = 0;
         editingBlocks = false;
@@ -83,22 +83,22 @@ public class World
             worldInfo.setLevelName(s);
         }
         worldProvider.registerWorld(this);
-        chunkProvider = func_22086_b();
+        chunkProvider = createChunkProvider();
         if(flag)
         {
-            func_25072_c();
+            generateSpawnPoint();
         }
         calculateInitialSkylight();
         func_27070_x();
     }
 
-    protected IChunkProvider func_22086_b()
+    protected IChunkProvider createChunkProvider()
     {
         IChunkLoader ichunkloader = worldFile.func_22092_a(worldProvider);
         return new ChunkProvider(this, ichunkloader, worldProvider.getChunkProvider());
     }
 
-    protected void func_25072_c()
+    protected void generateSpawnPoint()
     {
         worldChunkLoadOverride = true;
         int i = 0;
@@ -306,7 +306,7 @@ public class World
         if(setBlockMetadata(i, j, k, l))
         {
             int i1 = getBlockId(i, j, k);
-            if(Block.field_28029_t[i1 & 0xff])
+            if(Block.requiresSelfNotify[i1 & 0xff])
             {
                 notifyBlockChange(i, j, k, i1);
             } else
@@ -435,7 +435,7 @@ public class World
         return getChunkFromChunkCoords(i >> 4, k >> 4).canBlockSeeTheSky(i & 0xf, j, k & 0xf);
     }
 
-    public int func_28098_j(int i, int j, int k)
+    public int getBlockLightValueNoChecks(int i, int j, int k)
     {
         if(j < 0)
         {
@@ -854,9 +854,9 @@ public class World
 
     }
 
-    public boolean func_27073_a(Entity entity)
+    public boolean addLightningBolt(Entity entity)
     {
-        field_27081_e.add(entity);
+        lightningEntities.add(entity);
         return true;
     }
 
@@ -905,7 +905,7 @@ public class World
 
     }
 
-    public void func_22085_d(Entity entity)
+    public void removePlayerForLogoff(Entity entity)
     {
         if(entity.riddenByEntity != null)
         {
@@ -1019,7 +1019,7 @@ public class World
         return worldProvider.calculateCelestialAngle(worldInfo.getWorldTime(), f);
     }
 
-    public int func_28100_e(int i, int j)
+    public int getTopSolidOrLiquidBlock(int i, int j)
     {
         Chunk chunk = getChunkFromBlockCoords(i, j);
         int k = 127;
@@ -1092,13 +1092,13 @@ public class World
 
     public void updateEntities()
     {
-        for(int i = 0; i < field_27081_e.size(); i++)
+        for(int i = 0; i < lightningEntities.size(); i++)
         {
-            Entity entity = (Entity)field_27081_e.get(i);
+            Entity entity = (Entity)lightningEntities.get(i);
             entity.onUpdate();
             if(entity.isDead)
             {
-                field_27081_e.remove(i--);
+                lightningEntities.remove(i--);
             }
         }
 
@@ -1106,11 +1106,11 @@ public class World
         for(int j = 0; j < unloadedEntityList.size(); j++)
         {
             Entity entity1 = (Entity)unloadedEntityList.get(j);
-            int j1 = entity1.chunkCoordX;
-            int l1 = entity1.chunkCoordZ;
-            if(entity1.addedToChunk && chunkExists(j1, l1))
+            int i1 = entity1.chunkCoordX;
+            int k1 = entity1.chunkCoordZ;
+            if(entity1.addedToChunk && chunkExists(i1, k1))
             {
-                getChunkFromChunkCoords(j1, l1).removeEntity(entity1);
+                getChunkFromChunkCoords(i1, k1).removeEntity(entity1);
             }
         }
 
@@ -1140,22 +1140,77 @@ public class World
             {
                 continue;
             }
-            int k1 = entity2.chunkCoordX;
-            int i2 = entity2.chunkCoordZ;
-            if(entity2.addedToChunk && chunkExists(k1, i2))
+            int j1 = entity2.chunkCoordX;
+            int l1 = entity2.chunkCoordZ;
+            if(entity2.addedToChunk && chunkExists(j1, l1))
             {
-                getChunkFromChunkCoords(k1, i2).removeEntity(entity2);
+                getChunkFromChunkCoords(j1, l1).removeEntity(entity2);
             }
             loadedEntityList.remove(l--);
             releaseEntitySkin(entity2);
         }
 
-        for(int i1 = 0; i1 < loadedTileEntityList.size(); i1++)
+        field_31048_L = true;
+        Iterator iterator = loadedTileEntityList.iterator();
+        do
         {
-            TileEntity tileentity = (TileEntity)loadedTileEntityList.get(i1);
-            tileentity.updateEntity();
+            if(!iterator.hasNext())
+            {
+                break;
+            }
+            TileEntity tileentity = (TileEntity)iterator.next();
+            if(!tileentity.isInvalid())
+            {
+                tileentity.updateEntity();
+            }
+            if(tileentity.isInvalid())
+            {
+                iterator.remove();
+                Chunk chunk = getChunkFromChunkCoords(tileentity.xCoord >> 4, tileentity.zCoord >> 4);
+                if(chunk != null)
+                {
+                    chunk.removeChunkBlockTileEntity(tileentity.xCoord & 0xf, tileentity.yCoord, tileentity.zCoord & 0xf);
+                }
+            }
+        } while(true);
+        field_31048_L = false;
+        if(!field_20912_E.isEmpty())
+        {
+            Iterator iterator1 = field_20912_E.iterator();
+            do
+            {
+                if(!iterator1.hasNext())
+                {
+                    break;
+                }
+                TileEntity tileentity1 = (TileEntity)iterator1.next();
+                if(!tileentity1.isInvalid())
+                {
+                    if(!loadedTileEntityList.contains(tileentity1))
+                    {
+                        loadedTileEntityList.add(tileentity1);
+                    }
+                    Chunk chunk1 = getChunkFromChunkCoords(tileentity1.xCoord >> 4, tileentity1.zCoord >> 4);
+                    if(chunk1 != null)
+                    {
+                        chunk1.setChunkBlockTileEntity(tileentity1.xCoord & 0xf, tileentity1.yCoord, tileentity1.zCoord & 0xf, tileentity1);
+                    }
+                    markBlockNeedsUpdate(tileentity1.xCoord, tileentity1.yCoord, tileentity1.zCoord);
+                }
+            } while(true);
+            field_20912_E.clear();
         }
+    }
 
+    public void func_31047_a(Collection collection)
+    {
+        if(field_31048_L)
+        {
+            field_20912_E.addAll(collection);
+        } else
+        {
+            loadedTileEntityList.addAll(collection);
+        }
     }
 
     public void updateEntity(Entity entity)
@@ -1571,31 +1626,43 @@ public class World
 
     public void setBlockTileEntity(int i, int j, int k, TileEntity tileentity)
     {
-        Chunk chunk = getChunkFromChunkCoords(i >> 4, k >> 4);
-        if(chunk != null)
+        if(!tileentity.isInvalid())
         {
-            chunk.setChunkBlockTileEntity(i & 0xf, j, k & 0xf, tileentity);
+            if(field_31048_L)
+            {
+                tileentity.xCoord = i;
+                tileentity.yCoord = j;
+                tileentity.zCoord = k;
+                field_20912_E.add(tileentity);
+            } else
+            {
+                loadedTileEntityList.add(tileentity);
+                Chunk chunk = getChunkFromChunkCoords(i >> 4, k >> 4);
+                if(chunk != null)
+                {
+                    chunk.setChunkBlockTileEntity(i & 0xf, j, k & 0xf, tileentity);
+                }
+            }
         }
     }
 
     public void removeBlockTileEntity(int i, int j, int k)
     {
-        Chunk chunk = getChunkFromChunkCoords(i >> 4, k >> 4);
-        if(chunk != null)
+        TileEntity tileentity = getBlockTileEntity(i, j, k);
+        if(tileentity != null && field_31048_L)
         {
-            chunk.removeChunkBlockTileEntity(i & 0xf, j, k & 0xf);
-        }
-    }
-
-    public boolean func_28095_p(int i, int j, int k)
-    {
-        Block block = Block.blocksList[getBlockId(i, j, k)];
-        if(block == null)
-        {
-            return false;
+            tileentity.invalidate();
         } else
         {
-            return block.isOpaqueCube();
+            if(tileentity != null)
+            {
+                loadedTileEntityList.remove(tileentity);
+            }
+            Chunk chunk = getChunkFromChunkCoords(i >> 4, k >> 4);
+            if(chunk != null)
+            {
+                chunk.removeChunkBlockTileEntity(i & 0xf, j, k & 0xf);
+            }
         }
     }
 
@@ -1607,7 +1674,19 @@ public class World
             return false;
         } else
         {
-            return block.blockMaterial.func_28128_h() && block.func_28025_b();
+            return block.isOpaqueCube();
+        }
+    }
+
+    public boolean isBlockNormalCube(int i, int j, int k)
+    {
+        Block block = Block.blocksList[getBlockId(i, j, k)];
+        if(block == null)
+        {
+            return false;
+        } else
+        {
+            return block.blockMaterial.getIsOpaque() && block.isACube();
         }
     }
 
@@ -1888,7 +1967,7 @@ public class World
             Chunk chunk = getChunkFromChunkCoords(chunkcoordintpair.chunkXPos, chunkcoordintpair.chunkZPos);
             if(ambientTickCountdown == 0)
             {
-                distHashCounter = distHashCounter * 3 + DIST_HASH_MAGIC;
+                distHashCounter = distHashCounter * 3 + 0x3c6ef35f;
                 int k1 = distHashCounter >> 2;
                 int l2 = k1 & 0xf;
                 int l3 = k1 >> 8 & 0xf;
@@ -1896,7 +1975,7 @@ public class World
                 int l5 = chunk.getBlockID(l2, l4, l3);
                 l2 += k;
                 l3 += i1;
-                if(l5 == 0 && func_28098_j(l2, l4, l3) <= rand.nextInt(8) && getSavedLightValue(EnumSkyBlock.Sky, l2, l4, l3) <= 0)
+                if(l5 == 0 && getBlockLightValueNoChecks(l2, l4, l3) <= rand.nextInt(8) && getSavedLightValue(EnumSkyBlock.Sky, l2, l4, l3) <= 0)
                 {
                     EntityPlayer entityplayer1 = getClosestPlayer((double)l2 + 0.5D, (double)l4 + 0.5D, (double)l3 + 0.5D, 8D);
                     if(entityplayer1 != null && entityplayer1.getDistanceSq((double)l2 + 0.5D, (double)l4 + 0.5D, (double)l3 + 0.5D) > 4D)
@@ -1908,24 +1987,24 @@ public class World
             }
             if(rand.nextInt(0x186a0) == 0 && func_27068_v() && func_27067_u())
             {
-                distHashCounter = distHashCounter * 3 + DIST_HASH_MAGIC;
+                distHashCounter = distHashCounter * 3 + 0x3c6ef35f;
                 int l1 = distHashCounter >> 2;
                 int i3 = k + (l1 & 0xf);
                 int i4 = i1 + (l1 >> 8 & 0xf);
-                int i5 = func_28100_e(i3, i4);
-                if(func_27072_q(i3, i5, i4))
+                int i5 = getTopSolidOrLiquidBlock(i3, i4);
+                if(canLightningStrikeAt(i3, i5, i4))
                 {
-                    func_27073_a(new EntityLightningBolt(this, i3, i5, i4));
+                    addLightningBolt(new EntityLightningBolt(this, i3, i5, i4));
                     field_27075_F = 2;
                 }
             }
             if(rand.nextInt(16) == 0)
             {
-                distHashCounter = distHashCounter * 3 + DIST_HASH_MAGIC;
+                distHashCounter = distHashCounter * 3 + 0x3c6ef35f;
                 int i2 = distHashCounter >> 2;
                 int j3 = i2 & 0xf;
                 int j4 = i2 >> 8 & 0xf;
-                int j5 = func_28100_e(j3 + k, j4 + i1);
+                int j5 = getTopSolidOrLiquidBlock(j3 + k, j4 + i1);
                 if(getWorldChunkManager().getBiomeGenAt(j3 + k, j4 + i1).getEnableSnow() && j5 >= 0 && j5 < 128 && chunk.getSavedLightValue(EnumSkyBlock.Block, j3, j5, j4) < 10)
                 {
                     int i6 = chunk.getBlockID(j3, j5 - 1, j4);
@@ -1943,7 +2022,7 @@ public class World
             int j2 = 0;
             while(j2 < 80) 
             {
-                distHashCounter = distHashCounter * 3 + DIST_HASH_MAGIC;
+                distHashCounter = distHashCounter * 3 + 0x3c6ef35f;
                 int k3 = distHashCounter >> 2;
                 int k4 = k3 & 0xf;
                 int k5 = k3 >> 8 & 0xf;
@@ -2038,7 +2117,7 @@ public class World
         return arraylist;
     }
 
-    public void func_515_b(int i, int j, int k, TileEntity tileentity)
+    public void updateTileEntityChunkAndDoNothing(int i, int j, int k, TileEntity tileentity)
     {
         if(blockExists(i, j, k))
         {
@@ -2066,7 +2145,7 @@ public class World
         return i;
     }
 
-    public void func_464_a(List list)
+    public void addLoadedEntities(List list)
     {
         loadedEntityList.addAll(list);
         for(int i = 0; i < list.size(); i++)
@@ -2076,7 +2155,7 @@ public class World
 
     }
 
-    public void func_461_b(List list)
+    public void addUnloadedEntities(List list)
     {
         unloadedEntityList.addAll(list);
     }
@@ -2099,7 +2178,7 @@ public class World
         {
             block = null;
         }
-        return i > 0 && block == null && block1.func_28026_e(this, j, k, l, i1);
+        return i > 0 && block == null && block1.canPlaceBlockOnSide(this, j, k, l, i1);
     }
 
     public PathEntity getPathToEntity(Entity entity, Entity entity1, float f)
@@ -2173,7 +2252,7 @@ public class World
 
     public boolean isBlockIndirectlyProvidingPowerTo(int i, int j, int k, int l)
     {
-        if(isBlockOpaqueCube(i, j, k))
+        if(isBlockNormalCube(i, j, k))
         {
             return isBlockGettingPowered(i, j, k);
         }
@@ -2308,6 +2387,18 @@ public class World
         worldInfo.setWorldTime(l);
     }
 
+    public void func_32005_b(long l)
+    {
+        long l1 = l - worldInfo.getWorldTime();
+        for(Iterator iterator = scheduledTickSet.iterator(); iterator.hasNext();)
+        {
+            NextTickListEntry nextticklistentry = (NextTickListEntry)iterator.next();
+            nextticklistentry.scheduledTime += l1;
+        }
+
+        setWorldTime(l);
+    }
+
     public long getRandomSeed()
     {
         return worldInfo.getRandomSeed();
@@ -2328,7 +2419,7 @@ public class World
         return true;
     }
 
-    public void func_9206_a(Entity entity, byte byte0)
+    public void sendTrackedEntityStatusUpdatePacket(Entity entity, byte byte0)
     {
     }
 
@@ -2346,7 +2437,7 @@ public class World
         }
     }
 
-    public ISaveHandler func_22075_m()
+    public ISaveHandler getWorldFile()
     {
         return worldFile;
     }
@@ -2367,7 +2458,7 @@ public class World
                 break;
             }
             EntityPlayer entityplayer = (EntityPlayer)iterator.next();
-            if(entityplayer.func_30001_K())
+            if(entityplayer.func_22057_E())
             {
                 continue;
             }
@@ -2387,7 +2478,7 @@ public class World
                 break;
             }
             EntityPlayer entityplayer = (EntityPlayer)iterator.next();
-            if(entityplayer.func_30001_K())
+            if(entityplayer.func_22057_E())
             {
                 entityplayer.wakeUpPlayer(false, false, true);
             }
@@ -2435,7 +2526,7 @@ public class World
         return (double)func_27074_d(1.0F) > 0.20000000000000001D;
     }
 
-    public boolean func_27072_q(int i, int j, int k)
+    public boolean canLightningStrikeAt(int i, int j, int k)
     {
         if(!func_27068_v())
         {
@@ -2445,7 +2536,7 @@ public class World
         {
             return false;
         }
-        if(func_28100_e(i, k) > j)
+        if(getTopSolidOrLiquidBlock(i, k) > j)
         {
             return false;
         }
@@ -2495,12 +2586,13 @@ public class World
     private TreeSet scheduledTickTreeSet;
     private Set scheduledTickSet;
     public List loadedTileEntityList;
+    private List field_20912_E;
     public List playerEntities;
-    public List field_27081_e;
+    public List lightningEntities;
     private long field_6159_E;
     public int skylightSubtracted;
     protected int distHashCounter;
-    protected int DIST_HASH_MAGIC;
+    protected final int DIST_HASH_MAGIC = 0x3c6ef35f;
     protected float field_27079_B;
     protected float field_27078_C;
     protected float field_27077_D;
@@ -2522,6 +2614,7 @@ public class World
     private boolean allPlayersSleeping;
     public MapStorage field_28105_z;
     private ArrayList field_9207_I;
+    private boolean field_31048_L;
     private int field_4265_J;
     private boolean spawnHostileMobs;
     private boolean spawnPeacefulMobs;

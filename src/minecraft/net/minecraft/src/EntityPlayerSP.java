@@ -74,7 +74,7 @@ public class EntityPlayerSP extends EntityPlayer
                 timeInPortal = 1.0F;
                 if(!worldObj.multiplayerWorld)
                 {
-                    field_28024_y = 10;
+                    timeUntilPortal = 10;
                     mc.sndManager.playSoundFX("portal.travel", 1.0F, rand.nextFloat() * 0.4F + 0.8F);
                     mc.usePortal();
                 }
@@ -91,9 +91,9 @@ public class EntityPlayerSP extends EntityPlayer
                 timeInPortal = 0.0F;
             }
         }
-        if(field_28024_y > 0)
+        if(timeUntilPortal > 0)
         {
-            field_28024_y--;
+            timeUntilPortal--;
         }
         movementInput.updatePlayerMoveState(this);
         if(movementInput.sneak && ySize < 0.2F)
@@ -187,13 +187,13 @@ public class EntityPlayerSP extends EntityPlayer
             health = i;
             if(j < 0)
             {
-                field_9306_bj = field_9366_o / 2;
+                heartsLife = heartsHalvesLife / 2;
             }
         } else
         {
             field_9346_af = j;
             prevHealth = health;
-            field_9306_bj = field_9366_o;
+            heartsLife = heartsHalvesLife;
             damageEntity(j);
             hurtTime = maxHurtTime = 10;
         }
@@ -228,17 +228,17 @@ public class EntityPlayerSP extends EntityPlayer
                 {
                     mc.guiAchievement.queueTakenAchievement(achievement);
                 }
-                mc.statFileWriter.func_25100_a(statbase, i);
+                mc.statFileWriter.readStat(statbase, i);
             }
         } else
         {
-            mc.statFileWriter.func_25100_a(statbase, i);
+            mc.statFileWriter.readStat(statbase, i);
         }
     }
 
-    private boolean func_28027_d(int i, int j, int k)
+    private boolean isBlockTranslucent(int i, int j, int k)
     {
-        return worldObj.func_28100_h(i, j, k);
+        return worldObj.isBlockNormalCube(i, j, k);
     }
 
     protected boolean pushOutOfBlocks(double d, double d1, double d2)
@@ -248,12 +248,12 @@ public class EntityPlayerSP extends EntityPlayer
         int k = MathHelper.floor_double(d2);
         double d3 = d - (double)i;
         double d4 = d2 - (double)k;
-        if(func_28027_d(i, j, k) || func_28027_d(i, j + 1, k))
+        if(isBlockTranslucent(i, j, k) || isBlockTranslucent(i, j + 1, k))
         {
-            boolean flag = !func_28027_d(i - 1, j, k) && !func_28027_d(i - 1, j + 1, k);
-            boolean flag1 = !func_28027_d(i + 1, j, k) && !func_28027_d(i + 1, j + 1, k);
-            boolean flag2 = !func_28027_d(i, j, k - 1) && !func_28027_d(i, j + 1, k - 1);
-            boolean flag3 = !func_28027_d(i, j, k + 1) && !func_28027_d(i, j + 1, k + 1);
+            boolean flag = !isBlockTranslucent(i - 1, j, k) && !isBlockTranslucent(i - 1, j + 1, k);
+            boolean flag1 = !isBlockTranslucent(i + 1, j, k) && !isBlockTranslucent(i + 1, j + 1, k);
+            boolean flag2 = !isBlockTranslucent(i, j, k - 1) && !isBlockTranslucent(i, j + 1, k - 1);
+            boolean flag3 = !isBlockTranslucent(i, j, k + 1) && !isBlockTranslucent(i, j + 1, k + 1);
             byte byte0 = -1;
             double d5 = 9999D;
             if(flag && d3 < d5)

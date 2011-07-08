@@ -233,7 +233,7 @@ public class BlockBed extends Block
             {
                 for(int i3 = i2; i3 <= k2; i3++)
                 {
-                    if(!world.func_28100_h(l2, j - 1, i3) || !world.isAirBlock(l2, j, i3) || !world.isAirBlock(l2, j + 1, i3))
+                    if(!world.isBlockNormalCube(l2, j - 1, i3) || !world.isAirBlock(l2, j, i3) || !world.isAirBlock(l2, j + 1, i3))
                     {
                         continue;
                     }
@@ -251,6 +251,19 @@ public class BlockBed extends Block
         }
 
         return null;
+    }
+
+    public void dropBlockAsItemWithChance(World world, int i, int j, int k, int l, float f)
+    {
+        if(!isBlockFootOfBed(l))
+        {
+            super.dropBlockAsItemWithChance(world, i, j, k, l, f);
+        }
+    }
+
+    public int getMobilityFlag()
+    {
+        return 1;
     }
 
     public static final int headBlockToFootBlockMap[][] = {

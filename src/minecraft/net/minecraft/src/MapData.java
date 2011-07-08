@@ -91,14 +91,14 @@ public class MapData extends MapDataBase
         for(int i = 0; i < field_28174_h.size(); i++)
         {
             MapInfo mapinfo1 = (MapInfo)field_28174_h.get(i);
-            if(mapinfo1.field_28120_a.isDead || !mapinfo1.field_28120_a.inventory.func_28018_c(itemstack))
+            if(mapinfo1.entityplayerObj.isDead || !mapinfo1.entityplayerObj.inventory.func_28018_c(itemstack))
             {
-                field_28172_j.remove(mapinfo1.field_28120_a);
+                field_28172_j.remove(mapinfo1.entityplayerObj);
                 field_28174_h.remove(mapinfo1);
                 continue;
             }
-            float f = (float)(mapinfo1.field_28120_a.posX - (double)field_28180_b) / (float)(1 << field_28177_e);
-            float f1 = (float)(mapinfo1.field_28120_a.posZ - (double)field_28179_c) / (float)(1 << field_28177_e);
+            float f = (float)(mapinfo1.entityplayerObj.posX - (double)field_28180_b) / (float)(1 << field_28177_e);
+            float f1 = (float)(mapinfo1.entityplayerObj.posZ - (double)field_28179_c) / (float)(1 << field_28177_e);
             int j = 64;
             int k = 64;
             if(f < (float)(-j) || f1 < (float)(-k) || f > (float)j || f1 > (float)k)
@@ -114,7 +114,7 @@ public class MapData extends MapDataBase
                 int l = field_28175_g / 10;
                 byte3 = (byte)(l * l * 0x209a771 + l * 121 >> 15 & 0xf);
             }
-            if(mapinfo1.field_28120_a.dimension == field_28178_d)
+            if(mapinfo1.entityplayerObj.dimension == field_28178_d)
             {
                 field_28173_i.add(new MapCoord(this, byte0, byte1, byte2, byte3));
             }

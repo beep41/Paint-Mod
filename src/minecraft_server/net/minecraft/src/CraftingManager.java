@@ -58,7 +58,7 @@ public class CraftingManager
         addRecipe(new ItemStack(Block.brick, 1), new Object[] {
             "##", "##", Character.valueOf('#'), Item.brick
         });
-        addRecipe(new ItemStack(Block.lightStone, 1), new Object[] {
+        addRecipe(new ItemStack(Block.glowStone, 1), new Object[] {
             "##", "##", Character.valueOf('#'), Item.lightStoneDust
         });
         addRecipe(new ItemStack(Block.cloth, 1), new Object[] {
@@ -85,7 +85,7 @@ public class CraftingManager
         addRecipe(new ItemStack(Item.doorWood, 1), new Object[] {
             "##", "##", "##", Character.valueOf('#'), Block.planks
         });
-        addRecipe(new ItemStack(Block.field_28030_bl, 2), new Object[] {
+        addRecipe(new ItemStack(Block.trapdoor, 2), new Object[] {
             "###", "###", Character.valueOf('#'), Block.planks
         });
         addRecipe(new ItemStack(Item.doorSteel, 1), new Object[] {
@@ -193,6 +193,13 @@ public class CraftingManager
         });
         addRecipe(new ItemStack(Block.dispenser, 1), new Object[] {
             "###", "#X#", "#R#", Character.valueOf('#'), Block.cobblestone, Character.valueOf('X'), Item.bow, Character.valueOf('R'), Item.redstone
+        });
+        addRecipe(new ItemStack(Block.pistonBase, 1), new Object[] {
+            "TTT", "#X#", "#R#", Character.valueOf('#'), Block.cobblestone, Character.valueOf('X'), Item.ingotIron, Character.valueOf('R'), Item.redstone, Character.valueOf('T'), 
+            Block.planks
+        });
+        addRecipe(new ItemStack(Block.pistonStickyBase, 1), new Object[] {
+            "S", "P", Character.valueOf('S'), Item.slimeBall, Character.valueOf('P'), Block.pistonBase
         });
         addRecipe(new ItemStack(Item.bed, 1), new Object[] {
             "###", "XXX", Character.valueOf('#'), Block.cloth, Character.valueOf('X'), Block.planks

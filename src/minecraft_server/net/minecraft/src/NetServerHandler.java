@@ -49,7 +49,7 @@ public class NetServerHandler extends NetHandler
 
     public void kickPlayer(String s)
     {
-        playerEntity.func_30003_A();
+        playerEntity.func_30002_A();
         sendPacket(new Packet255KickDisconnect(s));
         netManager.serverShutdown();
         mcServer.configManager.sendPacketToAllPlayers(new Packet3Chat((new StringBuilder()).append("\247e").append(playerEntity.username).append(" left the game.").toString()));
@@ -117,7 +117,7 @@ public class NetServerHandler extends NetHandler
                 worldserver.updateEntity(playerEntity);
                 return;
             }
-            if(playerEntity.func_30001_K())
+            if(playerEntity.func_22057_E())
             {
                 playerEntity.onUpdateEntity(true);
                 playerEntity.setPositionAndRotation(lastPosX, lastPosY, lastPosZ, playerEntity.rotationYaw, playerEntity.rotationPitch);
@@ -143,7 +143,7 @@ public class NetServerHandler extends NetHandler
                 d5 = packet10flying.yPosition;
                 d7 = packet10flying.zPosition;
                 double d10 = packet10flying.stance - packet10flying.yPosition;
-                if(!playerEntity.func_30001_K() && (d10 > 1.6499999999999999D || d10 < 0.10000000000000001D))
+                if(!playerEntity.func_22057_E() && (d10 > 1.6499999999999999D || d10 < 0.10000000000000001D))
                 {
                     kickPlayer("Illegal stance");
                     logger.warning((new StringBuilder()).append(playerEntity.username).append(" had an illegal stance: ").append(d10).toString());
@@ -189,7 +189,7 @@ public class NetServerHandler extends NetHandler
             d13 = d7 - playerEntity.posZ;
             d14 = d11 * d11 + d12 * d12 + d13 * d13;
             boolean flag1 = false;
-            if(d14 > 0.0625D && !playerEntity.func_30001_K())
+            if(d14 > 0.0625D && !playerEntity.func_22057_E())
             {
                 flag1 = true;
                 logger.warning((new StringBuilder()).append(playerEntity.username).append(" moved wrongly!").toString());
@@ -198,7 +198,7 @@ public class NetServerHandler extends NetHandler
             }
             playerEntity.setPositionAndRotation(d3, d5, d7, f2, f3);
             boolean flag2 = worldserver.getCollidingBoundingBoxes(playerEntity, playerEntity.boundingBox.copy().getInsetBoundingBox(f4, f4, f4)).size() == 0;
-            if(flag && (flag1 || !flag2) && !playerEntity.func_30001_K())
+            if(flag && (flag1 || !flag2) && !playerEntity.func_22057_E())
             {
                 teleportTo(lastPosX, lastPosY, lastPosZ, f2, f3);
                 return;
@@ -494,11 +494,11 @@ public class NetServerHandler extends NetHandler
     {
         if(packet19entityaction.state == 1)
         {
-            playerEntity.func_21043_b(true);
+            playerEntity.setSneaking(true);
         } else
         if(packet19entityaction.state == 2)
         {
-            playerEntity.func_21043_b(false);
+            playerEntity.setSneaking(false);
         } else
         if(packet19entityaction.state == 3)
         {
@@ -598,7 +598,7 @@ public class NetServerHandler extends NetHandler
         }
     }
 
-    public void func_20005_a(Packet130UpdateSign packet130updatesign)
+    public void handleUpdateSign(Packet130UpdateSign packet130updatesign)
     {
         WorldServer worldserver = mcServer.getWorldManager(playerEntity.dimension);
         if(worldserver.blockExists(packet130updatesign.xPosition, packet130updatesign.yPosition, packet130updatesign.zPosition))
@@ -647,6 +647,7 @@ public class NetServerHandler extends NetHandler
                     tileentitysign1.signText[j1] = packet130updatesign.signLines[j1];
                 }
 
+                tileentitysign1.func_32001_a(false);
                 tileentitysign1.onInventoryChanged();
                 worldserver.markBlockNeedsUpdate(j, k, i1);
             }

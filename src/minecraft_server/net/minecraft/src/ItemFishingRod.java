@@ -25,7 +25,7 @@ public class ItemFishingRod extends Item
         if(entityplayer.fishEntity != null)
         {
             int i = entityplayer.fishEntity.catchFish();
-            itemstack.func_25125_a(i, entityplayer);
+            itemstack.damageItem(i, entityplayer);
             entityplayer.swingItem();
         } else
         {

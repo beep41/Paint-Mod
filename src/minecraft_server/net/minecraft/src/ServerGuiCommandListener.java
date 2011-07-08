@@ -18,9 +18,9 @@ class ServerGuiCommandListener
 
     ServerGuiCommandListener(ServerGUI servergui, JTextField jtextfield)
     {
+//        super();
         mcServerGui = servergui;
         textField = jtextfield;
-//        super();
     }
 
     public void actionPerformed(ActionEvent actionevent)

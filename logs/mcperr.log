@@ -1,0 +1,9 @@
+2011-07-08 16:25 -    commands.checkjars - WARNING - !! Modified jar detected. Unpredictable results !!
+2011-07-08 16:25 -    commands.applypatches - WARNING - .\runtime\bin\applydiff.exe --binary -p1 -u -i ..\..\temp/temp.patch -d src/minecraft failed.
+2011-07-08 16:25 -    commands.applypatches - WARNING - Return code : 1
+2011-07-08 16:25 -    commands.applypatches - WARNING - 
+2011-07-08 16:25 -    commands.applypatches - WARNING - == ERRORS FOUND ==
+2011-07-08 16:25 -    commands.applypatches - WARNING - 
+2011-07-08 16:25 -    commands.applypatches - WARNING - 2 out of 2 hunks FAILED -- saving rejects to file 'net\minecraft\src\RenderBlocks.#'
+2011-07-08 16:25 -    commands.applypatches - WARNING - ==================
+2011-07-08 16:25 -    commands.applypatches - WARNING - 

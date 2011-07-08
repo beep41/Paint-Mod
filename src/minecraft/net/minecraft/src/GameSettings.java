@@ -9,9 +9,8 @@ import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 
 // Referenced classes of package net.minecraft.src:
-//            KeyBinding, ModLoader, StringTranslate, EnumOptions, 
-//            SoundManager, RenderGlobal, RenderEngine, EnumOptionsMappingHelper, 
-//            StatCollector
+//            KeyBinding, StringTranslate, EnumOptions, SoundManager, 
+//            RenderGlobal, RenderEngine, EnumOptionsMappingHelper, StatCollector
 
 public class GameSettings
 {
@@ -56,7 +55,6 @@ public class GameSettings
         guiScale = 0;
         mc = minecraft;
         optionsFile = new File(file, "options.txt");
-        keyBindings = ModLoader.RegisterAllKeys(keyBindings);
         loadOptions();
     }
 
@@ -163,7 +161,7 @@ public class GameSettings
             anaglyph = !anaglyph;
             mc.renderEngine.refreshTextures();
         }
-        if(enumoptions == EnumOptions.LIMIT_FRAMERATE)
+        if(enumoptions == EnumOptions.FRAMERATE_LIMIT)
         {
             limitFramerate = (limitFramerate + i + 3) % 3;
         }
@@ -228,7 +226,7 @@ public class GameSettings
     public String getKeyBinding(EnumOptions enumoptions)
     {
         StringTranslate stringtranslate = StringTranslate.getInstance();
-        String s = (new StringBuilder(String.valueOf(stringtranslate.translateKey(enumoptions.getEnumString())))).append(": ").toString();
+        String s = (new StringBuilder()).append(stringtranslate.translateKey(enumoptions.getEnumString())).append(": ").toString();
         if(enumoptions.getEnumFloat())
         {
             float f = getOptionFloatValue(enumoptions);
@@ -236,22 +234,22 @@ public class GameSettings
             {
                 if(f == 0.0F)
                 {
-                    return (new StringBuilder(String.valueOf(s))).append(stringtranslate.translateKey("options.sensitivity.min")).toString();
+                    return (new StringBuilder()).append(s).append(stringtranslate.translateKey("options.sensitivity.min")).toString();
                 }
                 if(f == 1.0F)
                 {
-                    return (new StringBuilder(String.valueOf(s))).append(stringtranslate.translateKey("options.sensitivity.max")).toString();
+                    return (new StringBuilder()).append(s).append(stringtranslate.translateKey("options.sensitivity.max")).toString();
                 } else
                 {
-                    return (new StringBuilder(String.valueOf(s))).append((int)(f * 200F)).append("%").toString();
+                    return (new StringBuilder()).append(s).append((int)(f * 200F)).append("%").toString();
                 }
             }
             if(f == 0.0F)
             {
-                return (new StringBuilder(String.valueOf(s))).append(stringtranslate.translateKey("options.off")).toString();
+                return (new StringBuilder()).append(s).append(stringtranslate.translateKey("options.off")).toString();
             } else
             {
-                return (new StringBuilder(String.valueOf(s))).append((int)(f * 100F)).append("%").toString();
+                return (new StringBuilder()).append(s).append((int)(f * 100F)).append("%").toString();
             }
         }
         if(enumoptions.getEnumBoolean())
@@ -259,36 +257,36 @@ public class GameSettings
             boolean flag = getOptionOrdinalValue(enumoptions);
             if(flag)
             {
-                return (new StringBuilder(String.valueOf(s))).append(stringtranslate.translateKey("options.on")).toString();
+                return (new StringBuilder()).append(s).append(stringtranslate.translateKey("options.on")).toString();
             } else
             {
-                return (new StringBuilder(String.valueOf(s))).append(stringtranslate.translateKey("options.off")).toString();
+                return (new StringBuilder()).append(s).append(stringtranslate.translateKey("options.off")).toString();
             }
         }
         if(enumoptions == EnumOptions.RENDER_DISTANCE)
         {
-            return (new StringBuilder(String.valueOf(s))).append(stringtranslate.translateKey(RENDER_DISTANCES[renderDistance])).toString();
+            return (new StringBuilder()).append(s).append(stringtranslate.translateKey(RENDER_DISTANCES[renderDistance])).toString();
         }
         if(enumoptions == EnumOptions.DIFFICULTY)
         {
-            return (new StringBuilder(String.valueOf(s))).append(stringtranslate.translateKey(DIFFICULTIES[difficulty])).toString();
+            return (new StringBuilder()).append(s).append(stringtranslate.translateKey(DIFFICULTIES[difficulty])).toString();
         }
         if(enumoptions == EnumOptions.GUI_SCALE)
         {
-            return (new StringBuilder(String.valueOf(s))).append(stringtranslate.translateKey(GUISCALES[guiScale])).toString();
+            return (new StringBuilder()).append(s).append(stringtranslate.translateKey(GUISCALES[guiScale])).toString();
         }
-        if(enumoptions == EnumOptions.LIMIT_FRAMERATE)
+        if(enumoptions == EnumOptions.FRAMERATE_LIMIT)
         {
-            return (new StringBuilder(String.valueOf(s))).append(StatCollector.translateToLocal(LIMIT_FRAMERATES[limitFramerate])).toString();
+            return (new StringBuilder()).append(s).append(StatCollector.translateToLocal(LIMIT_FRAMERATES[limitFramerate])).toString();
         }
         if(enumoptions == EnumOptions.GRAPHICS)
         {
             if(fancyGraphics)
             {
-                return (new StringBuilder(String.valueOf(s))).append(stringtranslate.translateKey("options.graphics.fancy")).toString();
+                return (new StringBuilder()).append(s).append(stringtranslate.translateKey("options.graphics.fancy")).toString();
             } else
             {
-                return (new StringBuilder(String.valueOf(s))).append(stringtranslate.translateKey("options.graphics.fast")).toString();
+                return (new StringBuilder()).append(s).append(stringtranslate.translateKey("options.graphics.fast")).toString();
             }
         } else
         {
@@ -370,18 +368,19 @@ public class GameSettings
                     {
                         lastServer = as[1];
                     }
-                    for(int i = 0; i < keyBindings.length; i++)
+                    int i = 0;
+                    while(i < keyBindings.length) 
                     {
-                        if(as[0].equals((new StringBuilder("key_")).append(keyBindings[i].keyDescription).toString()))
+                        if(as[0].equals((new StringBuilder()).append("key_").append(keyBindings[i].keyDescription).toString()))
                         {
                             keyBindings[i].keyCode = Integer.parseInt(as[1]);
                         }
+                        i++;
                     }
-
                 }
                 catch(Exception exception1)
                 {
-                    System.out.println((new StringBuilder("Skipping bad option: ")).append(s).toString());
+                    System.out.println((new StringBuilder()).append("Skipping bad option: ").append(s).toString());
                 }
             }
 
@@ -414,24 +413,24 @@ public class GameSettings
         try
         {
             PrintWriter printwriter = new PrintWriter(new FileWriter(optionsFile));
-            printwriter.println((new StringBuilder("music:")).append(musicVolume).toString());
-            printwriter.println((new StringBuilder("sound:")).append(soundVolume).toString());
-            printwriter.println((new StringBuilder("invertYMouse:")).append(invertMouse).toString());
-            printwriter.println((new StringBuilder("mouseSensitivity:")).append(mouseSensitivity).toString());
-            printwriter.println((new StringBuilder("viewDistance:")).append(renderDistance).toString());
-            printwriter.println((new StringBuilder("guiScale:")).append(guiScale).toString());
-            printwriter.println((new StringBuilder("bobView:")).append(viewBobbing).toString());
-            printwriter.println((new StringBuilder("anaglyph3d:")).append(anaglyph).toString());
-            printwriter.println((new StringBuilder("advancedOpengl:")).append(advancedOpengl).toString());
-            printwriter.println((new StringBuilder("fpsLimit:")).append(limitFramerate).toString());
-            printwriter.println((new StringBuilder("difficulty:")).append(difficulty).toString());
-            printwriter.println((new StringBuilder("fancyGraphics:")).append(fancyGraphics).toString());
-            printwriter.println((new StringBuilder("ao:")).append(ambientOcclusion).toString());
-            printwriter.println((new StringBuilder("skin:")).append(skin).toString());
-            printwriter.println((new StringBuilder("lastServer:")).append(lastServer).toString());
+            printwriter.println((new StringBuilder()).append("music:").append(musicVolume).toString());
+            printwriter.println((new StringBuilder()).append("sound:").append(soundVolume).toString());
+            printwriter.println((new StringBuilder()).append("invertYMouse:").append(invertMouse).toString());
+            printwriter.println((new StringBuilder()).append("mouseSensitivity:").append(mouseSensitivity).toString());
+            printwriter.println((new StringBuilder()).append("viewDistance:").append(renderDistance).toString());
+            printwriter.println((new StringBuilder()).append("guiScale:").append(guiScale).toString());
+            printwriter.println((new StringBuilder()).append("bobView:").append(viewBobbing).toString());
+            printwriter.println((new StringBuilder()).append("anaglyph3d:").append(anaglyph).toString());
+            printwriter.println((new StringBuilder()).append("advancedOpengl:").append(advancedOpengl).toString());
+            printwriter.println((new StringBuilder()).append("fpsLimit:").append(limitFramerate).toString());
+            printwriter.println((new StringBuilder()).append("difficulty:").append(difficulty).toString());
+            printwriter.println((new StringBuilder()).append("fancyGraphics:").append(fancyGraphics).toString());
+            printwriter.println((new StringBuilder()).append("ao:").append(ambientOcclusion).toString());
+            printwriter.println((new StringBuilder()).append("skin:").append(skin).toString());
+            printwriter.println((new StringBuilder()).append("lastServer:").append(lastServer).toString());
             for(int i = 0; i < keyBindings.length; i++)
             {
-                printwriter.println((new StringBuilder("key_")).append(keyBindings[i].keyDescription).append(":").append(keyBindings[i].keyCode).toString());
+                printwriter.println((new StringBuilder()).append("key_").append(keyBindings[i].keyDescription).append(":").append(keyBindings[i].keyCode).toString());
             }
 
             printwriter.close();

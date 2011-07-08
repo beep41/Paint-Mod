@@ -9,8 +9,8 @@ import org.lwjgl.opengl.GL11;
 
 // Referenced classes of package net.minecraft.src:
 //            TileEntitySign, TileEntitySignRenderer, TileEntityMobSpawner, TileEntityMobSpawnerRenderer, 
-//            TileEntitySpecialRenderer, TileEntity, EntityLiving, World, 
-//            FontRenderer, RenderEngine
+//            TileEntityPiston, TileEntityRendererPiston, TileEntitySpecialRenderer, TileEntity, 
+//            EntityLiving, World, FontRenderer, RenderEngine
 
 public class TileEntityRenderer
 {
@@ -20,6 +20,7 @@ public class TileEntityRenderer
         specialRendererMap = new HashMap();
         specialRendererMap.put(net.minecraft.src.TileEntitySign.class, new TileEntitySignRenderer());
         specialRendererMap.put(net.minecraft.src.TileEntityMobSpawner.class, new TileEntityMobSpawnerRenderer());
+        specialRendererMap.put(net.minecraft.src.TileEntityPiston.class, new TileEntityRendererPiston());
         TileEntitySpecialRenderer tileentityspecialrenderer;
         for(Iterator iterator = specialRendererMap.values().iterator(); iterator.hasNext(); tileentityspecialrenderer.setTileEntityRenderer(this))
         {
@@ -57,7 +58,10 @@ public class TileEntityRenderer
 
     public void cacheActiveRenderInfo(World world, RenderEngine renderengine, FontRenderer fontrenderer, EntityLiving entityliving, float f)
     {
-        worldObj = world;
+        if(worldObj != world)
+        {
+            func_31072_a(world);
+        }
         renderEngine = renderengine;
         entityLivingPlayer = entityliving;
         fontRenderer = fontrenderer;
@@ -86,6 +90,24 @@ public class TileEntityRenderer
         {
             tileentityspecialrenderer.renderTileEntityAt(tileentity, d, d1, d2, f);
         }
+    }
+
+    public void func_31072_a(World world)
+    {
+        worldObj = world;
+        Iterator iterator = specialRendererMap.values().iterator();
+        do
+        {
+            if(!iterator.hasNext())
+            {
+                break;
+            }
+            TileEntitySpecialRenderer tileentityspecialrenderer = (TileEntitySpecialRenderer)iterator.next();
+            if(tileentityspecialrenderer != null)
+            {
+                tileentityspecialrenderer.func_31069_a(world);
+            }
+        } while(true);
     }
 
     public FontRenderer getFontRenderer()

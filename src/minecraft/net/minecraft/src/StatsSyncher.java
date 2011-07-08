@@ -159,7 +159,7 @@ public class StatsSyncher
         }
     }
 
-    public void func_27407_b(Map map)
+    public void syncStatsFileWithMap(Map map)
     {
         for(int i = 30; field_27438_a && --i > 0;)
         {

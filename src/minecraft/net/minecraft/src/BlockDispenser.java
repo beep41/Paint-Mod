@@ -19,7 +19,7 @@ public class BlockDispenser extends BlockContainer
     protected BlockDispenser(int i)
     {
         super(i, Material.rock);
-        field_28035_a = new Random();
+        random = new Random();
         blockIndexInTexture = 45;
     }
 
@@ -179,9 +179,9 @@ public class BlockDispenser extends BlockContainer
                 {
                     EntityItem entityitem = new EntityItem(world, d, d1 - 0.29999999999999999D, d2, itemstack);
                     double d3 = random.nextDouble() * 0.10000000000000001D + 0.20000000000000001D;
-                    ((EntityItem)entityitem).motionX = (double)i1 * d3;
-                    ((EntityItem)entityitem).motionY = 0.20000000298023221D;
-                    ((EntityItem)entityitem).motionZ = (double)j1 * d3;
+                    entityitem.motionX = (double)i1 * d3;
+                    entityitem.motionY = 0.20000000298023221D;
+                    entityitem.motionZ = (double)j1 * d3;
                     entityitem.motionX += random.nextGaussian() * 0.0074999998323619366D * 6D;
                     entityitem.motionY += random.nextGaussian() * 0.0074999998323619366D * 6D;
                     entityitem.motionZ += random.nextGaussian() * 0.0074999998323619366D * 6D;
@@ -247,12 +247,12 @@ public class BlockDispenser extends BlockContainer
             ItemStack itemstack = tileentitydispenser.getStackInSlot(l);
             if(itemstack != null)
             {
-                float f = field_28035_a.nextFloat() * 0.8F + 0.1F;
-                float f1 = field_28035_a.nextFloat() * 0.8F + 0.1F;
-                float f2 = field_28035_a.nextFloat() * 0.8F + 0.1F;
+                float f = random.nextFloat() * 0.8F + 0.1F;
+                float f1 = random.nextFloat() * 0.8F + 0.1F;
+                float f2 = random.nextFloat() * 0.8F + 0.1F;
                 while(itemstack.stackSize > 0) 
                 {
-                    int i1 = field_28035_a.nextInt(21) + 10;
+                    int i1 = random.nextInt(21) + 10;
                     if(i1 > itemstack.stackSize)
                     {
                         i1 = itemstack.stackSize;
@@ -260,9 +260,9 @@ public class BlockDispenser extends BlockContainer
                     itemstack.stackSize -= i1;
                     EntityItem entityitem = new EntityItem(world, (float)i + f, (float)j + f1, (float)k + f2, new ItemStack(itemstack.itemID, i1, itemstack.getItemDamage()));
                     float f3 = 0.05F;
-                    entityitem.motionX = (float)field_28035_a.nextGaussian() * f3;
-                    entityitem.motionY = (float)field_28035_a.nextGaussian() * f3 + 0.2F;
-                    entityitem.motionZ = (float)field_28035_a.nextGaussian() * f3;
+                    entityitem.motionX = (float)random.nextGaussian() * f3;
+                    entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
+                    entityitem.motionZ = (float)random.nextGaussian() * f3;
                     world.entityJoinedWorld(entityitem);
                 }
             }
@@ -271,5 +271,5 @@ public class BlockDispenser extends BlockContainer
         super.onBlockRemoval(world, i, j, k);
     }
 
-    private Random field_28035_a;
+    private Random random;
 }

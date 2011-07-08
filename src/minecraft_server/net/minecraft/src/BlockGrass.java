@@ -14,7 +14,7 @@ public class BlockGrass extends Block
 
     protected BlockGrass(int i)
     {
-        super(i, Material.field_28132_b);
+        super(i, Material.grass);
         blockIndexInTexture = 3;
         setTickOnLoad(true);
     }

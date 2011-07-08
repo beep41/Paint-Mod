@@ -19,15 +19,15 @@ public class EntityFish extends Entity
     public EntityFish(World world)
     {
         super(world);
-        tileX = -1;
-        tileY = -1;
-        tileZ = -1;
-        field_4092_g = 0;
-        field_4091_h = false;
-        field_4098_a = 0;
-        field_4089_j = 0;
+        xTile = -1;
+        yTile = -1;
+        zTile = -1;
+        inTile = 0;
+        inGround = false;
+        shake = 0;
+        ticksInAir = 0;
         ticksCatchable = 0;
-        field_4096_c = null;
+        bobber = null;
         setSize(0.25F, 0.25F);
         ignoreFrustumCheck = true;
     }
@@ -42,15 +42,15 @@ public class EntityFish extends Entity
     public EntityFish(World world, EntityPlayer entityplayer)
     {
         super(world);
-        tileX = -1;
-        tileY = -1;
-        tileZ = -1;
-        field_4092_g = 0;
-        field_4091_h = false;
-        field_4098_a = 0;
-        field_4089_j = 0;
+        xTile = -1;
+        yTile = -1;
+        zTile = -1;
+        inTile = 0;
+        inGround = false;
+        shake = 0;
+        ticksInAir = 0;
         ticksCatchable = 0;
-        field_4096_c = null;
+        bobber = null;
         ignoreFrustumCheck = true;
         angler = entityplayer;
         angler.fishEntity = this;
@@ -98,7 +98,7 @@ public class EntityFish extends Entity
         float f3 = MathHelper.sqrt_double(d * d + d2 * d2);
         prevRotationYaw = rotationYaw = (float)((Math.atan2(d, d2) * 180D) / 3.1415927410125732D);
         prevRotationPitch = rotationPitch = (float)((Math.atan2(d1, f3) * 180D) / 3.1415927410125732D);
-        field_4090_i = 0;
+        ticksInGround = 0;
     }
 
     public void setPositionAndRotation2(double d, double d1, double d2, float f, 
@@ -149,39 +149,39 @@ public class EntityFish extends Entity
                 angler.fishEntity = null;
                 return;
             }
-            if(field_4096_c != null)
+            if(bobber != null)
             {
-                if(field_4096_c.isDead)
+                if(bobber.isDead)
                 {
-                    field_4096_c = null;
+                    bobber = null;
                 } else
                 {
-                    posX = field_4096_c.posX;
-                    posY = field_4096_c.boundingBox.minY + (double)field_4096_c.height * 0.80000000000000004D;
-                    posZ = field_4096_c.posZ;
+                    posX = bobber.posX;
+                    posY = bobber.boundingBox.minY + (double)bobber.height * 0.80000000000000004D;
+                    posZ = bobber.posZ;
                     return;
                 }
             }
         }
-        if(field_4098_a > 0)
+        if(shake > 0)
         {
-            field_4098_a--;
+            shake--;
         }
-        if(field_4091_h)
+        if(inGround)
         {
-            int i = worldObj.getBlockId(tileX, tileY, tileZ);
-            if(i != field_4092_g)
+            int i = worldObj.getBlockId(xTile, yTile, zTile);
+            if(i != inTile)
             {
-                field_4091_h = false;
+                inGround = false;
                 motionX *= rand.nextFloat() * 0.2F;
                 motionY *= rand.nextFloat() * 0.2F;
                 motionZ *= rand.nextFloat() * 0.2F;
-                field_4090_i = 0;
-                field_4089_j = 0;
+                ticksInGround = 0;
+                ticksInAir = 0;
             } else
             {
-                field_4090_i++;
-                if(field_4090_i == 1200)
+                ticksInGround++;
+                if(ticksInGround == 1200)
                 {
                     setEntityDead();
                 }
@@ -189,7 +189,7 @@ public class EntityFish extends Entity
             }
         } else
         {
-            field_4089_j++;
+            ticksInAir++;
         }
         Vec3D vec3d = Vec3D.createVector(posX, posY, posZ);
         Vec3D vec3d1 = Vec3D.createVector(posX + motionX, posY + motionY, posZ + motionZ);
@@ -206,7 +206,7 @@ public class EntityFish extends Entity
         for(int j = 0; j < list.size(); j++)
         {
             Entity entity1 = (Entity)list.get(j);
-            if(!entity1.canBeCollidedWith() || entity1 == angler && field_4089_j < 5)
+            if(!entity1.canBeCollidedWith() || entity1 == angler && ticksInAir < 5)
             {
                 continue;
             }
@@ -235,14 +235,14 @@ public class EntityFish extends Entity
             {
                 if(movingobjectposition.entityHit.attackEntityFrom(angler, 0))
                 {
-                    field_4096_c = movingobjectposition.entityHit;
+                    bobber = movingobjectposition.entityHit;
                 }
             } else
             {
-                field_4091_h = true;
+                inGround = true;
             }
         }
-        if(field_4091_h)
+        if(inGround)
         {
             return;
         }
@@ -327,22 +327,22 @@ public class EntityFish extends Entity
 
     public void writeEntityToNBT(NBTTagCompound nbttagcompound)
     {
-        nbttagcompound.setShort("xTile", (short)tileX);
-        nbttagcompound.setShort("yTile", (short)tileY);
-        nbttagcompound.setShort("zTile", (short)tileZ);
-        nbttagcompound.setByte("inTile", (byte)field_4092_g);
-        nbttagcompound.setByte("shake", (byte)field_4098_a);
-        nbttagcompound.setByte("inGround", (byte)(field_4091_h ? 1 : 0));
+        nbttagcompound.setShort("xTile", (short)xTile);
+        nbttagcompound.setShort("yTile", (short)yTile);
+        nbttagcompound.setShort("zTile", (short)zTile);
+        nbttagcompound.setByte("inTile", (byte)inTile);
+        nbttagcompound.setByte("shake", (byte)shake);
+        nbttagcompound.setByte("inGround", (byte)(inGround ? 1 : 0));
     }
 
     public void readEntityFromNBT(NBTTagCompound nbttagcompound)
     {
-        tileX = nbttagcompound.getShort("xTile");
-        tileY = nbttagcompound.getShort("yTile");
-        tileZ = nbttagcompound.getShort("zTile");
-        field_4092_g = nbttagcompound.getByte("inTile") & 0xff;
-        field_4098_a = nbttagcompound.getByte("shake") & 0xff;
-        field_4091_h = nbttagcompound.getByte("inGround") == 1;
+        xTile = nbttagcompound.getShort("xTile");
+        yTile = nbttagcompound.getShort("yTile");
+        zTile = nbttagcompound.getShort("zTile");
+        inTile = nbttagcompound.getByte("inTile") & 0xff;
+        shake = nbttagcompound.getByte("shake") & 0xff;
+        inGround = nbttagcompound.getByte("inGround") == 1;
     }
 
     public float getShadowSize()
@@ -353,16 +353,16 @@ public class EntityFish extends Entity
     public int catchFish()
     {
         byte byte0 = 0;
-        if(field_4096_c != null)
+        if(bobber != null)
         {
             double d = angler.posX - posX;
             double d2 = angler.posY - posY;
             double d4 = angler.posZ - posZ;
             double d6 = MathHelper.sqrt_double(d * d + d2 * d2 + d4 * d4);
             double d8 = 0.10000000000000001D;
-            field_4096_c.motionX += d * d8;
-            field_4096_c.motionY += d2 * d8 + (double)MathHelper.sqrt_double(d6) * 0.080000000000000002D;
-            field_4096_c.motionZ += d4 * d8;
+            bobber.motionX += d * d8;
+            bobber.motionY += d2 * d8 + (double)MathHelper.sqrt_double(d6) * 0.080000000000000002D;
+            bobber.motionZ += d4 * d8;
             byte0 = 3;
         } else
         if(ticksCatchable > 0)
@@ -380,7 +380,7 @@ public class EntityFish extends Entity
             angler.addStat(StatList.fishCaughtStat, 1);
             byte0 = 1;
         }
-        if(field_4091_h)
+        if(inGround)
         {
             byte0 = 2;
         }
@@ -389,17 +389,17 @@ public class EntityFish extends Entity
         return byte0;
     }
 
-    private int tileX;
-    private int tileY;
-    private int tileZ;
-    private int field_4092_g;
-    private boolean field_4091_h;
-    public int field_4098_a;
+    private int xTile;
+    private int yTile;
+    private int zTile;
+    private int inTile;
+    private boolean inGround;
+    public int shake;
     public EntityPlayer angler;
-    private int field_4090_i;
-    private int field_4089_j;
+    private int ticksInGround;
+    private int ticksInAir;
     private int ticksCatchable;
-    public Entity field_4096_c;
+    public Entity bobber;
     private int field_6388_l;
     private double field_6387_m;
     private double field_6386_n;

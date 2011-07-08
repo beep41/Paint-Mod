@@ -14,9 +14,9 @@ public class ColorizerWater
 
     public static void func_28182_a(int ai[])
     {
-        field_28183_a = ai;
+        waterBuffer = ai;
     }
 
-    private static int field_28183_a[] = new int[0x10000];
+    private static int waterBuffer[] = new int[0x10000];
 
 }

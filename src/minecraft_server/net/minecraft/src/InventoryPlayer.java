@@ -308,7 +308,7 @@ public class InventoryPlayer
 
     public boolean canHarvestBlock(Block block)
     {
-        if(block.blockMaterial != Material.rock && block.blockMaterial != Material.iron && block.blockMaterial != Material.builtSnow && block.blockMaterial != Material.snow)
+        if(block.blockMaterial.func_31055_i())
         {
             return true;
         }
@@ -358,7 +358,7 @@ public class InventoryPlayer
             {
                 continue;
             }
-            armorInventory[j].func_25125_a(i, player);
+            armorInventory[j].damageItem(i, player);
             if(armorInventory[j].stackSize == 0)
             {
                 armorInventory[j].func_577_a(player);

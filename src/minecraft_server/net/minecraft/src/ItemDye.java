@@ -31,7 +31,7 @@ public class ItemDye extends Item
             {
                 if(!world.singleplayerWorld)
                 {
-                    ((BlockSapling)Block.sapling).func_21027_b(world, i, j, k, world.rand);
+                    ((BlockSapling)Block.sapling).growTree(world, i, j, k, world.rand);
                     itemstack.stackSize--;
                 }
                 return true;
@@ -61,7 +61,7 @@ label0:
                             k1 += itemRand.nextInt(3) - 1;
                             l1 += ((itemRand.nextInt(3) - 1) * itemRand.nextInt(3)) / 2;
                             i2 += itemRand.nextInt(3) - 1;
-                            if(world.getBlockId(k1, l1 - 1, i2) != Block.grass.blockID || world.isBlockOpaqueCube(k1, l1, i2))
+                            if(world.getBlockId(k1, l1 - 1, i2) != Block.grass.blockID || world.isBlockNormalCube(k1, l1, i2))
                             {
                                 continue label0;
                             }
@@ -73,7 +73,7 @@ label0:
                         }
                         if(itemRand.nextInt(10) != 0)
                         {
-                            world.setBlockAndMetadataWithNotify(k1, l1, i2, Block.field_9031_X.blockID, 1);
+                            world.setBlockAndMetadataWithNotify(k1, l1, i2, Block.tallGrass.blockID, 1);
                             continue;
                         }
                         if(itemRand.nextInt(3) != 0)
@@ -109,6 +109,10 @@ label0:
     public static final String dyeColors[] = {
         "black", "red", "green", "brown", "blue", "purple", "cyan", "silver", "gray", "pink", 
         "lime", "yellow", "lightBlue", "magenta", "orange", "white"
+    };
+    public static final int field_31023_bk[] = {
+        0x1e1b1b, 0xb3312c, 0x3b511a, 0x51301a, 0x253192, 0x7b2fbe, 0x287697, 0x287697, 0x434343, 0xd88198, 
+        0x41cd34, 0xdecf2a, 0x6689d3, 0xc354cd, 0xeb8844, 0xf0f0f0
     };
 
 }

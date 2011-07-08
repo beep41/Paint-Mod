@@ -55,7 +55,7 @@ public class Packet130UpdateSign extends Packet
 
     public void processPacket(NetHandler nethandler)
     {
-        nethandler.func_20005_a(this);
+        nethandler.handleUpdateSign(this);
     }
 
     public int getPacketSize()

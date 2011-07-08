@@ -25,7 +25,7 @@ public interface IBlockAccess
 
     public abstract boolean isBlockOpaqueCube(int i, int j, int k);
 
-    public abstract boolean func_28100_h(int i, int j, int k);
+    public abstract boolean isBlockNormalCube(int i, int j, int k);
 
     public abstract WorldChunkManager getWorldChunkManager();
 }

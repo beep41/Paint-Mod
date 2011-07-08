@@ -7,9 +7,9 @@ package net.minecraft.src;
 import java.util.Random;
 
 // Referenced classes of package net.minecraft.src:
-//            EntityAnimal, DataWatcher, World, EntityLiving, 
-//            ItemStack, Block, EntityItem, NBTTagCompound, 
-//            Entity
+//            EntityAnimal, DataWatcher, ItemStack, Block, 
+//            EntityPlayer, InventoryPlayer, Item, ItemShears, 
+//            World, EntityItem, NBTTagCompound, Entity
 
 public class EntitySheep extends EntityAnimal
 {
@@ -29,20 +29,43 @@ public class EntitySheep extends EntityAnimal
 
     public boolean attackEntityFrom(Entity entity, int i)
     {
-        if(!worldObj.multiplayerWorld && !getSheared() && (entity instanceof EntityLiving))
-        {
-            setSheared(true);
-            int j = 1 + rand.nextInt(3);
-            for(int k = 0; k < j; k++)
-            {
-                EntityItem entityitem = entityDropItem(new ItemStack(Block.cloth.blockID, 1, getFleeceColor()), 1.0F);
-                entityitem.motionY += rand.nextFloat() * 0.05F;
-                entityitem.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-                entityitem.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-            }
-
-        }
         return super.attackEntityFrom(entity, i);
+    }
+
+    protected void dropFewItems()
+    {
+        if(!getSheared())
+        {
+            entityDropItem(new ItemStack(Block.cloth.blockID, 1, getFleeceColor()), 0.0F);
+        }
+    }
+
+    protected int getDropItemId()
+    {
+        return Block.cloth.blockID;
+    }
+
+    public boolean interact(EntityPlayer entityplayer)
+    {
+        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        if(itemstack != null && itemstack.itemID == Item.shears.shiftedIndex && !getSheared())
+        {
+            if(!worldObj.multiplayerWorld)
+            {
+                setSheared(true);
+                int i = 2 + rand.nextInt(3);
+                for(int j = 0; j < i; j++)
+                {
+                    EntityItem entityitem = entityDropItem(new ItemStack(Block.cloth.blockID, 1, getFleeceColor()), 1.0F);
+                    entityitem.motionY += rand.nextFloat() * 0.05F;
+                    entityitem.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+                    entityitem.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+                }
+
+            }
+            itemstack.damageItem(1, entityplayer);
+        }
+        return false;
     }
 
     public void writeEntityToNBT(NBTTagCompound nbttagcompound)

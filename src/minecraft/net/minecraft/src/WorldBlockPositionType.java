@@ -13,8 +13,8 @@ class WorldBlockPositionType
 
     public WorldBlockPositionType(WorldClient worldclient, int i, int j, int k, int l, int i1)
     {
-        field_1203_g = worldclient;
 //        super();
+        field_1203_g = worldclient;
         field_1202_a = i;
         field_1201_b = j;
         field_1207_c = k;

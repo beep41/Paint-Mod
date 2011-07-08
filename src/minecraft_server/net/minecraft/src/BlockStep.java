@@ -89,7 +89,7 @@ public class BlockStep extends Block
         return i;
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return blockType;
     }

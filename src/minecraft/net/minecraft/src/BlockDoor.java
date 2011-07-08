@@ -132,14 +132,14 @@ public class BlockDoor extends Block
         return true;
     }
 
-    public void openDoor(World world, int i, int j, int k, boolean flag)
+    public void onPoweredBlockChange(World world, int i, int j, int k, boolean flag)
     {
         int l = world.getBlockMetadata(i, j, k);
         if((l & 8) != 0)
         {
             if(world.getBlockId(i, j - 1, k) == blockID)
             {
-                openDoor(world, i, j - 1, k, flag);
+                onPoweredBlockChange(world, i, j - 1, k, flag);
             }
             return;
         }
@@ -178,7 +178,7 @@ public class BlockDoor extends Block
                 world.setBlockWithNotify(i, j, k, 0);
                 flag = true;
             }
-            if(!world.func_28100_h(i, j - 1, k))
+            if(!world.isBlockNormalCube(i, j - 1, k))
             {
                 world.setBlockWithNotify(i, j, k, 0);
                 flag = true;
@@ -197,7 +197,7 @@ public class BlockDoor extends Block
             if(l > 0 && Block.blocksList[l].canProvidePower())
             {
                 boolean flag1 = world.isBlockIndirectlyGettingPowered(i, j, k) || world.isBlockIndirectlyGettingPowered(i, j + 1, k);
-                openDoor(world, i, j, k, flag1);
+                onPoweredBlockChange(world, i, j, k, flag1);
             }
         }
     }
@@ -241,12 +241,17 @@ public class BlockDoor extends Block
             return false;
         } else
         {
-            return world.func_28100_h(i, j - 1, k) && super.canPlaceBlockAt(world, i, j, k) && super.canPlaceBlockAt(world, i, j + 1, k);
+            return world.isBlockNormalCube(i, j - 1, k) && super.canPlaceBlockAt(world, i, j, k) && super.canPlaceBlockAt(world, i, j + 1, k);
         }
     }
 
     public static boolean isOpen(int i)
     {
         return (i & 4) != 0;
+    }
+
+    public int getMobilityFlag()
+    {
+        return 1;
     }
 }

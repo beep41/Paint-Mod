@@ -9,35 +9,36 @@ import java.util.Random;
 
 // Referenced classes of package net.minecraft.src:
 //            Material, IBlockAccess, AxisAlignedBB, EntityPlayer, 
-//            World, EntityItem, ItemStack, Vec3D, 
+//            World, ItemStack, EntityItem, Vec3D, 
 //            MovingObjectPosition, StatList, StatCollector, StepSound, 
 //            StepSoundStone, StepSoundSand, BlockStone, BlockGrass, 
 //            BlockDirt, BlockSapling, BlockFlowing, BlockStationary, 
 //            BlockSand, BlockGravel, BlockOre, BlockLog, 
 //            BlockLeaves, BlockSponge, BlockGlass, BlockDispenser, 
 //            BlockSandStone, BlockNote, BlockBed, BlockRail, 
-//            BlockDetectorRail, BlockWeb, BlockTallGrass, BlockDeadBush, 
-//            BlockCloth, BlockFlower, BlockMushroom, BlockOreStorage, 
-//            BlockStep, BlockTNT, BlockBookshelf, BlockObsidian, 
-//            BlockTorch, BlockFire, BlockMobSpawner, BlockStairs, 
-//            BlockChest, BlockRedstoneWire, BlockWorkbench, BlockCrops, 
-//            BlockFarmland, BlockFurnace, BlockSign, TileEntitySign, 
-//            BlockDoor, BlockLadder, BlockLever, BlockPressurePlate, 
-//            EnumMobType, BlockRedstoneOre, BlockRedstoneTorch, BlockButton, 
-//            BlockSnow, BlockIce, BlockSnowBlock, BlockCactus, 
-//            BlockClay, BlockReed, BlockJukeBox, BlockFence, 
-//            BlockPumpkin, BlockNetherrack, BlockSoulSand, BlockGlowStone, 
-//            BlockPortal, BlockCake, BlockRedstoneRepeater, BlockLockedChest, 
-//            BlockTrapDoor, Item, ItemCloth, ItemLog, 
-//            ItemSlab, ItemSapling, ItemBlock, Entity, 
-//            EntityLiving
+//            BlockDetectorRail, BlockPistonBase, BlockWeb, BlockTallGrass, 
+//            BlockDeadBush, BlockPistonExtension, BlockCloth, BlockPistonMoving, 
+//            BlockFlower, BlockMushroom, BlockOreStorage, BlockStep, 
+//            BlockTNT, BlockBookshelf, BlockObsidian, BlockTorch, 
+//            BlockFire, BlockMobSpawner, BlockStairs, BlockChest, 
+//            BlockRedstoneWire, BlockWorkbench, BlockCrops, BlockFarmland, 
+//            BlockFurnace, BlockSign, TileEntitySign, BlockDoor, 
+//            BlockLadder, BlockLever, BlockPressurePlate, EnumMobType, 
+//            BlockRedstoneOre, BlockRedstoneTorch, BlockButton, BlockSnow, 
+//            BlockIce, BlockSnowBlock, BlockCactus, BlockClay, 
+//            BlockReed, BlockJukeBox, BlockFence, BlockPumpkin, 
+//            BlockNetherrack, BlockSoulSand, BlockGlowStone, BlockPortal, 
+//            BlockCake, BlockRedstoneRepeater, BlockLockedChest, BlockTrapDoor, 
+//            Item, ItemCloth, ItemLog, ItemSlab, 
+//            ItemSapling, ItemLeaves, ItemPiston, ItemBlock, 
+//            Entity, EntityLiving
 
 public class Block
 {
 
     protected Block(int i, Material material)
     {
-        field_27035_bo = true;
+        blockConstructorCalled = true;
         enableStats = true;
         stepSound = soundPowderFootstep;
         blockParticleGravity = 1.0F;
@@ -59,13 +60,13 @@ public class Block
         }
     }
 
-    private Block disableNeighborNotifyOnMetadataChange()
+    protected Block disableNeighborNotifyOnMetadataChange()
     {
         field_28032_t[blockID] = true;
         return this;
     }
 
-    protected void preRenderSlimeSize()
+    protected void initializeBlock()
     {
     }
 
@@ -117,6 +118,17 @@ public class Block
             blockResistance = f * 5F;
         }
         return this;
+    }
+
+    protected Block setBlockUnbreakable()
+    {
+        setHardness(-1F);
+        return this;
+    }
+
+    public float getHardness()
+    {
+        return blockHardness;
     }
 
     protected Block setTickOnLoad(boolean flag)
@@ -279,7 +291,7 @@ public class Block
         }
     }
 
-    public void dropBlockAsItem(World world, int i, int j, int k, int l)
+    public final void dropBlockAsItem(World world, int i, int j, int k, int l)
     {
         dropBlockAsItemWithChance(world, i, j, k, l, 1.0F);
     }
@@ -300,16 +312,28 @@ public class Block
             int k1 = idDropped(l, world.rand);
             if(k1 > 0)
             {
-                float f1 = 0.7F;
-                double d = (double)(world.rand.nextFloat() * f1) + (double)(1.0F - f1) * 0.5D;
-                double d1 = (double)(world.rand.nextFloat() * f1) + (double)(1.0F - f1) * 0.5D;
-                double d2 = (double)(world.rand.nextFloat() * f1) + (double)(1.0F - f1) * 0.5D;
-                EntityItem entityitem = new EntityItem(world, (double)i + d, (double)j + d1, (double)k + d2, new ItemStack(k1, 1, damageDropped(l)));
-                entityitem.delayBeforeCanPickup = 10;
-                world.entityJoinedWorld(entityitem);
+                dropBlockAsItem_do(world, i, j, k, new ItemStack(k1, 1, damageDropped(l)));
             }
         }
 
+    }
+
+    protected void dropBlockAsItem_do(World world, int i, int j, int k, ItemStack itemstack)
+    {
+        if(world.multiplayerWorld)
+        {
+            return;
+        } else
+        {
+            float f = 0.7F;
+            double d = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+            double d1 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+            double d2 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+            EntityItem entityitem = new EntityItem(world, (double)i + d, (double)j + d1, (double)k + d2, itemstack);
+            entityitem.delayBeforeCanPickup = 10;
+            world.entityJoinedWorld(entityitem);
+            return;
+        }
     }
 
     protected int damageDropped(int i)
@@ -464,7 +488,7 @@ public class Block
     public boolean canPlaceBlockAt(World world, int i, int j, int k)
     {
         int l = world.getBlockId(i, j, k);
-        return l == 0 || blocksList[l].blockMaterial.func_27283_g();
+        return l == 0 || blocksList[l].blockMaterial.getIsGroundCover();
     }
 
     public boolean blockActivated(World world, int i, int j, int k, EntityPlayer entityplayer)
@@ -490,6 +514,11 @@ public class Block
 
     public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, int i, int j, int k)
     {
+    }
+
+    public int getRenderColor(int i)
+    {
+        return 0xffffff;
     }
 
     public int colorMultiplier(IBlockAccess iblockaccess, int i, int j, int k)
@@ -566,6 +595,11 @@ public class Block
         return this;
     }
 
+    public int getMobilityFlag()
+    {
+        return blockMaterial.getMaterialMobility();
+    }
+
     static Class _mthclass$(String s)
     {
         try
@@ -623,14 +657,14 @@ public class Block
     public static final Block blockBed;
     public static final Block railPowered;
     public static final Block railDetector;
-    public static final Block field_9259_V = null;
+    public static final Block pistonStickyBase;
     public static final Block web;
     public static final BlockTallGrass tallGrass;
     public static final BlockDeadBush deadBush;
-    public static final Block field_9255_Z = null;
-    public static final Block field_9269_aa = null;
+    public static final Block pistonBase;
+    public static final BlockPistonExtension pistonExtension;
     public static final Block cloth;
-    public static final Block field_9268_ac = null;
+    public static final BlockPistonMoving pistonMoving;
     public static final BlockFlower plantYellow;
     public static final BlockFlower plantRed;
     public static final BlockFlower mushroomBrown;
@@ -695,7 +729,7 @@ public class Block
     public final int blockID;
     protected float blockHardness;
     protected float blockResistance;
-    protected boolean field_27035_bo;
+    protected boolean blockConstructorCalled;
     protected boolean enableStats;
     public double minX;
     public double minY;
@@ -728,7 +762,7 @@ public class Block
         cobblestone = (new Block(4, 16, Material.rock)).setHardness(2.0F).setResistance(10F).setStepSound(soundStoneFootstep).setBlockName("stonebrick");
         planks = (new Block(5, 4, Material.wood)).setHardness(2.0F).setResistance(5F).setStepSound(soundWoodFootstep).setBlockName("wood").disableNeighborNotifyOnMetadataChange();
         sapling = (new BlockSapling(6, 15)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("sapling").disableNeighborNotifyOnMetadataChange();
-        bedrock = (new Block(7, 17, Material.rock)).setHardness(-1F).setResistance(6000000F).setStepSound(soundStoneFootstep).setBlockName("bedrock").disableStats();
+        bedrock = (new Block(7, 17, Material.rock)).setBlockUnbreakable().setResistance(6000000F).setStepSound(soundStoneFootstep).setBlockName("bedrock").disableStats();
         waterMoving = (new BlockFlowing(8, Material.water)).setHardness(100F).setLightOpacity(3).setBlockName("water").disableStats().disableNeighborNotifyOnMetadataChange();
         waterStill = (new BlockStationary(9, Material.water)).setHardness(100F).setLightOpacity(3).setBlockName("water").disableStats().disableNeighborNotifyOnMetadataChange();
         lavaMoving = (new BlockFlowing(10, Material.lava)).setHardness(0.0F).setLightValue(1.0F).setLightOpacity(255).setBlockName("lava").disableStats().disableNeighborNotifyOnMetadataChange();
@@ -750,10 +784,14 @@ public class Block
         blockBed = (new BlockBed(26)).setHardness(0.2F).setBlockName("bed").disableStats().disableNeighborNotifyOnMetadataChange();
         railPowered = (new BlockRail(27, 179, true)).setHardness(0.7F).setStepSound(soundMetalFootstep).setBlockName("goldenRail").disableNeighborNotifyOnMetadataChange();
         railDetector = (new BlockDetectorRail(28, 195)).setHardness(0.7F).setStepSound(soundMetalFootstep).setBlockName("detectorRail").disableNeighborNotifyOnMetadataChange();
-        web = (new BlockWeb(30, 11)).setBlockName("web");
+        pistonStickyBase = (new BlockPistonBase(29, 106, true)).setBlockName("pistonStickyBase").disableNeighborNotifyOnMetadataChange();
+        web = (new BlockWeb(30, 11)).setLightOpacity(1).setHardness(4F).setBlockName("web");
         tallGrass = (BlockTallGrass)(new BlockTallGrass(31, 39)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("tallgrass");
         deadBush = (BlockDeadBush)(new BlockDeadBush(32, 55)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("deadbush");
+        pistonBase = (new BlockPistonBase(33, 107, false)).setBlockName("pistonBase").disableNeighborNotifyOnMetadataChange();
+        pistonExtension = (BlockPistonExtension)(new BlockPistonExtension(34, 107)).disableNeighborNotifyOnMetadataChange();
         cloth = (new BlockCloth()).setHardness(0.8F).setStepSound(soundClothFootstep).setBlockName("cloth").disableNeighborNotifyOnMetadataChange();
+        pistonMoving = new BlockPistonMoving(36);
         plantYellow = (BlockFlower)(new BlockFlower(37, 13)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("flower");
         plantRed = (BlockFlower)(new BlockFlower(38, 12)).setHardness(0.0F).setStepSound(soundGrassFootstep).setBlockName("rose");
         mushroomBrown = (BlockFlower)(new BlockMushroom(39, 29)).setHardness(0.0F).setStepSound(soundGrassFootstep).setLightValue(0.125F).setBlockName("mushroom");
@@ -818,12 +856,15 @@ public class Block
         Item.itemsList[wood.blockID] = (new ItemLog(wood.blockID - 256)).setItemName("log");
         Item.itemsList[stairSingle.blockID] = (new ItemSlab(stairSingle.blockID - 256)).setItemName("stoneSlab");
         Item.itemsList[sapling.blockID] = (new ItemSapling(sapling.blockID - 256)).setItemName("sapling");
+        Item.itemsList[leaves.blockID] = (new ItemLeaves(leaves.blockID - 256)).setItemName("leaves");
+        Item.itemsList[pistonBase.blockID] = new ItemPiston(pistonBase.blockID - 256);
+        Item.itemsList[pistonStickyBase.blockID] = new ItemPiston(pistonStickyBase.blockID - 256);
         for(int i = 0; i < 256; i++)
         {
             if(blocksList[i] != null && Item.itemsList[i] == null)
             {
                 Item.itemsList[i] = new ItemBlock(i - 256);
-                blocksList[i].preRenderSlimeSize();
+                blocksList[i].initializeBlock();
             }
         }
 

@@ -68,7 +68,7 @@ public class BlockBed extends Block
                     break;
                 }
                 EntityPlayer entityplayer2 = (EntityPlayer)iterator.next();
-                if(entityplayer2.func_30001_K())
+                if(entityplayer2.func_22057_E())
                 {
                     ChunkCoordinates chunkcoordinates = entityplayer2.playerLocation;
                     if(chunkcoordinates.posX == i && chunkcoordinates.posY == j && chunkcoordinates.posZ == k)
@@ -134,7 +134,7 @@ public class BlockBed extends Block
         }
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return false;
     }
@@ -228,7 +228,7 @@ public class BlockBed extends Block
             {
                 for(int i3 = i2; i3 <= k2; i3++)
                 {
-                    if(!world.isBlockOpaqueCube(l2, j - 1, i3) || !world.isAirBlock(l2, j, i3) || !world.isAirBlock(l2, j + 1, i3))
+                    if(!world.isBlockNormalCube(l2, j - 1, i3) || !world.isAirBlock(l2, j, i3) || !world.isAirBlock(l2, j + 1, i3))
                     {
                         continue;
                     }
@@ -246,6 +246,19 @@ public class BlockBed extends Block
         }
 
         return null;
+    }
+
+    public void dropBlockAsItemWithChance(World world, int i, int j, int k, int l, float f)
+    {
+        if(!func_22020_d(l))
+        {
+            super.dropBlockAsItemWithChance(world, i, j, k, l, f);
+        }
+    }
+
+    public int getMobilityFlag()
+    {
+        return 1;
     }
 
     public static final int field_22023_a[][] = {

@@ -126,7 +126,7 @@ abstract class GuiSlotStats extends GuiSlot
     {
         if(statcrafting != null)
         {
-            String s = statcrafting.func_27084_a(GuiStats.func_27142_c(field_27269_g).func_27184_a(statcrafting));
+            String s = statcrafting.func_27084_a(GuiStats.func_27142_c(field_27269_g).writeStat(statcrafting));
             field_27269_g.drawString(GuiStats.func_27133_h(field_27269_g), s, i - GuiStats.func_27137_i(field_27269_g).getStringWidth(s), j + 5, flag ? 0xffffff : 0x909090);
         } else
         {

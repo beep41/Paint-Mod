@@ -44,7 +44,7 @@ public class WorldServer extends World
         super.updateEntityWithOptionalForce(entity, flag);
     }
 
-    protected IChunkProvider func_22086_b()
+    protected IChunkProvider createChunkProvider()
     {
         IChunkLoader ichunkloader = worldFile.func_22092_a(worldProvider);
         chunkProviderServer = new ChunkProviderServer(this, ichunkloader, worldProvider.getChunkProvider());
@@ -94,9 +94,9 @@ public class WorldServer extends World
         return (Entity)field_20912_E.lookup(i);
     }
 
-    public boolean func_27073_a(Entity entity)
+    public boolean addLightningBolt(Entity entity)
     {
-        if(super.func_27073_a(entity))
+        if(super.addLightningBolt(entity))
         {
             mcServer.configManager.sendPacketToPlayersAroundPoint(entity.posX, entity.posY, entity.posZ, 512D, worldProvider.worldType, new Packet71Weather(entity));
             return true;
@@ -106,7 +106,7 @@ public class WorldServer extends World
         }
     }
 
-    public void func_9206_a(Entity entity, byte byte0)
+    public void sendTrackedEntityStatusUpdatePacket(Entity entity, byte byte0)
     {
         Packet38EntityStatus packet38entitystatus = new Packet38EntityStatus(entity.entityId, byte0);
         mcServer.getEntityTracker(worldProvider.worldType).sendPacketToTrackedPlayersAndTrackedEntity(entity, packet38entitystatus);
@@ -129,7 +129,7 @@ public class WorldServer extends World
         mcServer.configManager.sendPacketToPlayersAroundPoint(i, j, k, 64D, worldProvider.worldType, new Packet54PlayNoteBlock(i, j, k, l, i1));
     }
 
-    public void func_30007_w()
+    public void func_30006_w()
     {
         worldFile.func_22093_e();
     }

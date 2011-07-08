@@ -21,9 +21,9 @@ public interface IChunkProvider
 
     public abstract boolean saveChunks(boolean flag, IProgressUpdate iprogressupdate);
 
-    public abstract boolean func_532_a();
+    public abstract boolean unload100OldestChunks();
 
-    public abstract boolean func_536_b();
+    public abstract boolean canSave();
 
     public abstract String makeString();
 }

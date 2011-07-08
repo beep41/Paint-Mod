@@ -330,7 +330,7 @@ public class InventoryPlayer
 
     public boolean canHarvestBlock(Block block)
     {
-        if(block.blockMaterial != Material.rock && block.blockMaterial != Material.iron && block.blockMaterial != Material.builtSnow && block.blockMaterial != Material.snow)
+        if(block.blockMaterial.getIsHarvestable())
         {
             return true;
         }

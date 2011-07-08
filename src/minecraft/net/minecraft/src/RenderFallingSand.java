@@ -19,7 +19,7 @@ public class RenderFallingSand extends Render
         shadowSize = 0.5F;
     }
 
-    public void func_156_a(EntityFallingSand entityfallingsand, double d, double d1, double d2, 
+    public void doRenderFallingSand(EntityFallingSand entityfallingsand, double d, double d1, double d2, 
             float f, float f1)
     {
         GL11.glPushMatrix();
@@ -36,7 +36,7 @@ public class RenderFallingSand extends Render
     public void doRender(Entity entity, double d, double d1, double d2, 
             float f, float f1)
     {
-        func_156_a((EntityFallingSand)entity, d, d1, d2, f, f1);
+        doRenderFallingSand((EntityFallingSand)entity, d, d1, d2, f, f1);
     }
 
     private RenderBlocks field_197_d;

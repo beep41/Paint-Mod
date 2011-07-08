@@ -29,7 +29,7 @@ public abstract class EntityPlayer extends EntityLiving
         score = 0;
         isSwinging = false;
         swingProgressInt = 0;
-        field_28024_y = 20;
+        timeUntilPortal = 20;
         inPortal = false;
         damageRemainder = 0;
         fishEntity = null;
@@ -215,7 +215,7 @@ public abstract class EntityPlayer extends EntityLiving
                     Entity entity = (Entity)list.get(i);
                     if(!entity.isDead)
                     {
-                        func_451_h(entity);
+                        collideWithPlayer(entity);
                     }
                 }
 
@@ -223,7 +223,7 @@ public abstract class EntityPlayer extends EntityLiving
         }
     }
 
-    private void func_451_h(Entity entity)
+    private void collideWithPlayer(Entity entity)
     {
         entity.onCollideWithPlayer(this);
     }
@@ -925,9 +925,9 @@ public abstract class EntityPlayer extends EntityLiving
 
     public void setInPortal()
     {
-        if(field_28024_y > 0)
+        if(timeUntilPortal > 0)
         {
-            field_28024_y = 10;
+            timeUntilPortal = 10;
             return;
         } else
         {
@@ -962,7 +962,7 @@ public abstract class EntityPlayer extends EntityLiving
     public float field_22061_z;
     private ChunkCoordinates playerSpawnCoordinate;
     private ChunkCoordinates startMinecartRidingCoordinate;
-    public int field_28024_y;
+    public int timeUntilPortal;
     protected boolean inPortal;
     public float timeInPortal;
     public float prevTimeInPortal;

@@ -12,8 +12,8 @@ public class CanvasMinecraftApplet extends Canvas
 
     public CanvasMinecraftApplet(MinecraftApplet minecraftapplet)
     {
-        mcApplet = minecraftapplet;
 //        super();
+        mcApplet = minecraftapplet;
     }
 
     public synchronized void addNotify()

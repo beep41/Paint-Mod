@@ -9,8 +9,8 @@ import org.lwjgl.opengl.GL11;
 
 // Referenced classes of package net.minecraft.src:
 //            Render, RenderBlocks, EntityItem, MathHelper, 
-//            ItemStack, Block, Tessellator, RenderManager, 
-//            RenderEngine, Item, FontRenderer, Entity
+//            ItemStack, Block, Tessellator, Item, 
+//            RenderManager, RenderEngine, FontRenderer, Entity
 
 public class RenderItem extends Render
 {
@@ -52,7 +52,7 @@ public class RenderItem extends Render
             GL11.glRotatef(f3, 0.0F, 1.0F, 0.0F);
             loadTexture("/terrain.png");
             float f4 = 0.25F;
-            if(!Block.blocksList[itemstack.itemID].renderAsNormalBlock() && itemstack.itemID != Block.stairSingle.blockID)
+            if(!Block.blocksList[itemstack.itemID].renderAsNormalBlock() && itemstack.itemID != Block.stairSingle.blockID && Block.blocksList[itemstack.itemID].getRenderType() != 16)
             {
                 f4 = 0.5F;
             }
@@ -67,7 +67,7 @@ public class RenderItem extends Render
                     float f9 = ((random.nextFloat() * 2.0F - 1.0F) * 0.2F) / f4;
                     GL11.glTranslatef(f5, f7, f9);
                 }
-                renderBlocks.renderBlockOnInventory(Block.blocksList[itemstack.itemID], itemstack.getItemDamage());
+                renderBlocks.renderBlockOnInventory(Block.blocksList[itemstack.itemID], itemstack.getItemDamage(), entityitem.getEntityBrightness(f1));
                 GL11.glPopMatrix();
             }
 
@@ -90,15 +90,24 @@ public class RenderItem extends Render
             float f12 = 1.0F;
             float f13 = 0.5F;
             float f14 = 0.25F;
-            for(int k = 0; k < byte0; k++)
+            if(field_27004_a)
+            {
+                int k = Item.itemsList[itemstack.itemID].getColorFromDamage(itemstack.getItemDamage());
+                float f15 = (float)(k >> 16 & 0xff) / 255F;
+                float f17 = (float)(k >> 8 & 0xff) / 255F;
+                float f19 = (float)(k & 0xff) / 255F;
+                float f21 = entityitem.getEntityBrightness(f1);
+                GL11.glColor4f(f15 * f21, f17 * f21, f19 * f21, 1.0F);
+            }
+            for(int l = 0; l < byte0; l++)
             {
                 GL11.glPushMatrix();
-                if(k > 0)
+                if(l > 0)
                 {
-                    float f15 = (random.nextFloat() * 2.0F - 1.0F) * 0.3F;
                     float f16 = (random.nextFloat() * 2.0F - 1.0F) * 0.3F;
-                    float f17 = (random.nextFloat() * 2.0F - 1.0F) * 0.3F;
-                    GL11.glTranslatef(f15, f16, f17);
+                    float f18 = (random.nextFloat() * 2.0F - 1.0F) * 0.3F;
+                    float f20 = (random.nextFloat() * 2.0F - 1.0F) * 0.3F;
+                    GL11.glTranslatef(f16, f18, f20);
                 }
                 GL11.glRotatef(180F - renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
                 tessellator.startDrawingQuads();
@@ -126,16 +135,22 @@ public class RenderItem extends Render
             GL11.glPushMatrix();
             GL11.glTranslatef(l - 2, i1 + 3, -3F);
             GL11.glScalef(10F, 10F, 10F);
-            GL11.glTranslatef(1.0F, 0.5F, 8F);
+            GL11.glTranslatef(1.0F, 0.5F, 1.0F);
             GL11.glScalef(1.0F, 1.0F, -1F);
             GL11.glRotatef(210F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(45F, 0.0F, 1.0F, 0.0F);
+            int l1 = Item.itemsList[i].getColorFromDamage(j);
+            float f2 = (float)(l1 >> 16 & 0xff) / 255F;
+            float f4 = (float)(l1 >> 8 & 0xff) / 255F;
+            float f5 = (float)(l1 & 0xff) / 255F;
             if(field_27004_a)
             {
-                GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+                GL11.glColor4f(f2, f4, f5, 1.0F);
             }
             GL11.glRotatef(-90F, 0.0F, 1.0F, 0.0F);
-            renderBlocks.renderBlockOnInventory(block, j);
+            renderBlocks.field_31088_b = field_27004_a;
+            renderBlocks.renderBlockOnInventory(block, j, 1.0F);
+            renderBlocks.field_31088_b = true;
             GL11.glPopMatrix();
         } else
         if(k >= 0)
@@ -151,10 +166,10 @@ public class RenderItem extends Render
             int k1 = Item.itemsList[i].getColorFromDamage(j);
             float f = (float)(k1 >> 16 & 0xff) / 255F;
             float f1 = (float)(k1 >> 8 & 0xff) / 255F;
-            float f2 = (float)(k1 & 0xff) / 255F;
+            float f3 = (float)(k1 & 0xff) / 255F;
             if(field_27004_a)
             {
-                GL11.glColor4f(f, f1, f2, 1.0F);
+                GL11.glColor4f(f, f1, f3, 1.0F);
             }
             renderTexturedQuad(l, i1, (k % 16) * 16, (k / 16) * 16, 16, 16);
             GL11.glEnable(2896 /*GL_LIGHTING*/);

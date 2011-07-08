@@ -40,7 +40,7 @@ public class BlockStairs extends Block
         return false;
     }
 
-    public boolean func_28025_b()
+    public boolean isACube()
     {
         return false;
     }
@@ -153,11 +153,6 @@ public class BlockStairs extends Block
     public void dropBlockAsItemWithChance(World world, int i, int j, int k, int l, float f)
     {
         modelBlock.dropBlockAsItemWithChance(world, i, j, k, l, f);
-    }
-
-    public void dropBlockAsItem(World world, int i, int j, int k, int l)
-    {
-        modelBlock.dropBlockAsItem(world, i, j, k, l);
     }
 
     public void onEntityWalking(World world, int i, int j, int k, Entity entity)

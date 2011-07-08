@@ -21,7 +21,7 @@ public class ChunkProvider
         field_28065_e = new HashMap();
         field_28064_f = new ArrayList();
         field_28061_b = new EmptyChunk(world, new byte[32768], 0, 0);
-        field_28063_g = world;
+        worldObj = world;
         field_28066_d = ichunkloader;
         chunkGenerator = ichunkprovider;
     }
@@ -96,10 +96,10 @@ public class ChunkProvider
         }
         try
         {
-            Chunk chunk = field_28066_d.loadChunk(field_28063_g, i, j);
+            Chunk chunk = field_28066_d.loadChunk(worldObj, i, j);
             if(chunk != null)
             {
-                chunk.lastSaveTime = field_28063_g.getWorldTime();
+                chunk.lastSaveTime = worldObj.getWorldTime();
             }
             return chunk;
         }
@@ -118,7 +118,7 @@ public class ChunkProvider
         }
         try
         {
-            field_28066_d.saveExtraChunkData(field_28063_g, chunk);
+            field_28066_d.saveExtraChunkData(worldObj, chunk);
         }
         catch(Exception exception)
         {
@@ -134,8 +134,8 @@ public class ChunkProvider
         }
         try
         {
-            chunk.lastSaveTime = field_28063_g.getWorldTime();
-            field_28066_d.saveChunk(field_28063_g, chunk);
+            chunk.lastSaveTime = worldObj.getWorldTime();
+            field_28066_d.saveChunk(worldObj, chunk);
         }
         catch(IOException ioexception)
         {
@@ -225,5 +225,5 @@ public class ChunkProvider
     private IChunkLoader field_28066_d;
     private Map field_28065_e;
     private List field_28064_f;
-    private World field_28063_g;
+    private World worldObj;
 }

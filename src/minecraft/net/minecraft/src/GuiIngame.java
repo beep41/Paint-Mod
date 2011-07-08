@@ -14,8 +14,8 @@ import org.lwjgl.opengl.GL11;
 //            Gui, ScaledResolution, EntityRenderer, EntityPlayerSP, 
 //            InventoryPlayer, GameSettings, ItemStack, Block, 
 //            RenderEngine, PlayerController, Material, RenderHelper, 
-//            FontRenderer, GuiChat, ChatLine, Tessellator, 
-//            BlockPortal, RenderItem, StringTranslate
+//            FontRenderer, MathHelper, GuiChat, ChatLine, 
+//            Tessellator, BlockPortal, RenderItem, StringTranslate
 
 public class GuiIngame extends Gui
 {
@@ -66,8 +66,8 @@ public class GuiIngame extends Gui
         GL11.glBlendFunc(775, 769);
         drawTexturedModalRect(k / 2 - 7, l / 2 - 7, 0, 0, 16, 16);
         GL11.glDisable(3042 /*GL_BLEND*/);
-        boolean flag1 = (mc.thePlayer.field_9306_bj / 3) % 2 == 1;
-        if(mc.thePlayer.field_9306_bj < 10)
+        boolean flag1 = (mc.thePlayer.heartsLife / 3) % 2 == 1;
+        if(mc.thePlayer.heartsLife < 10)
         {
             flag1 = false;
         }
@@ -182,7 +182,7 @@ public class GuiIngame extends Gui
             {
                 GL11.glTranslatef(0.0F, 32F, 0.0F);
             }
-            fontrenderer.drawStringWithShadow((new StringBuilder()).append("Minecraft Beta 1.6.6 (").append(mc.debug).append(")").toString(), 2, 2, 0xffffff);
+            fontrenderer.drawStringWithShadow((new StringBuilder()).append("Minecraft Beta 1.7.3 (").append(mc.debug).append(")").toString(), 2, 2, 0xffffff);
             fontrenderer.drawStringWithShadow(mc.func_6241_m(), 2, 12, 0xffffff);
             fontrenderer.drawStringWithShadow(mc.func_6262_n(), 2, 22, 0xffffff);
             fontrenderer.drawStringWithShadow(mc.func_6245_o(), 2, 32, 0xffffff);
@@ -198,6 +198,7 @@ public class GuiIngame extends Gui
             drawString(fontrenderer, (new StringBuilder()).append("x: ").append(mc.thePlayer.posX).toString(), 2, 64, 0xe0e0e0);
             drawString(fontrenderer, (new StringBuilder()).append("y: ").append(mc.thePlayer.posY).toString(), 2, 72, 0xe0e0e0);
             drawString(fontrenderer, (new StringBuilder()).append("z: ").append(mc.thePlayer.posZ).toString(), 2, 80, 0xe0e0e0);
+            drawString(fontrenderer, (new StringBuilder()).append("f: ").append(MathHelper.floor_double((double)((mc.thePlayer.rotationYaw * 4F) / 360F) + 0.5D) & 3).toString(), 2, 88, 0xe0e0e0);
             GL11.glPopMatrix();
         }
         if(recordPlayingUpFor > 0)

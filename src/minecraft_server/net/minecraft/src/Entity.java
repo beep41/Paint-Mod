@@ -49,6 +49,7 @@ public abstract class Entity
         firstUpdate = true;
         isImmuneToFire = false;
         dataWatcher = new DataWatcher();
+        field_31001_bF = 0.0F;
         addedToChunk = false;
         worldObj = world;
         setPosition(0.0D, 0.0D, 0.0D);
@@ -189,8 +190,8 @@ public abstract class Entity
         }
         if(!worldObj.singleplayerWorld)
         {
-            func_21041_a(0, fire > 0);
-            func_21041_a(2, ridingEntity != null);
+            setFlag(0, fire > 0);
+            setFlag(2, ridingEntity != null);
         }
         firstUpdate = false;
     }
@@ -528,7 +529,7 @@ public abstract class Entity
 
     public boolean func_27008_Y()
     {
-        return inWater || worldObj.func_27072_q(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ));
+        return inWater || worldObj.canLightningStrikeAt(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ));
     }
 
     public boolean isInWater()
@@ -597,10 +598,15 @@ public abstract class Entity
         int k = MathHelper.floor_double(posZ);
         if(worldObj.checkChunksExist(MathHelper.floor_double(boundingBox.minX), MathHelper.floor_double(boundingBox.minY), MathHelper.floor_double(boundingBox.minZ), MathHelper.floor_double(boundingBox.maxX), MathHelper.floor_double(boundingBox.maxY), MathHelper.floor_double(boundingBox.maxZ)))
         {
-            return worldObj.getLightBrightness(i, j, k);
+            float f1 = worldObj.getLightBrightness(i, j, k);
+            if(f1 < field_31001_bF)
+            {
+                f1 = field_31001_bF;
+            }
+            return f1;
         } else
         {
-            return 0.0F;
+            return field_31001_bF;
         }
     }
 
@@ -876,7 +882,7 @@ public abstract class Entity
             int j = MathHelper.floor_double(posX + (double)f);
             int k = MathHelper.floor_double(posY + (double)getEyeHeight() + (double)f1);
             int l = MathHelper.floor_double(posZ + (double)f2);
-            if(worldObj.isBlockOpaqueCube(j, k, l))
+            if(worldObj.isBlockNormalCube(j, k, l))
             {
                 return true;
             }
@@ -1006,20 +1012,20 @@ public abstract class Entity
 
     public boolean isSneaking()
     {
-        return func_21042_c(1);
+        return getFlag(1);
     }
 
-    public void func_21043_b(boolean flag)
+    public void setSneaking(boolean flag)
     {
-        func_21041_a(1, flag);
+        setFlag(1, flag);
     }
 
-    protected boolean func_21042_c(int i)
+    protected boolean getFlag(int i)
     {
         return (dataWatcher.getWatchableObjectByte(0) & 1 << i) != 0;
     }
 
-    protected void func_21041_a(int i, boolean flag)
+    protected void setFlag(int i, boolean flag)
     {
         byte byte0 = dataWatcher.getWatchableObjectByte(0);
         if(flag)
@@ -1053,14 +1059,14 @@ public abstract class Entity
         double d3 = d - (double)i;
         double d4 = d1 - (double)j;
         double d5 = d2 - (double)k;
-        if(worldObj.isBlockOpaqueCube(i, j, k))
+        if(worldObj.isBlockNormalCube(i, j, k))
         {
-            boolean flag = !worldObj.isBlockOpaqueCube(i - 1, j, k);
-            boolean flag1 = !worldObj.isBlockOpaqueCube(i + 1, j, k);
-            boolean flag2 = !worldObj.isBlockOpaqueCube(i, j - 1, k);
-            boolean flag3 = !worldObj.isBlockOpaqueCube(i, j + 1, k);
-            boolean flag4 = !worldObj.isBlockOpaqueCube(i, j, k - 1);
-            boolean flag5 = !worldObj.isBlockOpaqueCube(i, j, k + 1);
+            boolean flag = !worldObj.isBlockNormalCube(i - 1, j, k);
+            boolean flag1 = !worldObj.isBlockNormalCube(i + 1, j, k);
+            boolean flag2 = !worldObj.isBlockNormalCube(i, j - 1, k);
+            boolean flag3 = !worldObj.isBlockNormalCube(i, j + 1, k);
+            boolean flag4 = !worldObj.isBlockNormalCube(i, j, k - 1);
+            boolean flag5 = !worldObj.isBlockNormalCube(i, j, k + 1);
             byte byte0 = -1;
             double d6 = 9999D;
             if(flag && d3 < d6)
@@ -1176,6 +1182,7 @@ public abstract class Entity
     private boolean firstUpdate;
     protected boolean isImmuneToFire;
     protected DataWatcher dataWatcher;
+    public float field_31001_bF;
     private double entityRiderPitchDelta;
     private double entityRiderYawDelta;
     public boolean addedToChunk;

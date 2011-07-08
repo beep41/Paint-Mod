@@ -79,9 +79,9 @@ public class NetLoginHandler extends NetHandler
     public void handleLogin(Packet1Login packet1login)
     {
         username = packet1login.username;
-        if(packet1login.protocolVersion != 13)
+        if(packet1login.protocolVersion != 14)
         {
-            if(packet1login.protocolVersion > 13)
+            if(packet1login.protocolVersion > 14)
             {
                 kickUser("Outdated server!");
             } else
@@ -104,7 +104,7 @@ public class NetLoginHandler extends NetHandler
         EntityPlayerMP entityplayermp = mcServer.configManager.login(this, packet1login.username);
         if(entityplayermp != null)
         {
-            mcServer.configManager.func_28166_b(entityplayermp);
+            mcServer.configManager.readPlayerDataFromFile(entityplayermp);
             entityplayermp.setWorldHandler(mcServer.getWorldManager(entityplayermp.dimension));
             logger.info((new StringBuilder()).append(getUserAndIPString()).append(" logged in with entity id ").append(entityplayermp.entityId).append(" at (").append(entityplayermp.posX).append(", ").append(entityplayermp.posY).append(", ").append(entityplayermp.posZ).append(")").toString());
             WorldServer worldserver = mcServer.getWorldManager(entityplayermp.dimension);
